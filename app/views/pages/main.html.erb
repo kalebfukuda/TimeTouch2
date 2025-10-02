@@ -22,7 +22,13 @@
           <%= f.input :gemba, input_html: { class: "form-control rounded-4" }, placeholder: "Gemba", label: false %>
           <%= f.input :extra_hour, input_html: { class: "form-control rounded-4" }, placeholder: "Extra Hour", label: false %>
           <%= f.input :extra_cost, input_html: { class: "form-control rounded-4" }, placeholder: "Extra Cost", label: false %>
-          <%= f.submit "Registrar", class: "btn btn-cYellow w-100 text-white rounded-4" %>
+          <%= f.hidden_field :confirmed, value: "false", data: { slideconfirm_target: "hidden" } %>
+          <div data-controller="slideconfirm" class="slide-container">
+            <div data-slideconfirm-target="track" class="slide-track">
+              <div data-slideconfirm-target="handle" class="slide-handle">⇨</div>
+              <span class="slide-text">Slide to confirm</span>
+            </div>
+          </div>
         </div>
       <% end %>
     </div>
