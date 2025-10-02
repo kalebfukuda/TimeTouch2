@@ -9,6 +9,10 @@ export default class extends Controller {
     this.startX = 0;
     // Calculate maxX once on connect
     this.maxX = this.trackTarget.offsetWidth - this.handleTarget.offsetWidth;
+    console.log(this.maxX)
+    console.log(this.trackTarget.offsetWidth);
+    console.log( this.handleTarget.offsetWidth);
+
 
     // --- Desktop Mouse Events ---
     this.handleTarget.addEventListener("mousedown", this.startDrag.bind(this));
@@ -80,12 +84,12 @@ export default class extends Controller {
     console.log("✅ Confirmed!")
 
     // update hidden field
-    this.hiddenTarget.value = "true"
+    // this.hiddenTarget.value = "true"
 
-    // submit form automatically
-    // The conditional check is a safety measure if you plan to reuse this on a page without a form
-    if (this.hiddenTarget.form) {
-        this.hiddenTarget.form.requestSubmit()
-    }
+    // // submit form automatically
+    // // The conditional check is a safety measure if you plan to reuse this on a page without a form
+    // if (this.hiddenTarget.form) {
+    //     this.hiddenTarget.form.requestSubmit()
+    // }
   }
 }
