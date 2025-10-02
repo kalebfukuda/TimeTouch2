@@ -43,8 +43,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_02_020124) do
   end
 
   create_table "registers", force: :cascade do |t|
+    t.datetime "timestamp", null: false
+    t.float "extra_hour", default: 0.0
+    t.float "extra_cost", default: 0.0
+    t.bigint "gemba_id", null: false
+    t.bigint "period_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["gemba_id"], name: "index_registers_on_gemba_id"
+    t.index ["period_id"], name: "index_registers_on_period_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -66,4 +73,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_02_020124) do
   end
 
   add_foreign_key "profiles", "roles"
+  add_foreign_key "registers", "gembas"
+  add_foreign_key "registers", "periods"
 end
