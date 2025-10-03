@@ -1,0 +1,18 @@
+<div class="d-flex justify-content-end">
+  <button class="btn text-cYellow fs-3 p-0" style="width:50px;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+</div>
+<div class="offcanvas bg-cBlack text-cWhite offcanvas-start" data-bs-theme="dark" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasMenuLabel">Menu</h5>
+    <button type="button" class="btn-close"  data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul>
+      <li><%= link_to "Gemba", new_gemba_path %></li>
+      <li><a class="dropdown-item" href="#">Empresa</a></li>
+      <li><a class="dropdown-item" href="#">Perfil</a></li>
+    </ul>
+  </div>
+</div>
