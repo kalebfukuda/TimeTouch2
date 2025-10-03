@@ -51,8 +51,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_02_021907) do
 
   create_table "registers", force: :cascade do |t|
     t.datetime "date", null: false
-    t.float "extra_hour", default: 0.0
-    t.integer "extra_cost", default: 0
+    t.float "extra_hour"
+    t.integer "extra_cost"
     t.bigint "gemba_id", null: false
     t.bigint "period_id", null: false
     t.bigint "profile_id"
