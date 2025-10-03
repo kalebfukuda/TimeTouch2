@@ -1,0 +1,8 @@
+<div>
+  <h1>Novo Gemba</h1>
+  <%= simple_form_for @gemba do |f| %>
+    <%= f.input :name, label: "Nome" %>
+    <%= f.input :code, label: "Codigo" %>
+    <%= f.button :submit, "Criar Gemba", class: "btn btn-cYellow w-100" %>
+  <% end %>
+</div>

@@ -23,7 +23,19 @@
             <% end %>
           </div>
           <%= f.input :date,  as: :string, input_html: { type: "date", class: "form-control rounded-4" }, label: false %>
-          <%= f.association :gemba, collection: Gemba.all, prompt: "Selecione um Gemba", input_html: { class: "form-control rounded-4" }, label: false %>
+          <%= f.association :gemba,
+            collection: Gemba.all,
+            label_method: ->(g) {
+              if g.code.present?
+                "#{g.code} - #{g.name}"
+              else
+                g.name
+              end
+            },
+            value_method: :id,
+            prompt: "Selecione um Gemba",
+            input_html: { class: "form-control rounded-4" },
+            label: false %>
           <div class="d-flex gap-3">
             <%= f.input :extra_hour, input_html: { class: "form-control rounded-4" }, placeholder: "Hora Extra", label: false %>
             <%= f.input :extra_cost, input_html: { class: "form-control rounded-4" }, placeholder: "Custo Extra", label: false %>

@@ -5,6 +5,7 @@ class GembasController < ApplicationController
 
   def create
     @gemba = Gemba.new(gemba_params)
+    @gemba.company = current_user.profiles.first.company
     if @gemba.save
       redirect_to new_gemba_path, notice: "Gemba criado com sucesso!"
     else
