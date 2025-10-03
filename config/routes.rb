@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "main" => "pages#main", as: :main
   resources :registers, only: [:create]
   resources :gembas, only: [:new, :create]
+  resources :companies, only: [:new, :create]
   # Defines the root path route ("/")
   # root "posts#index"
 end

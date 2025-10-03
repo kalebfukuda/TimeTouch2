@@ -1,0 +1,7 @@
+<div>
+  <h1>Nova Empresa</h1>
+  <%= simple_form_for @company do |f| %>
+    <%= f.input :name, label: "Nome" %>
+    <%= f.button :submit, "Criar Empresa", class: "btn btn-cYellow w-100" %>
+  <% end %>
+</div>
