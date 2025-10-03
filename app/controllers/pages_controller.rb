@@ -6,5 +6,6 @@ class PagesController < ApplicationController
 
   def main
     @register = Register.new
+    @registers = Register.where(profile: current_user.profiles.first).order(date: :desc)
   end
 end

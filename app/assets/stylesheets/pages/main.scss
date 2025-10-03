@@ -1,0 +1,21 @@
+.day-circle {
+  width:20px;
+  height:20px;
+  top:0px;
+  left:-7px;
+  background-color:transparent;
+  border-style:solid;
+  border-color:$c-yellow;
+  border-width:2px;
+}
+
+.card {
+  background-color: $c-dark-gray;
+  border-radius: 16px;
+  width: 100%;
+  padding:16px;
+}
+
+.day {
+  font-size:12px;
+}

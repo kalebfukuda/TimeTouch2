@@ -5,8 +5,6 @@ class RegistersController < ApplicationController
     if @register.save
       redirect_to main_path, notice: "Registro criado com sucesso!"
     else
-      puts "ERROOOOOOOOOOOOOOOOOOOOOOOO"
-      puts @register.errors.full_messages
       render "pages/main", status: :unprocessable_entity
     end
   end
