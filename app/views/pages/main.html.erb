@@ -1,0 +1,48 @@
+<div>
+  <span>Hello, <%= current_user.email %></span>
+  <div class="mt-3">
+    <div class="card text-cWhite">
+      <span class="fw-bold mb-2"><%= Date.today.strftime("%d/%m/%Y") %></span>
+      <div>
+        <span class="fw-bold mb-2">Gemba:</span><span> 1234 - Tsurumi Eki</span>
+      </div>
+      <div>
+        <span class="fw-bold mb-2">Carro:</span><span> Hiace (José)</span>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3">
+    <div class="card">
+      <%= simple_form_for @register, data: { controller: "buttonholder" } do |f| %>
+        <div class="">
+          <div class="btn-group d-flex justify-content-center gap-4 mb-3" role="group" data-toggle="buttons">
+            <%= f.collection_radio_buttons :period_id, Period.all, :id, :description do |b| %>
+              <%= b.label(class: "btn btn-cBlue") do %>
+                <%= b.radio_button(class: "btn-check") %> <%= b.text %>
+              <% end %>
+            <% end %>
+          </div>
+          <%= f.input :date,  as: :string, input_html: { type: "date", class: "form-control rounded-4" }, label: false %>
+          <%= f.association :gemba, collection: Gemba.all, prompt: "Selecione um Gemba", input_html: { class: "form-control rounded-4" }, label: false %>
+          <div class="d-flex gap-3">
+            <%= f.input :extra_hour, input_html: { class: "form-control rounded-4" }, placeholder: "Hora Extra", label: false %>
+            <%= f.input :extra_cost, input_html: { class: "form-control rounded-4" }, placeholder: "Custo Extra", label: false %>
+          </div>
+          <%= f.hidden_field :confirmed, value: "false", data: { buttonholder_target: "hidden" } %>
+          <button type="button"
+            data-buttonholder-target="button"
+            data-action="mousedown->buttonholder#startHold mouseup->buttonholder#cancelHold mouseleave->buttonholder#cancelHold
+            touchstart->buttonholder#startHold touchend->buttonholder#cancelHold touchcancel->buttonholder#cancelHold">
+            <span class="fill" data-buttonholder-target="fill"></span>
+            <span class="text">Hold to Confirm</span>
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="mt-3">
+    <%= month_calendar do |date| %>
+      <%= date.day %>
+    <% end %>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_02_020124) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_02_021907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,8 +23,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_02_020124) do
   create_table "gembas", force: :cascade do |t|
     t.string "name", null: false
     t.string "code"
+    t.bigint "company_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_gembas_on_company_id"
   end
 
   create_table "periods", force: :cascade do |t|
@@ -36,15 +38,29 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_02_020124) do
   create_table "profiles", force: :cascade do |t|
     t.string "name", null: false
     t.float "salary", default: 0.0
+    t.boolean "can_drive", default: false
     t.bigint "role_id", null: false
+    t.bigint "company_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_profiles_on_company_id"
     t.index ["role_id"], name: "index_profiles_on_role_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "registers", force: :cascade do |t|
+    t.datetime "date", null: false
+    t.float "extra_hour"
+    t.integer "extra_cost"
+    t.bigint "gemba_id", null: false
+    t.bigint "period_id", null: false
+    t.bigint "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["gemba_id"], name: "index_registers_on_gemba_id"
+    t.index ["period_id"], name: "index_registers_on_period_id"
+    t.index ["profile_id"], name: "index_registers_on_profile_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -65,5 +81,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_02_020124) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "gembas", "companies"
+  add_foreign_key "profiles", "companies"
   add_foreign_key "profiles", "roles"
+  add_foreign_key "profiles", "users"
+  add_foreign_key "registers", "gembas"
+  add_foreign_key "registers", "periods"
+  add_foreign_key "registers", "profiles"
 end

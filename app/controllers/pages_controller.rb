@@ -3,4 +3,8 @@ class PagesController < ApplicationController
 
   def home
   end
+
+  def main
+    @register = Register.new
+  end
 end
