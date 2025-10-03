@@ -5,6 +5,7 @@ class RegistersController < ApplicationController
     if @register.save
       redirect_to main_path, notice: "Registro criado com sucesso!"
     else
+      @registers = Register.where(profile: current_user.profiles.first).order(date: :desc)
       render "pages/main", status: :unprocessable_entity
     end
   end
