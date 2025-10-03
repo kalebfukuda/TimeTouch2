@@ -1,0 +1,13 @@
+<div data-controller="scheduler">
+  <%= month_calendar do |date| %>
+    <div class="position-relative"
+      data-action="click->scheduler#showDetails"
+      data-scheduler-date="<%= date %>"
+      >
+      <%= date.day %>
+    </div>
+  <% end %>
+  <div id="schedule-details-container" data-scheduler-target="details">
+    <%= render partial: "scheduledetails", locals: { schedules: @schedules } %>
+  </div>
+</div>
