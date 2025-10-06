@@ -1,0 +1,23 @@
+<%= simple_form_for @schedule do |f| %>
+  <div class="d-flex justify-content-between">
+    <%= f.input :from_date,  as: :string, input_html: { type: "date", class: "rounded-4", style: "width:160px;" }, label: false %>
+    <%= f.input :to_date,  as: :string, input_html: { type: "date", class: "rounded-4", style: "width:160px;" }, label: false %>
+  </div>
+  <%= f.input :profile_ids,
+
+              as: :check_boxes,
+              collection: Profile.where(company: current_user.profiles.first.company).order(:name),
+              label_method: :name,
+              value_method: :id,
+              label: "Funcionários",
+              required: true %>
+  <%= f.input :gemba_id,  # agora é singular, pertence a Schedule
+              as: :select,
+              collection: Gemba.where(company: current_user.profiles.first.company).order(:name),
+              label_method: :name,
+              value_method: :id,
+              prompt: "Selecione um Gemba",
+              label: "Gemba",
+              required: true %>
+  <%= f.button :submit, "Criar Agendamento", class: "btn btn-cYellow w-100" %>
+<% end %>

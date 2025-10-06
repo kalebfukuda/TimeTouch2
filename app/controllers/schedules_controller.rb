@@ -6,19 +6,26 @@ class SchedulesController < ApplicationController
     puts @schedules_date
   end
 
-
   def new
     @schedule = Schedule.new
   end
 
   def create
-    @schedule = Schedule.new(schedule_params)
-    @schedule.profile = current_user.profiles.first
-    if @schedule.save
-      redirect_to new_schedule_path, notice: "Agenda criada com sucesso!"
-    else
-      render :new, status: :unprocessable_entity
+    start_date = Date.parse(params[:schedule][:from_date])
+    end_date   = Date.parse(params[:schedule][:to_date])
+    dates = (start_date..end_date).to_a
+
+    profiles = params[:schedule][:profile_ids].reject(&:blank?).map(&:to_i)
+    dates.each do |date|
+      profiles.each do |profile_id|
+        Schedule.create!(
+          date: date,
+          profile_id: profile_id,
+          gemba_id: schedule_params[:gemba_id]
+        )
+      end
     end
+    redirect_to schedules_path, notice: "Agenda criada com sucesso!"
   end
 
   def by_date

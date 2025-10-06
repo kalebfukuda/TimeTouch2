@@ -1,4 +1,5 @@
 <div data-controller="scheduler">
+  <%= link_to "Novo Agendamento", new_schedule_path, class: "btn btn-cYellow mb-3" %>
   <%= month_calendar do |date| %>
     <div class="position-relative"
       data-action="click->scheduler#showDetails"
@@ -9,6 +10,5 @@
     </div>
   <% end %>
   <div id="schedule-details-container" data-scheduler-target="details">
-    <%= render partial: "scheduledetails", locals: { schedules: @schedules_date } %>
   </div>
 </div>

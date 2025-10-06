@@ -4,6 +4,12 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = [ "details", "day"]
   connect() {
+    const today = new Date().toISOString().split("T")[0] // "2025-10-06"
+    this.dayTargets.forEach(day => {
+      if (day.dataset.date === today) {
+        day.classList.add("today")
+      }
+    })
   }
 
 
