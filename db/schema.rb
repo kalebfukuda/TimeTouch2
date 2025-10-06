@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_02_021907) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_03_060527) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,6 +69,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_02_021907) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "schedules", force: :cascade do |t|
+    t.date "date", null: false
+    t.bigint "gemba_id", null: false
+    t.bigint "profile_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gemba_id"], name: "index_schedules_on_gemba_id"
+    t.index ["profile_id"], name: "index_schedules_on_profile_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -88,4 +98,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_02_021907) do
   add_foreign_key "registers", "gembas"
   add_foreign_key "registers", "periods"
   add_foreign_key "registers", "profiles"
+  add_foreign_key "schedules", "gembas"
+  add_foreign_key "schedules", "profiles"
 end

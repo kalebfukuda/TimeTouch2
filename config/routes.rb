@@ -10,6 +10,11 @@ Rails.application.routes.draw do
   resources :registers, only: [:create]
   resources :gembas, only: [:new, :create]
   resources :companies, only: [:new, :create]
+  resources :schedules, only: [:new, :create, :index] do
+    collection do
+      get :by_date
+    end
+  end
   # Defines the root path route ("/")
   # root "posts#index"
 end

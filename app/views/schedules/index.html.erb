@@ -1,0 +1,14 @@
+<div data-controller="scheduler">
+  <%= link_to "Novo Agendamento", new_schedule_path, class: "btn btn-cYellow mb-3" %>
+  <%= month_calendar do |date| %>
+    <div class="position-relative"
+      data-action="click->scheduler#showDetails"
+      data-scheduler-date="<%= date %>"
+      data-scheduler-target="day"
+      >
+      <%= date.day %>
+    </div>
+  <% end %>
+  <div id="schedule-details-container" data-scheduler-target="details">
+  </div>
+</div>

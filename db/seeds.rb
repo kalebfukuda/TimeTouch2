@@ -10,13 +10,11 @@ User.create!(email: "kaleb@gmail.com", password: "123456")
 Company.destroy_all
 Company.create!(name: "Kaleb's Company")
 
-
-
 # Role
 Role.destroy_all
 Role.create!(description: "administrator")
 Role.create!(description: "employer")
-Role.create!(description: "boss")
+Role.create!(description: "shatcho")
 
 
 # Profile
