@@ -10,7 +10,9 @@
   </head>
   <%= render "shared/flashes" %>
   <div class="p-3">
-    <%= render "shared/menu" %>
+    <% unless current_page?(root_path) || devise_controller? %>
+      <%= render "shared/menu" %>
+    <% end %>
     <%= yield %>
   </div>
 </body>
