@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def after_sign_in_path_for(resource)
-    main_path # 👈 change this to wherever you want
+    main_path
   end
 end

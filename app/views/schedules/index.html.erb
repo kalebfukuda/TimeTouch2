@@ -3,11 +3,12 @@
     <div class="position-relative"
       data-action="click->scheduler#showDetails"
       data-scheduler-date="<%= date %>"
+      data-scheduler-target="day"
       >
       <%= date.day %>
     </div>
   <% end %>
   <div id="schedule-details-container" data-scheduler-target="details">
-    <%= render partial: "scheduledetails", locals: { schedules: @schedules } %>
+    <%= render partial: "scheduledetails", locals: { schedules: @schedules_date } %>
   </div>
 </div>

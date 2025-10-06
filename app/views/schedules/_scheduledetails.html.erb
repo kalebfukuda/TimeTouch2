@@ -1,4 +1,6 @@
-<% if schedules.any? %>
+<% if schedules.nil? || schedules.empty? %>
+  <p>Nenhum registro nesse dia.</p>
+<% else %>
   <% schedules.each do |schedule| %>
     <div class="card text-cWhite mb-3">
       <span class="fw-bold text-cYellow"><%= schedule.date.strftime("%d/%m/%Y") %></span>
@@ -6,6 +8,4 @@
       <span><%= schedule.gemba.name %></span>
     </div>
   <% end %>
-<% else %>
-  <p>Nenhum registro nesse dia.</p>
 <% end %>
