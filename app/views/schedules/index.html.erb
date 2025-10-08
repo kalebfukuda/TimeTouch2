@@ -1,7 +1,8 @@
 <div data-controller="scheduler">
   <%= link_to "Novo Agendamento", new_schedule_path, class: "btn btn-cYellow mb-3" %>
   <%= month_calendar do |date| %>
-    <div class="position-relative"
+    <% has_schedule = @schedules.any? { |s| s.date == date } %>
+    <div class="position-relative <%= 'scheduled-date' if has_schedule %>"
       data-action="click->scheduler#showDetails"
       data-scheduler-date="<%= date %>"
       data-scheduler-target="day"

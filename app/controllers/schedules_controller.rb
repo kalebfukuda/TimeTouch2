@@ -1,7 +1,8 @@
 class SchedulesController < ApplicationController
   def index
     @today = Date.current
-    @schedules = Schedule.where(profile: current_user.profiles.first).order(date: :desc)
+    @schedules = schedules = Schedule.joins(profile: :company)
+                    .where(profiles: { company_id: 1 })
     @schedules_date = Schedule.where(date: @today, profile: current_user.profiles.first).first
     puts @schedules_date
   end

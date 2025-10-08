@@ -1,5 +1,10 @@
 .highlight {
-  border-color: #F6AE2D;
+  border-bottom-color: #f6b02d !important;
   border-bottom-width: 2px !important;
+  border-bottom-style: solid !important;
+}
+
+.scheduled-date{
+  color: #1C6E8C;
   font-weight: bold;
 }
