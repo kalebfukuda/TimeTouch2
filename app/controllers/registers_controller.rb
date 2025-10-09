@@ -6,6 +6,7 @@ class RegistersController < ApplicationController
       redirect_to main_path, notice: "Registro criado com sucesso!"
     else
       @registers = Register.where(profile: current_user.profiles.first).order(date: :desc)
+      @schedule = Schedule.find_by(date: Date.current, profile: current_user.profiles.first)
       render "pages/main", status: :unprocessable_entity
     end
   end

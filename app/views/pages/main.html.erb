@@ -4,7 +4,7 @@
     <div class="card text-cWhite">
       <span class="fw-bold mb-2"><%= Date.today.strftime("%d/%m/%Y") %></span>
       <div>
-        <span class="fw-bold mb-2">Gemba:</span><span> 1234 - Tsurumi Eki</span>
+        <span class="fw-bold mb-2">Gemba:</span><span> <%= @schedule.gemba.name %></span>
       </div>
       <div>
         <span class="fw-bold mb-2">Carro:</span><span> Hiace (José)</span>
