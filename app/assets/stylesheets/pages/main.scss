@@ -19,3 +19,17 @@
 .day {
   font-size:12px;
 }
+
+.btn-period:has(input[type="radio"]:checked) {
+  background-color: #000000;
+  color: white;
+  border-color:black
+}
+
+// .btn-period:has(input[value="1"]:checked) {
+//   background-color: #F6AE2D;
+// }
+
+// .btn-period:has(input[value="2"]:checked) {
+//   background-color: #142046;
+// }
