@@ -22,7 +22,7 @@
               <% end %>
             <% end %>
           </div>
-          <%= f.input :date,  as: :string, input_html: { type: "date", class: "form-control rounded-4", value: f.object.date || Date.today }, label: false %>
+          <%= f.input :date,  as: :string, input_html: { type: "date", max: Date.today, class: "form-control rounded-4", value: f.object.date || Date.today }, label: false %>
           <%= f.association :gemba,
             collection: Gemba.all,
             label_method: ->(g) {
