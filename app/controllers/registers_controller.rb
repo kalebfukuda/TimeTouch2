@@ -2,6 +2,10 @@ class RegistersController < ApplicationController
   def create
     @register = Register.new(register_params)
     @register.profile = current_user.profiles.first
+
+    @register.extra_hour = 0.0 unless params[:extra_hour].present?
+    @register.extra_cost = 0 unless params[:extra_cost].present?
+
     if @register.save
       redirect_to main_path, notice: "Registro criado com sucesso!"
     else
