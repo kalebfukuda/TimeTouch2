@@ -1,2 +1,24 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
+<h1 class="">
+  Hello Anime.js!
+</h1>
+<script>
+  document.addEventListener("turbo:load", () => {
+  if (typeof anime === "undefined") {
+    console.error("Anime.js is not loaded yet!")
+    return
+  }
+
+  const header = document.querySelector("h1")
+  if (header) {
+    anime({
+      targets: header,
+      translateY: [-50, 0],
+      opacity: [0, 1],
+      duration: 1000,
+      easing: "easeOutElastic(1, .8)"
+    })
+  }
+  })
+</script>

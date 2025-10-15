@@ -88,6 +88,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    anime_js_rails (1.1.0)
     autoprefixer-rails (10.4.21.0)
       execjs (~> 2)
     base64 (0.3.0)
@@ -330,6 +331,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  anime_js_rails
   autoprefixer-rails
   bootsnap
   bootstrap (~> 5.3)
