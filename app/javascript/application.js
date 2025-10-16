@@ -3,17 +3,3 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core"
 import "bootstrap"
-import anime from "animejs"
-
-document.addEventListener("turbo:load", () => {
-  const header = document.querySelector("h1:last-of-type")
-  if (header) {
-    anime({
-      targets: header,
-      translateY: [-50, 0],
-      opacity: [0, 1],
-      duration: 1000,
-      easing: "easeOutElastic(1, .8)"
-    })
-  }
-})

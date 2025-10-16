@@ -1,24 +1,68 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-<h1 class="">
-  Hello Anime.js!
-</h1>
-<script>
-  document.addEventListener("turbo:load", () => {
-  if (typeof anime === "undefined") {
-    console.error("Anime.js is not loaded yet!")
-    return
-  }
-
-  const header = document.querySelector("h1")
-  if (header) {
-    anime({
-      targets: header,
-      translateY: [-50, 0],
-      opacity: [0, 1],
-      duration: 1000,
-      easing: "easeOutElastic(1, .8)"
-    })
-  }
-  })
-</script>
+<div class="banner" style="background-color: $c-primary">
+  <div class="container">
+    <h1>Bater o ponto nunca foi tão fácil.</h1>
+    <p>Um aplicativo online simples, rápido e pensado para equipes multiculturais.</p>
+    <a class="btn btn-flat" href="#">Apply now</a>
+  </div>
+</div>
+<div style="background-color: white;color:black;padding:150px 0;">
+  <div class="container">
+    <h2 style="color:black;">Gerenciar o ponto de uma equipe multicultural pode ser um desafio.</h2p>
+    <br/>
+    <br/>
+    <ul>
+      <li>Dificuldade de comunicação e compreensão de sistemas em outro idioma</li>
+      <li>Falta de clareza nos horários e registros</li>
+      <li>Processos manuais lentos e confusos</li>
+    </ul>
+  </div>
+</div>
+<div style="background-color: $c-primary;color:white;padding:150px 0;">
+  <div class="container">
+    <h2>Conheça o <span><strong>Timetouch</strong></span> — o ponto digital que fala a língua de todos.</h2>
+    <br/>
+    <br/>
+    <ul>
+      <li>Interface em vários idiomas</li>
+      <li>Registro rápido e seguro</li>
+      <li>Totalmente online (sem instalação complexa)</li>
+      <li>Relatórios automáticos de presença e horas trabalhadas</li>
+    </ul>
+  </div>
+</div>
+<div style="background-color: white;color:black;padding:150px 0;">
+  <div class="container">
+    <h2>Mais autonomia para quem trabalha. Menos barreiras para quem contrata.</h2>
+    <br/>
+    <br/>
+    <ul>
+      <li>O app detecta idioma automaticamente</li>
+      <li>Interface visual clara, sem termos técnicos</li>
+    </ul>
+  </div>
+</div>
+<div style="background-color: $c-primary;color:white;padding:150px 0;">
+  <div class="container">
+    <h2>Mais controle. Menos complicação.</h2>
+    <br/>
+    <br/>
+    <ul>
+      <li>Acesso instantâneo aos registros de ponto</li>
+      <li>Alertas automáticos de atrasos e horas extras</li>
+      <li>Exportação de relatórios em segundos</li>
+    </ul>
+  </div>
+</div>
+<div style="background-color: white;color:black;padding:150px 0;">
+  <div class="container">
+    <h2>Menos burocracia, mais tempo para crescer.</h2>
+  </div>
+</div>
+<div style="background-color: $c-primary;color:white;padding:150px 0;">
+  <div class="container">
+    <h2>Transforme a forma como sua equipe marca o ponto.</h2>
+    <p>Um aplicativo online simples, rápido e pensado para equipes multiculturais.</p>
+    <br/>
+    <br/>
+  </div>
+</div>
