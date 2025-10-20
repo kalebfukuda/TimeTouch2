@@ -7,23 +7,57 @@ gsap.registerPlugin(ScrollTrigger)
 // Connects to data-controller="gsap"
 export default class extends Controller {
   connect() {
-    this.loadSVG();
+    this.loadSVGs();
   }
 
-  loadSVG() {
-    fetch('/images/svg/timetouch.svg')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("svg_timetouch").innerHTML = data;
-        document.querySelector("#svg_timetouch svg").setAttribute("preserveAspectRatio", "xMidYMid slice");
-        this.setAnimationScroll();
-      })
+  // loadSVG() {
+  //   fetch('/images/svg/timetouch.svg')
+  //     .then(response => response.text())
+  //     .then(data => {
+  //       document.getElementById("svg_timetouch").innerHTML = data;
+  //       document.querySelector("#svg_timetouch svg").setAttribute("preserveAspectRatio", "xMidYMid slice");
+  //       this.setAnimationScroll();
+  //     })
+  // }
+
+  async loadSVGs() {
+  // Array de objetos com id e caminho do SVG
+    const svgs = [
+      { id: "svg_timetouch", url: "/images/svg/timetouch.svg" },
+    ];
+
+    try {
+      // Cria um array de promises de fetch
+      const fetchPromises = svgs.map(svg =>
+        fetch(svg.url).then(response => response.text())
+      );
+
+      // Espera todas as promises serem resolvidas
+      const results = await Promise.all(fetchPromises);
+
+      // Insere os SVGs no DOM
+      results.forEach((data, index) => {
+        const svgContainer = document.getElementById(svgs[index].id);
+        svgContainer.innerHTML = data;
+        const svgElement = svgContainer.querySelector("svg");
+        if (svgElement) {
+          svgElement.setAttribute("preserveAspectRatio", "xMidYMid slice");
+        }
+      });
+
+      // Chama a função de animação
+      this.setAnimationScroll();
+
+    } catch (error) {
+      console.error("Erro ao carregar SVGs:", error);
+    }
   }
 
   setAnimationScroll() {
     gsap.registerPlugin(ScrollTrigger);
     gsap.set("#svg_timetouch svg #Loading", { scaleX: 0, transformOrigin: "0 50%" });
     gsap.set("#svg_timetouch svg #popup", {opacity: 0, transformOrigin: "0 50%"});
+    gsap.set("#section_2", { opacity: 0 });
 
     //Circle check
     const checkBorder = document.getElementById("border");
@@ -53,10 +87,12 @@ export default class extends Controller {
       scrollTrigger: {
         trigger: "#section_1",
         start: "top top",
-        end: "bottom top",
-        scrub: true,
+        endTrigger: "#section_2",
+        end: "top+=20% top",
+        scrub: 2.5,
         markers: false,
-        pin: true
+        pin: true,
+        pinSpacing: true,
       }
     });
 
@@ -79,7 +115,7 @@ export default class extends Controller {
         ">")
       .to("#svg_timetouch svg #Loading", {
           scaleX: 1,
-          duration: 5,
+          duration: 3,
           ease: "power5.out",
         }, ">")
       .fromTo(["#svg_timetouch svg #popup", "#svg_timetouch svg #background"], {
@@ -93,17 +129,74 @@ export default class extends Controller {
       .to(checkBorder, {
           strokeDashoffset: 0,
           stroke: "#B4DFDD",
-          duration: 5,
+          duration: 3,
           ease: "power2.inOut"
         }, ">")
       .to("#svg_timetouch svg #popup", {
         scale: 5,
         ease: "power5.inOut",
-        duration: 6,
+        duration: 3,
         transformOrigin: "center center"
       })
+      .to("#svg_timetouch svg #background", {
+        ease: "power3.in",
+        duration: 3,
+        fill: "#0e131f"
+      })
       .to(["#svg_timetouch svg #check", "#svg_timetouch svg #text"],
-        { opacity: 0}, ">"
-      );
+        { opacity: 0}, "<1>"
+      )
+      .to("#section_1", {
+          opacity: 0,
+          duration: 1,
+          ease: "power2.in",
+      }, "<1");
+
+
+
+      //Section_2
+      let section2Animation = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#section_2",
+          start: "top top",
+          end: "bottom top",
+          scrub: 2.5,
+          pin: true,
+          pinSpacing: true,
+        }
+      });
+
+      section2Animation
+        .to("#section_2", { opacity: 1, y: +200})
+        .fromTo("#section_2 h2", {
+          x: -200,
+          opacity: 0,
+          duration: 1.5,
+          ease: "power2.out"
+        }, {x: 0, opacity: 1})
+        .fromTo("#section_2 #desafio_1", {
+          x:-200
+        }, {
+          x:0,
+          opacity:1,
+          ease: "power5.in",
+          duration: 2,
+        })
+        .fromTo("#section_2 #desafio_2", {
+          x:-200
+        }, {
+          x:0,
+          opacity: 1,
+          ease: "power5.in",
+          duration: 2,
+        })
+        .fromTo("#section_2 #desafio_3", {
+          x: -200
+        }, {
+          x: 0,
+          opacity: 1,
+          ease: "power5.in",
+          duration: 2,
+        })
   }
 }
