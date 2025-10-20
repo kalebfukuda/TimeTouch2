@@ -24,6 +24,8 @@ export default class extends Controller {
   // Array de objetos com id e caminho do SVG
     const svgs = [
       { id: "svg_timetouch", url: "/images/svg/timetouch.svg" },
+      { id: "svg_desafios", url: "/images/svg/desafios.svg" },
+
     ];
 
     try {
@@ -57,7 +59,10 @@ export default class extends Controller {
     gsap.registerPlugin(ScrollTrigger);
     gsap.set("#svg_timetouch svg #Loading", { scaleX: 0, transformOrigin: "0 50%" });
     gsap.set("#svg_timetouch svg #popup", {opacity: 0, transformOrigin: "0 50%"});
-    gsap.set("#section_2", { opacity: 0 });
+
+    //Section_2
+    gsap.set(["#section_2", "#section_2 #desafios", "#section_2 #desafio_1", "#section_2 #desafio_2", "#section_2 #desafio_3"],
+      { opacity: 0 });
 
     //Circle check
     const checkBorder = document.getElementById("border");
@@ -141,7 +146,7 @@ export default class extends Controller {
       .to("#svg_timetouch svg #background", {
         ease: "power3.in",
         duration: 3,
-        fill: "#0e131f"
+        fill: "#E8F7EE"
       })
       .to(["#svg_timetouch svg #check", "#svg_timetouch svg #text"],
         { opacity: 0}, "<1>"
@@ -174,29 +179,40 @@ export default class extends Controller {
           duration: 1.5,
           ease: "power2.out"
         }, {x: 0, opacity: 1})
-        .fromTo("#section_2 #desafio_1", {
-          x:-200
+        .fromTo("#section_2 #desafios", {
+          opacity: 0
         }, {
-          x:0,
-          opacity:1,
+          opacity: 1,
+          delay: 2,
           ease: "power5.in",
-          duration: 2,
-        })
-        .fromTo("#section_2 #desafio_2", {
-          x:-200
+
+        }, ">")
+        .fromTo("#section_2 #desafio_1", {
+          y: 50
         }, {
-          x:0,
+          y: 0,
           opacity: 1,
           ease: "power5.in",
           duration: 2,
+          delay: 2.5
         })
         .fromTo("#section_2 #desafio_3", {
-          x: -200
+          y: 50
         }, {
-          x: 0,
+          y: 0,
           opacity: 1,
           ease: "power5.in",
           duration: 2,
+          delay: 3
+        })
+        .fromTo("#section_2 #desafio_2", {
+          y: 50
+        }, {
+          y: 0,
+          opacity: 1,
+          ease: "power5.in",
+          duration: 2,
+          delay: 3.5
         })
   }
 }
