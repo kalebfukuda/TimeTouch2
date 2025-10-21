@@ -1,8 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
 // Connects to data-controller="gsap"
 export default class extends Controller {
@@ -10,22 +11,10 @@ export default class extends Controller {
     this.loadSVGs();
   }
 
-  // loadSVG() {
-  //   fetch('/images/svg/timetouch.svg')
-  //     .then(response => response.text())
-  //     .then(data => {
-  //       document.getElementById("svg_timetouch").innerHTML = data;
-  //       document.querySelector("#svg_timetouch svg").setAttribute("preserveAspectRatio", "xMidYMid slice");
-  //       this.setAnimationScroll();
-  //     })
-  // }
-
   async loadSVGs() {
   // Array de objetos com id e caminho do SVG
     const svgs = [
-      { id: "svg_timetouch", url: "/images/svg/timetouch.svg" },
-      { id: "svg_desafios", url: "/images/svg/desafios.svg" },
-
+      { id: "svg_timetouch", url: "/images/svg/timetouch.svg" }
     ];
 
     try {
@@ -60,9 +49,12 @@ export default class extends Controller {
     gsap.set("#svg_timetouch svg #Loading", { scaleX: 0, transformOrigin: "0 50%" });
     gsap.set("#svg_timetouch svg #popup", {opacity: 0, transformOrigin: "0 50%"});
 
-    //Section_2
-    gsap.set(["#section_2", "#section_2 #desafios", "#section_2 #desafio_1", "#section_2 #desafio_2", "#section_2 #desafio_3"],
-      { opacity: 0 });
+
+    //Section_3
+    gsap.set(["#section_3"],
+      { opacity: 0}
+    );
+
 
     //Circle check
     const checkBorder = document.getElementById("border");
@@ -92,12 +84,18 @@ export default class extends Controller {
       scrollTrigger: {
         trigger: "#section_1",
         start: "top top",
-        endTrigger: "#section_2",
-        end: "top+=20% top",
+        end: "bottom top",
         scrub: 2.5,
         markers: false,
         pin: true,
         pinSpacing: true,
+        onLeave: () => {
+          gsap.to(window, {
+            duration: 1.5,
+            scrollTo: "#section_2",
+            ease: "power2.inOut"
+          })
+        }
       }
     });
 
@@ -163,56 +161,52 @@ export default class extends Controller {
       let section2Animation = gsap.timeline({
         scrollTrigger: {
           trigger: "#section_2",
-          start: "top top",
-          end: "bottom top",
-          scrub: 2.5,
+          start: "top-=10% top",
+          end: "+=1000",
+          scrub: true,
+          markers: true,
           pin: true,
           pinSpacing: true,
+          onLeave: () => {
+            gsap.to(window, {
+              duration: 1.5,
+              scrollTo: "#section_3",
+              ease: "power2.inOut"
+            })
+          }
         }
       });
 
       section2Animation
-        .to("#section_2", { opacity: 1, y: +200})
-        .fromTo("#section_2 h2", {
-          x: -200,
-          opacity: 0,
-          duration: 1.5,
-          ease: "power2.out"
-        }, {x: 0, opacity: 1})
-        .fromTo("#section_2 #desafios", {
-          opacity: 0
-        }, {
-          opacity: 1,
-          delay: 2,
-          ease: "power5.in",
-
-        }, ">")
         .fromTo("#section_2 #desafio_1", {
-          y: 50
+          x: -200
         }, {
-          y: 0,
+          x: -50,
           opacity: 1,
+          duration: 3,
           ease: "power5.in",
-          duration: 2,
-          delay: 2.5
-        })
-        .fromTo("#section_2 #desafio_3", {
-          y: 50
-        }, {
-          y: 0,
-          opacity: 1,
-          ease: "power5.in",
-          duration: 2,
-          delay: 3
-        })
+        }, "<1")
         .fromTo("#section_2 #desafio_2", {
-          y: 50
+          x: -200,
         }, {
-          y: 0,
+          x: 50,
           opacity: 1,
+          duration: 3,
           ease: "power5.in",
-          duration: 2,
-          delay: 3.5
-        })
+        }, ">")
+        .fromTo("#section_2 #desafio_3", {
+          x: -200
+        }, {
+          x: -50,
+          opacity: 1,
+          duration: 3,
+          ease: "power5.in",
+        }, ">")
+        .fromTo("#section_2 #desafio_result",
+          { opacity: 0 },
+          { opacity: 1, duration: 4, ease: "power5.out" },
+          "+=0.5")
+
+
   }
 }
