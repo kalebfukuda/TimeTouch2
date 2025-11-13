@@ -206,7 +206,5 @@ export default class extends Controller {
           { opacity: 0 },
           { opacity: 1, duration: 4, ease: "power5.out" },
           "+=0.5")
-
-
   }
 }
