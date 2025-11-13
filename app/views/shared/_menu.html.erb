@@ -24,7 +24,7 @@
           <i class="fa-solid fa-person-digging"></i> <span>Gemba</span>
         <% end %>
       </li>
-      <% if current_user.profiles.first.role.id == 1  %>
+      <% if current_user.profiles&.first&.role&.id == 1  %>
         <li class="list-group-item border-0">
           <%= link_to new_company_path, class: "text-decoration-none text-cWhite" do %>
             <i class="fa-solid fa-building"></i> <span>Empresa</span>

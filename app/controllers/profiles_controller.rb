@@ -5,9 +5,9 @@ class ProfilesController < ApplicationController
 
   def create
     @profile = Profile.new(profile_params)
-    @profile.company = current_user.profiles.first.company
+    @profile.user_id = current_user.id
     if @profile.save
-      redirect_to new_profile_path, notice: "Perfil criado com sucesso!"
+      redirect_to main_path, notice: "Perfil criado com sucesso!"
     else
       render :new, status: :unprocessable_entity
     end
