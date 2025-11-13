@@ -14,7 +14,7 @@
           <i class="fa-solid fa-house"></i> <span>Home</span>
         <% end %>
       </li>
-      <% unless current_user.profiles&.first&.role&.id == 2   %>
+      <% if current_user.profiles&.first&.role&.id == 1   %>
         <li class="list-group-item border-0">
           <%= link_to new_profile_path, class: "text-decoration-none text-cWhite" do %>
             <i class="fa-solid fa-user"></i> <span>Funcionário</span>
