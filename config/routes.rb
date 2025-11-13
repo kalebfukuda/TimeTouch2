@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -10,11 +12,14 @@ Rails.application.routes.draw do
   resources :registers, only: [:create]
   resources :gembas, only: [:new, :create]
   resources :companies, only: [:new, :create]
+  resources :profiles, only: [:new, :create]
   resources :schedules, only: [:new, :create, :index] do
     collection do
       get :by_date
     end
   end
+
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
