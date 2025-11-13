@@ -14,16 +14,20 @@
           <i class="fa-solid fa-house"></i> <span>Home</span>
         <% end %>
       </li>
-      <li class="list-group-item border-0">
-        <%= link_to new_profile_path, class: "text-decoration-none text-cWhite" do %>
-          <i class="fa-solid fa-user"></i> <span>Funcionário</span>
+      <% unless current_user.profiles&.first&.role&.id == 2   %>
+        <li class="list-group-item border-0">
+          <%= link_to new_profile_path, class: "text-decoration-none text-cWhite" do %>
+            <i class="fa-solid fa-user"></i> <span>Funcionário</span>
+          <% end %>
         <% end %>
       </li>
-      <li class="list-group-item border-0">
-        <%= link_to new_gemba_path, class: "text-decoration-none text-cWhite" do %>
-          <i class="fa-solid fa-person-digging"></i> <span>Gemba</span>
-        <% end %>
-      </li>
+      <% unless current_user.profiles&.first&.role&.id == 2   %>
+        <li class="list-group-item border-0">
+          <%= link_to new_gemba_path, class: "text-decoration-none text-cWhite" do %>
+            <i class="fa-solid fa-person-digging"></i> <span>Gemba</span>
+          <% end %>
+        </li>
+      <% end %>
       <% if current_user.profiles&.first&.role&.id == 1  %>
         <li class="list-group-item border-0">
           <%= link_to new_company_path, class: "text-decoration-none text-cWhite" do %>

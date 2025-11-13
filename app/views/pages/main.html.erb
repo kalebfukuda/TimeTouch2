@@ -1,5 +1,5 @@
 <div>
-  <span>Olá! <%= current_user.profiles.first.name %></span>
+  <span>Olá! <%= current_user.profiles&.first&.name %></span>
   <div class="mt-3">
     <div class="card text-cWhite">
       <span class="fw-bold mb-2"><%= Date.today.strftime("%d/%m/%Y") %></span>
