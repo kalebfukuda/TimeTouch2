@@ -1,0 +1,23 @@
+<div>
+  <h1>Perfil</h1>
+  <%= simple_form_for @profile do |f| %>
+    <%= f.input :name, label: "Nome" %>
+    <%= f.input :salary, label: "Salário" %>
+    <%= f.input :can_drive, label: "Pode dirigir?" %>
+    <%= f.input :role_id,
+              as: :select,
+              collection: Role.where(id: 2),
+              label_method: :description,
+              value_method: :id,
+              label: "Função",
+              required: true %>
+    <%= f.input :role_id,
+              as: :select,
+              collection: Company.where(id: current_user.profiles.first.company.id),
+              label_method: :name,
+              value_method: :id,
+              label: "Empresa",
+              required: true %>
+    <%= f.button :submit, "Criar Perfil", class: "btn btn-cYellow w-100" %>
+  <% end %>
+</div>
