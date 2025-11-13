@@ -3,3 +3,98 @@ body {
   background-color: $c-black;
   color: $c-white
 }
+
+.font-home {
+  font-family: 'Roboto', sans-serif;
+  font-size:2rem;
+  display:inline-block;
+}
+
+.home-up{
+  padding: 80px 0 50px 0;
+}
+
+.home-section {
+  width:100%;
+  min-height:100vh;
+  position: relative;
+}
+
+
+#bg_lamp {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#bg_lamp svg {
+  width: 100%;
+  height: 100%;
+  object-position: center;
+}
+
+
+#svg_timetouch {
+ flex: 1 1 auto;
+}
+
+#svg_timetouch svg {
+  height: 100%;
+  width: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#section_2 {
+  transform: translateY(50px);
+  transition: none;
+}
+
+
+.desafios {
+  background-color: #FFD38D;
+  border-radius: 60px;
+  padding: 50px;
+  color: black;
+  text-align: center;
+  font-size: 20px;
+  opacity: 0;
+}
+
+.desafio_l {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.desafio_r {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: auto;
+}
+
+.desafio_result{
+  background: hsla(196, 67%, 33%, 1);
+  background: linear-gradient(135deg, hsla(196, 67%, 33%, 1) 0%, hsla(196, 65%, 9%, 1) 100%);
+  background: -moz-linear-gradient(135deg, hsla(196, 67%, 33%, 1) 0%, hsla(196, 65%, 9%, 1) 100%);
+  background: -webkit-linear-gradient(135deg, hsla(196, 67%, 33%, 1) 0%, hsla(196, 65%, 9%, 1) 100%);
+  height: 100vh;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2rem;
+  opacity: 0;
+  z-index: 10;
+}
