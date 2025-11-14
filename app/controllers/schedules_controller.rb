@@ -31,8 +31,14 @@ class SchedulesController < ApplicationController
 
   def by_date
     date = Date.parse(params[:date])
-    @schedules_date = Schedule.joins(profile: :company)
-                      .where(date: date, profiles: { company_id: current_user.profiles.first.company_id })
+    @schedules_date = Schedule
+                        .joins(:profile)
+                        .where(date: date, profiles: { company_id: current_user.profiles.first.company_id })
+                        .select('schedules.date, schedules.gemba_id,
+                                array_agg(profiles.name) as profile_names,
+                                array_agg(schedules.profile_id) as profile_ids')
+                        .group('schedules.date, schedules.gemba_id')
+                        .order('schedules.date, schedules.gemba_id')
 
     # Renderiza só a partial
     render partial: "scheduledetails", locals: { schedules: @schedules_date }

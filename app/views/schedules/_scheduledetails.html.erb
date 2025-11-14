@@ -3,9 +3,10 @@
 <% else %>
   <% schedules.each do |schedule| %>
     <div class="card text-cWhite mb-3">
-      <span class="fw-bold text-cYellow"><%= schedule.date.strftime("%d/%m/%Y") %></span>
-      <span><%= schedule.profile.name %></span>
-      <span><%= schedule.gemba.name %></span>
+      <span class="fw-bold text-cYellow"><%= schedule.gemba.name %></span>
+      <% schedule.profile_names.each do |name| %>
+        <span><%= name %></span>
+      <% end %>
     </div>
   <% end %>
 <% end %>
