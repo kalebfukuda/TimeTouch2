@@ -9,5 +9,6 @@ class PagesController < ApplicationController
     @register = Register.new
     @registers = Register.where(profile: current_user.profiles.first).order(date: :desc)
     @schedule = Schedule.find_by(date: Date.current, profile: current_user.profiles.first)
+    @schedules = Schedule.where(profile: current_user.profiles.first).order(date: :desc)
   end
 end
