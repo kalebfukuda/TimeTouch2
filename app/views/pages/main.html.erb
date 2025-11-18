@@ -52,24 +52,40 @@
       <% end %>
     </div>
   </div>
-  <div class="mt-3">
+  <div class="mt-3" data-controller="scheduler">
     <%= month_calendar do |date| %>
-      <% bg_class = if @schedules.where(date: date).any? && date < Date.today && @registers.where(date: date).empty?
-                  "bg-past-schedule"
-                elsif @schedules.where(date: date).any?
-                  "bg-highlight"
-                else
-                  ""
-                end %>
-      <div class="position-relative <%= bg_class %>">
+      <%
+      has_schedule = @schedules.where(date: date).any?
+      passed_without_register = has_schedule && date < Date.today && @registers.where(date: date).empty?
+
+      bg_class =
+        if passed_without_register
+          "bg-past-schedule"
+        elsif has_schedule
+          "bg-highlight"
+        else
+          ""
+        end
+
+      action_attr = has_schedule ? "click->scheduler#showHint" : nil
+
+      gemba_for_date = @schedules.find { |s| s.date == date }&.gemba&.name
+    %>
+      <div
+      class="position-relative <%= bg_class %>"
+      data-scheduler-date="<%= date %>"
+      data-action="<%= action_attr %>"
+      data-gemba-value="<%= gemba_for_date %>"
+      tabindex="0"
+      data-bs-toggle="popover"
+    >
         <%= date.day %>
         <% if @registers.where(date: date).any? %>
           <div class="mt-1">
             <div class="position-absolute rounded-circle day-circle"></div>
           </div>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-</div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
