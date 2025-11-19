@@ -6,5 +6,7 @@ class User < ApplicationRecord
 
 
   has_many :profiles
+  has_one :profile, dependent: :destroy
   has_many :registers
+  validates :email, presence: true, uniqueness: true
 end

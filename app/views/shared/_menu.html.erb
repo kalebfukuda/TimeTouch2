@@ -14,6 +14,13 @@
           <i class="fa-solid fa-house"></i> <span>Home</span>
         <% end %>
       </li>
+      <% if current_user.profiles&.first&.role&.id == 1  %>
+        <li class="list-group-item border-0">
+          <%= link_to data_import_path, class: "text-decoration-none text-cWhite" do %>
+            <i class="fa-solid fa-upload"></i> <span>Importar</span>
+          <% end %>
+        </li>
+      <% end %>
       <% if current_user.profiles&.first&.role&.id == 1   %>
         <li class="list-group-item border-0">
           <%= link_to new_profile_path, class: "text-decoration-none text-cWhite" do %>
@@ -35,11 +42,13 @@
           <% end %>
         </li>
       <% end %>
-      <li class="list-group-item border-0">
-        <%= link_to schedules_path, class: "text-decoration-none text-cWhite" do %>
-          <i class="fa-solid fa-calendar"></i> <span>Agenda</span>
-        <% end %>
-      </li>
+      <% unless current_user.profiles&.first&.role&.id == 2   %>
+        <li class="list-group-item border-0">
+          <%= link_to schedules_path, class: "text-decoration-none text-cWhite" do %>
+            <i class="fa-solid fa-calendar"></i> <span>Agenda</span>
+          <% end %>
+        </li>
+      <% end %>
       <li class="list-group-item border-0">
         <%= link_to destroy_user_session_path,  data: { turbo_method: :delete }, class: "text-decoration-none text-cWhite" do %>
           <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Sair</span>
