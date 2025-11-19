@@ -19,7 +19,12 @@ Rails.application.routes.draw do
     end
   end
 
+# Import
+get  "data_import",           to: "data_import#index"
+post "data_import/users",     to: "data_import#users"
 
+# Export
+# get "data_export/users", to: "data_export#users"
   # Defines the root path route ("/")
   # root "posts#index"
 end
