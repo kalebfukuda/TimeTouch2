@@ -1,4 +1,33 @@
 <div class="d-flex justify-content-end">
+  <button class="btn text-cDarkGray fs-3 p-0 position-relative overflow-visible" style="width:50px;" type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#notificationDropdown">
+    <i class="fa-regular fa-bell"></i>
+    <%
+      today = Date.today
+      start_of_month = today.beginning_of_month
+
+      schedules_without_register = Schedule
+        .where(date: start_of_month..(today - 1), profile: current_user.profiles.pluck(:id))
+        .where.not(
+          date: Register.select(:date))
+        .order(:date)
+
+      badge_count = schedules_without_register.count
+    %>
+    <span id="notificationBadge" class="position-absolute translate-middle badge rounded-pill bg-danger" style="font-size:0.6rem;top:15px; right:-20px;">
+      <%= badge_count %>
+      <span class="visually-hidden">unread messages</span>
+    </span>
+    <div class="collapse" id="notificationDropdown" style="position:absolute; right:0; z-index:1050; width:200px;">
+      <div class="card card-body" style="background-color:white;font-size:0.9rem;max-height:300px; overflow-y:auto;">
+        <% schedules_without_register.each do |schedule| %>
+          <div><%= schedule.date.strftime("%d/%m/%Y") + " - " + schedule.gemba.name %></div>
+          <hr>
+        <% end %>
+      </div>
+    </div>
+  </button>
   <button class="btn text-cYellow fs-3 p-0" style="width:50px;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
     <i class="fa-solid fa-bars"></i>
   </button>
