@@ -14,3 +14,17 @@
               required: true %>
   <%= f.button :submit, "Importar Usuários", class: "btn btn-cYellow w-100" %>
 <% end %>
+<hr>
+<h2>Importar Gemba do CSV</h2>
+<%= simple_form_for :data_import, url: data_import_gembas_path, html: { multipart: true } do |f| %>
+  <%= f.input :file, as: :file, required: true, label: "Arquivo CSV" %>
+  <%= f.input :company_id,
+              as: :select,
+              collection: Company.all.order(:name),
+              label_method: :name,
+              value_method: :id,
+              prompt: "Selecione uma empresa",
+              label: "Empresa",
+              required: true %>
+  <%= f.button :submit, "Importar Gembas", class: "btn btn-cYellow w-100" %>
+<% end %>
