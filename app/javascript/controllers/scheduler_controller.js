@@ -34,7 +34,12 @@ export default class extends Controller {
     const dayEl = event.currentTarget
     const gemba = dayEl.dataset.gembaValue || "Sem gemba definido"
 
-    const content = `Gemba: ${gemba}`
+
+    let content = '';
+
+    gemba.split("|").forEach(
+      gembaName => { content += `<div>${gembaName}</div>` }
+    );
 
     document.querySelectorAll('.popover').forEach(pop => pop.remove())
 
