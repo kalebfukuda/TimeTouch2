@@ -7,6 +7,28 @@ module Importers
       @company_id = company_id || 2 # fallback
     end
 
+    def gembaImporter
+      CSV.foreach(@file_path, headers: true) do |row|
+        gemba_attrs = {
+          name:         row["name"]&.strip,
+          code:         row["code"]&.strip,
+          company_id:   @company_id,
+        }
+        gemba = Gemba.find_or_initialize_by(name: gemba_attrs[:name], company_id: @company_id)
+
+        if gemba.present?
+          unless gemba.update(gemba_attrs)
+            Rails.logger.error "Failed to update gemba for #{gemba_attrs[:name]}: #{gemba.errors.full_messages.join(", ")}"
+          end
+        else
+          gemba = Gemba.new(gemba_attrs)
+          unless gemba.save
+            Rails.logger.error "Failed to create gemba for #{gemba_attrs[:name]}: #{gemba.errors.full_messages.join(", ")}"
+          end
+        end
+      end
+    end
+
     def userImporter
       CSV.foreach(@file_path, headers: true) do |row|
         email = row["email"]&.strip
