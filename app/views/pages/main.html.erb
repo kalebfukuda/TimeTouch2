@@ -69,7 +69,11 @@
 
       action_attr = has_schedule ? "click->scheduler#showHint" : nil
 
-      gemba_for_date = @schedules.find { |s| s.date == date }&.gemba&.name
+      gemba_for_date = @schedules
+        .where(date: date)
+        .joins(:gemba)
+        .pluck("gembas.name")
+        .join("|")
     %>
       <div
       class="position-relative <%= bg_class %>"

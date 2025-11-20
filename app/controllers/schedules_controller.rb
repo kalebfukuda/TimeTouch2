@@ -9,15 +9,19 @@ class SchedulesController < ApplicationController
 
   def new
     @schedule = Schedule.new
+    @schedule.week_days = [1, 2, 3, 4, 5, 6]
   end
 
   def create
     start_date = Date.parse(params[:schedule][:from_date])
     end_date   = Date.parse(params[:schedule][:to_date])
+    week_days  = params[:schedule][:week_days].reject(&:blank?).map(&:to_i)
     dates = (start_date..end_date).to_a
 
     profiles = params[:schedule][:profile_ids].reject(&:blank?).map(&:to_i)
     dates.each do |date|
+      next unless week_days.include?(date.wday)
+
       profiles.each do |profile_id|
         Schedule.create!(
           date: date,

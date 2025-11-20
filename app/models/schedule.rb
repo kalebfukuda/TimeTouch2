@@ -7,4 +7,5 @@ class Schedule < ApplicationRecord
   attr_accessor :profile_ids
   attr_accessor :from_date
   attr_accessor :to_date
+  attr_accessor :week_days
 end

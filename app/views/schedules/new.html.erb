@@ -3,8 +3,23 @@
     <%= f.input :from_date,  as: :string, input_html: { type: "date", class: "rounded-4", style: "width:160px;" }, label: false %>
     <%= f.input :to_date,  as: :string, input_html: { type: "date", class: "rounded-4", style: "width:160px;" }, label: false %>
   </div>
+  <div>
+    <%= f.input :week_days,
+            as: :check_boxes,
+            collection: [
+              ['Segunda', 1],
+              ['Terça', 2],
+              ['Quarta', 3],
+              ['Quinta', 4],
+              ['Sexta', 5],
+              ['Sábado', 6],
+              ['Domingo', 0]
+            ],
+            item_wrapper_class: "col-6 d-flex align-items-center gap-2",
+            wrapper_html: { class: "row" },
+            label: "Dias da semana" %>
+  </div>
   <%= f.input :profile_ids,
-
               as: :check_boxes,
               collection: Profile.where(company: current_user.profiles.first.company).order(:name),
               label_method: :name,
