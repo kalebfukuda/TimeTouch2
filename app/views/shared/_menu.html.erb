@@ -1,9 +1,5 @@
 <div class="d-flex justify-content-end">
-  <button class="btn text-cDarkGray fs-3 p-0 position-relative overflow-visible" style="width:50px;" type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#notificationDropdown">
-    <i class="fa-regular fa-bell"></i>
-    <%
+  <%
       today = Date.today
       start_of_month = today.beginning_of_month
 
@@ -14,8 +10,14 @@
         .order(:date)
 
       badge_count = schedules_without_register.count
+      badge_visibility = badge_count.positive? ? "" : "d-none"
+      notification_click = badge_count.positive? ? "#notificationDropdown" : ""
     %>
-    <span id="notificationBadge" class="position-absolute translate-middle badge rounded-pill bg-danger" style="font-size:0.6rem;top:15px; right:-20px;">
+  <button class="btn text-cDarkGray fs-3 p-0 position-relative overflow-visible" style="width:50px;" type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="<%= notification_click %>">
+    <i class="fa-regular fa-bell"></i>
+    <span id="notificationBadge" class="position-absolute translate-middle badge rounded-pill bg-danger <%= badge_visibility %>" style="font-size:0.6rem;top:15px; right:-5px;">
       <%= badge_count %>
       <span class="visually-hidden">unread messages</span>
     </span>
