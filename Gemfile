@@ -52,6 +52,7 @@ gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 gem "simple_calendar"
 gem 'anime_js_rails'
+gem 'spreadsheet_architect'
 
 group :development, :test do
   gem "dotenv-rails"
