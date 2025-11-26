@@ -4,3 +4,6 @@
 <h2>Exportar</h2>
 <%= link_to "Exportar Excel", example_export_path, class: "btn btn-primary" %>
 <hr>
+<h2>Exportar Mes</h2>
+<%= link_to "Exportar Excel", month_export_path(month_year: "2025-10", profile: current_user.profiles.first.id), class: "btn btn-primary" %>
+<hr>

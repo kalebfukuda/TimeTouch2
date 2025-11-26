@@ -26,6 +26,7 @@ post "data_import/gembas",     to: "data_import#gembas"
 # Export
 get "data_export", to: "data_export#index"
 get "data_export/example_export", to: "data_export#example_export", as: :example_export
+get "data_export/month_export", to: "data_export#month_export", as: :month_export
 
   # Defines the root path route ("/")
   # root "posts#index"

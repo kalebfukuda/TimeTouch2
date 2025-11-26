@@ -12,31 +12,55 @@ class DataExportController < ApplicationController
     export(sheet, "report.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
   end
 
-  # def month_export
-  #   return unless request.post?
-  #   records = Register.includes(:gemba)
+  def month_export
+    month_year = params[:month_year]
+    profile    = params[:profile]
 
-  #   data = records.map do |r|
-  #     [
-  #       r.date.strftime('%Y-%m-%d'),
-  #       r.gemba.name,
-  #       r.value # or any numeric field you want to sum
-  #     ]
-  #   end
+    begin_of_month = Date.parse("#{month_year}-01")
+    end_of_month = begin_of_month.end_of_month
 
-  #   total_sum = records.sum(:value)
+    records = Register.joins(:gemba)
+                      .where(gembas: {company_id: current_user.profiles.first.company}, registers: {date: begin_of_month..end_of_month, profile_id: profile})
+                      .includes(:profile)
+                      .order(date: :asc)
 
-  #   sheet = SpreadsheetArchitect.to_xlsx(
-  #     header_style: { bold: true },
-  #     data: data,
-  #     footer_style: { bold: true },
-  #     footer: ["TOTAL", "", total_sum]
-  #   )
+    data = []
+    total_sum = 0
+    (begin_of_month..end_of_month).each do |date|
+      records_for_date = records.select { |r| r.date == date }
+      if records_for_date.empty?
+        data << [
+          date.strftime('%Y-%m-%d'),
+          "",
+          0,
+          0,
+          0,
+        ]
+      else
+        records_for_date.each do |r|
+          if r.date == date
+            data << [
+              date.strftime('%Y-%m-%d'),
+              r.gemba.name,
+              r.profile.salary,
+              r.extra_cost || 0,
+              r.extra_hour * (r.profile.salary * 1.25) || 0
+            ]
+            total_sum += r.profile.salary + (r.extra_cost || 0) + (r.extra_hour * (r.profile.salary * 1.25) || 0)
+          end
+        end
+      end
+    end
 
-  #   send_data sheet,
-  #     filename: "gemba_report.xlsx",
-  #     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-  # end
+    data << ["TOTAL", "", total_sum, "", "", ]
+
+     sheet = SpreadsheetArchitect.to_xlsx(
+      headers: ["Data", "Gemba", "Salario", "Gasto Extra", "Hora Extra", ],
+      data: data
+    )
+
+    export(sheet, "report.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+  end
 
   private
 
