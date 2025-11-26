@@ -25,7 +25,9 @@ class DataExportController < ApplicationController
                       .order(date: :asc)
 
     data = []
-    total_sum = 0
+    total_salary = 0
+    total_extra_cost = 0
+    total_extra_hour = 0
     (begin_of_month..end_of_month).each do |date|
       records_for_date = records.select { |r| r.date == date }
       if records_for_date.empty?
@@ -35,6 +37,7 @@ class DataExportController < ApplicationController
           0,
           0,
           0,
+          ""
         ]
       else
         records_for_date.each do |r|
@@ -44,18 +47,22 @@ class DataExportController < ApplicationController
               r.gemba.name,
               r.profile.salary,
               r.extra_cost || 0,
-              r.extra_hour * (r.profile.salary * 1.25) || 0
+              r.extra_hour || 0,
+              ""
             ]
-            total_sum += r.profile.salary + (r.extra_cost || 0) + (r.extra_hour * (r.profile.salary * 1.25) || 0)
+            total_salary += r.profile.salary
+            total_extra_cost += r.extra_cost || 0
+            total_extra_hour += r.extra_hour * (r.profile.salary * 0.25) || 0
           end
         end
       end
     end
+    total_sum = total_salary + total_extra_cost + total_extra_hour
 
-    data << ["TOTAL", "", total_sum, "", "", ]
+    data << ["TOTAL", "", total_salary, total_extra_cost, total_extra_hour, total_sum]
 
      sheet = SpreadsheetArchitect.to_xlsx(
-      headers: ["Data", "Gemba", "Salario", "Gasto Extra", "Hora Extra", ],
+      headers: ["Data", "Gemba", "Salario", "Gasto Extra", "Hora Extra", "" ],
       data: data
     )
 
