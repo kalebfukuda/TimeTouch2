@@ -13,8 +13,8 @@ class DataExportController < ApplicationController
   end
 
   def month_export
-    month_year = params[:month_year]
-    profile    = params[:profile]
+    month_year = params[:export][:month_year]
+    profile    = params[:export][:profile]
 
     begin_of_month = Date.parse("#{month_year}-01")
     end_of_month = begin_of_month.end_of_month

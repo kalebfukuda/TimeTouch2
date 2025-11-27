@@ -5,5 +5,21 @@
 <%= link_to "Exportar Excel", example_export_path, class: "btn btn-primary" %>
 <hr>
 <h2>Exportar Mes</h2>
-<%= link_to "Exportar Excel", month_export_path(month_year: "2025-10", profile: current_user.profiles.first.id), class: "btn btn-primary" %>
+<%= simple_form_for :export, url: month_export_path, method: :post, as: nil, data: { turbo: false } do |f| %>
+  <div class="col-auto">
+    <%= f.input :month_year,
+      collection: month_year_list(2022),
+      prompt: "Selecione o mês" %>
+  </div>
+  <div class="col-auto">
+    <%= f.input :profile,
+      collection: current_user.profiles,
+      label_method: :name,
+      value_method: :id,
+      prompt: "Selecione o perfil" %>
+  </div>
+  <div class="col-auto d-flex align-items-end">
+    <%= f.button :submit, "Exportar Excel", class: "btn btn-primary" %>
+  </div>
+<% end %>
 <hr>
