@@ -58,6 +58,11 @@
           <% end %>
         </li>
       <% end %>
+      <li class="list-group-item border-0">
+        <%= link_to data_export_path, class: "text-decoration-none text-cWhite" do %>
+          <i class="fa-solid fa-file-export"></i> <span>Exportar</span>
+        <% end %>
+      </li>
       <% if current_user.profiles&.first&.role&.id == 1   %>
         <li class="list-group-item border-0">
           <%= link_to new_profile_path, class: "text-decoration-none text-cWhite" do %>

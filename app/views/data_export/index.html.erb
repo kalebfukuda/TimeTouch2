@@ -12,9 +12,14 @@
       prompt: "Selecione o mês" %>
   </div>
   <div class="col-auto overflow-y-auto" style="max-height: 200px;">
+    <% profile_collection = unless current_user.profiles&.first&.role&.id == 2
+               Profile.where(company: current_user.profiles.first.company).order(:name)
+             else
+               Profile.where(id: current_user.profiles.first.id)
+             end %>
     <%= f.input :profile_ids,
         as: :check_boxes,
-        collection: Profile.where(company: current_user.profiles.first.company).order(:name),
+        collection: profile_collection,
         label_method: :name,
         value_method: :id,
         label: "Funcionários",

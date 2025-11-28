@@ -65,7 +65,7 @@ class DataExportController < ApplicationController
       end
       total_sum = total_salary + total_extra_cost + total_extra_hour
 
-      data << ["TOTAL", total_salary, total_extra_cost, total_extra_hour, total_sum]
+      data << ["TOTAL", total_sum, total_salary, total_extra_cost, total_extra_hour]
 
 
       workbook.add_worksheet(name: Profile.find(p).name) do |sheet|
