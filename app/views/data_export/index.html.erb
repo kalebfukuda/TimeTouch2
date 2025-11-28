@@ -11,12 +11,14 @@
       collection: month_year_list(2022),
       prompt: "Selecione o mês" %>
   </div>
-  <div class="col-auto">
-    <%= f.input :profile,
-      collection: current_user.profiles,
-      label_method: :name,
-      value_method: :id,
-      prompt: "Selecione o perfil" %>
+  <div class="col-auto overflow-y-auto" style="max-height: 200px;">
+    <%= f.input :profile_ids,
+        as: :check_boxes,
+        collection: Profile.where(company: current_user.profiles.first.company).order(:name),
+        label_method: :name,
+        value_method: :id,
+        label: "Funcionários",
+        required: true %>
   </div>
   <div class="col-auto d-flex align-items-end">
     <%= f.button :submit, "Exportar Excel", class: "btn btn-cYellow w-100" %>
