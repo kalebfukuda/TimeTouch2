@@ -1,0 +1,29 @@
+<h1>Exportar Dados</h1>
+<hr>
+<h2>Fechamento Mês</h2>
+<%= simple_form_for :export, url: month_export_path, method: :post, as: nil, data: { turbo: false } do |f| %>
+  <div class="col-auto">
+    <%= f.input :month_year,
+      collection: month_year_list(2022),
+      label: false,
+      prompt: "Selecione o mês/ano" %>
+  </div>
+  <div class="col-auto overflow-y-auto" style="max-height: 200px;">
+    <% profile_collection = unless current_user.profiles&.first&.role&.id == 2
+               Profile.where(company: current_user.profiles.first.company).order(:name)
+             else
+               Profile.where(id: current_user.profiles.first.id)
+             end %>
+    <%= f.input :profile_ids,
+        as: :check_boxes,
+        collection: profile_collection,
+        label_method: :name,
+        value_method: :id,
+        label: "Funcionários",
+        required: true %>
+  </div>
+  <div class="col-auto d-flex align-items-end">
+    <%= f.button :submit, "Exportar Fechamento", class: "btn btn-cYellow w-100" %>
+  </div>
+<% end %>
+<hr>

@@ -3,8 +3,11 @@ class RegistersController < ApplicationController
     @register = Register.new(register_params)
     @register.profile = current_user.profiles.first
 
-    @register.extra_hour = 0.0 unless params[:extra_hour].present?
-    @register.extra_cost = 0 unless params[:extra_cost].present?
+    # puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    # puts params[:extra_hour].inspect
+    # puts params[:period_id].inspect
+    # @register.extra_hour = 0.0 unless params[:extra_hour].present?
+    # @register.extra_cost = 0 unless params[:extra_cost].present?
 
     if @register.save
       redirect_to main_path, notice: "Registro criado com sucesso!"

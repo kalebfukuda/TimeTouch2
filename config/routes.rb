@@ -24,7 +24,9 @@ get  "data_import",           to: "data_import#index"
 post "data_import/users",     to: "data_import#users"
 post "data_import/gembas",     to: "data_import#gembas"
 # Export
-# get "data_export/users", to: "data_export#users"
+get "data_export", to: "data_export#index"
+get "data_export/example_export", to: "data_export#example_export", as: :example_export
+post "data_export/month_export", to: "data_export#month_export", as: :month_export
   # Defines the root path route ("/")
   # root "posts#index"
 end
