@@ -23,6 +23,7 @@ $c-blue:     $c-blue;
 $c-green:    $c-green;
 $c-yellow:   $c-yellow;
 $c-dark-gray: $c-dark-gray;
+$c-red:      $c-red;
 // Buttons & inputs' radius
 $border-radius-sm:            .0625rem;
 $border-radius:               .125rem;
@@ -43,6 +44,7 @@ $theme-colors: map-merge(
     "cYellow": $c-yellow,
     "cBlue": $c-blue,
     "cGreen": $c-green,
-    "cDarkGray": $c-dark-gray
+    "cDarkGray": $c-dark-gray,
+    "cRed": $c-red
   )
 );
