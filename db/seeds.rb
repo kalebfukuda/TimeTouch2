@@ -24,8 +24,8 @@ Profile.create!(name: "Kaleb Fukuda",
     can_drive: true,
     role: Role.first,
     company: Company.first,
-    user: User.first)
-
+    user: User.first,
+    active: true)
 # Gemba
 Gemba.destroy_all
 Gemba.create!(name: "La Shuura - Kaleb's Company", code: "LS001", company: Company.first)
