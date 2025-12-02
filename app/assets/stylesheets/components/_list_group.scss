@@ -1,0 +1,16 @@
+.list_group_custom .list-group-item {
+  background-color: $c-dark-gray;
+  border: 1px solid $c-dark-gray;
+  color: $c-white;
+}
+
+.list_group_custom .list-group-item:hover {
+  background-color: $c-yellow;
+  cursor: pointer;
+}
+
+.list_group_custom .list-group-item.active {
+  background-color: $c-yellow;  /* purple */
+  border-color: $c-yellow;
+  color: white;
+}

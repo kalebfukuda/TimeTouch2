@@ -1,0 +1,20 @@
+<div>
+  <h1>Perfil</h1>
+  <%= simple_form_for @profile do |f| %>
+    <%= f.input :name, label: "Nome" %>
+    <%= f.input :salary, label: "Salário" %>
+    <%= f.input :role_id,
+              as: :select,
+              collection: Role.where(id: [2, 3]),
+              label_method: :description,
+              value_method: :id,
+              label: "Função",
+              required: true %>
+    <div>
+      <%= f.input :can_drive, label: "Pode dirigir?" %>
+      <%= f.input :active, label: "Ativo" %>
+    </div>
+    <%= f.button :submit, "Atualizar Perfil", class: "btn btn-cYellow w-100" %>
+  <% end %>
+  <%= link_to "Cancelar", profiles_path, class: "btn btn-cDarkGray w-100 mt-3" %>
+</div>

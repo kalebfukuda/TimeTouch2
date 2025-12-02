@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :registers, only: [:create]
   resources :gembas, only: [:new, :create]
   resources :companies, only: [:new, :create]
-  resources :profiles, only: [:new, :create]
+  resources :profiles, only: [:new, :create, :index, :update, :edit]
   resources :schedules, only: [:new, :create, :index] do
     collection do
       get :by_date
