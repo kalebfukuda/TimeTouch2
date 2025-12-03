@@ -2,6 +2,11 @@
   <h1>Perfil</h1>
   <%= simple_form_for @profile do |f| %>
     <%= f.input :name, label: "Nome" %>
+    <%= f.input :date_start_salary,  as: :string,
+            input_html: { type: "date",
+            class: "form-control rounded-4",
+            data: { registerform_target: "date" },
+            value: Date.today }, label: "Data de Início do Novo Salário"  %>
     <%= f.input :salary, label: "Salário" %>
     <%= f.input :role_id,
               as: :select,

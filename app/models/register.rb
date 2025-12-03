@@ -10,7 +10,7 @@ class Register < ApplicationRecord
 
   private
 
-   def set_default_values
+  def set_default_values
     self.extra_hour = 0.0 if extra_hour.blank?
     self.extra_cost = 0 if extra_cost.blank?
   end

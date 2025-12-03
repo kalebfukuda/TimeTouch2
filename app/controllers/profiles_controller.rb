@@ -20,7 +20,11 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = Profile.find(params[:id])
-    if @profile.update(profile_params)
+    salary_changed = @profile.salary != profile_params[:salary].to_f
+
+    safe_params = profile_params
+    safe_params = profile_params.except(:date_start_salary) unless salary_changed
+    if @profile.update(safe_params)
       redirect_to main_path, notice: "Perfil atualizado com sucesso!"
     else
       render :edit, status: :unprocessable_entity
@@ -30,6 +34,6 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:profile).permit(:name, :salary, :can_drive, :role_id, :company_id, :active)
+    params.require(:profile).permit(:name, :salary, :can_drive, :role_id, :company_id, :active, :date_start_salary)
   end
 end
