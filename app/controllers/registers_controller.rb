@@ -2,7 +2,14 @@ class RegistersController < ApplicationController
   def create
     @register = Register.new(register_params)
     @register.profile = current_user.profiles.first
-    @register.salary = @register.profile.salary
+
+    dt_start = @register.profile.date_start_salary || Date.new(1900, 1, 1)
+
+    if (params[:register][:date].to_date < dt_start)
+      @register.salary = @register.profile.previous_salary
+    else
+      @register.salary = @register.profile.salary
+    end
 
     if @register.save
       redirect_to main_path, notice: "Registro criado com sucesso!"
