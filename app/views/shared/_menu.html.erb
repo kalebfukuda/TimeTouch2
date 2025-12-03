@@ -6,7 +6,7 @@
       schedules_without_register = Schedule
         .where(date: start_of_month..(today - 1), profile: current_user.profiles.pluck(:id))
         .where.not(
-          date: Register.select(:date))
+          date: Register.select(:date).where(profile: current_user.profiles.pluck(:id)))
         .order(:date)
 
       badge_count = schedules_without_register.count
