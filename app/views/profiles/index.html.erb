@@ -1,0 +1,21 @@
+<div>
+  <h1>Funcionários</h1>
+  <div class="list-group list_group_custom">
+    <% Profile.where(company: current_user.profiles.first.company).each do |profile| %>
+      <a href="<%= edit_profile_path(profile) %>" class="list-group-item">
+        <div class="d-flex justify-content-between">
+          <div>
+            <%= profile.name %>
+          </div>
+          <div>
+            <% if profile.active %>
+              <i class="fa-solid fa-check text-cGreen"></i>
+            <% else %>
+              <i class="fa-solid fa-x text-cRed"></i>
+            <% end %>
+          </div>
+        </div>
+      </a>
+    <% end %>
+  </div>
+</div>

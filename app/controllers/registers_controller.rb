@@ -3,11 +3,13 @@ class RegistersController < ApplicationController
     @register = Register.new(register_params)
     @register.profile = current_user.profiles.first
 
-    # puts ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    # puts params[:extra_hour].inspect
-    # puts params[:period_id].inspect
-    # @register.extra_hour = 0.0 unless params[:extra_hour].present?
-    # @register.extra_cost = 0 unless params[:extra_cost].present?
+    dt_start = @register.profile.date_start_salary || Date.new(1900, 1, 1)
+
+    if (params[:register][:date].to_date < dt_start)
+      @register.salary = @register.profile.previous_salary
+    else
+      @register.salary = @register.profile.salary
+    end
 
     if @register.save
       redirect_to main_path, notice: "Registro criado com sucesso!"

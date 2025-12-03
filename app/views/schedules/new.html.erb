@@ -21,7 +21,7 @@
   </div>
   <%= f.input :profile_ids,
               as: :check_boxes,
-              collection: Profile.where(company: current_user.profiles.first.company).order(:name),
+              collection: Profile.where(company: current_user.profiles.first.company, active: true).order(:name),
               label_method: :name,
               value_method: :id,
               label: "Funcionários",

@@ -9,4 +9,8 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_many :registers
   validates :email, presence: true, uniqueness: true
+
+  def active_for_authentication?
+    super && profile&.active?
+  end
 end

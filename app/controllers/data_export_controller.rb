@@ -55,14 +55,14 @@ class DataExportController < ApplicationController
                 date.strftime('%Y-%m-%d'),
                 r.gemba.name,
                 r.period.description,
-                r.profile.salary,
+                r.salary,
                 r.extra_cost || 0,
                 r.extra_hour || 0,
-                (r.profile.salary + ((r.extra_hour * (r.profile.salary * 0.25)) || 0) + (r.extra_cost || 0))
+                (r.salary + ((r.extra_hour * (r.salary * 0.25)) || 0) + (r.extra_cost || 0))
               ]
-              total_salary += r.profile.salary
+              total_salary += r.salary
               total_extra_cost += r.extra_cost || 0
-              total_extra_hour += (r.extra_hour * (r.profile.salary * 0.25)) || 0
+              total_extra_hour += (r.extra_hour * (r.salary * 0.25)) || 0
             end
           end
         end

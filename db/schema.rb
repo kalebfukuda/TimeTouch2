@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_03_060527) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_03_043233) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_03_060527) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active"
+    t.float "previous_salary"
+    t.date "date_start_salary"
     t.index ["company_id"], name: "index_profiles_on_company_id"
     t.index ["role_id"], name: "index_profiles_on_role_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
@@ -58,6 +61,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_03_060527) do
     t.bigint "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "salary"
     t.index ["gemba_id"], name: "index_registers_on_gemba_id"
     t.index ["period_id"], name: "index_registers_on_period_id"
     t.index ["profile_id"], name: "index_registers_on_profile_id"
