@@ -1,6 +1,7 @@
 class Schedule < ApplicationRecord
   belongs_to :gemba
   belongs_to :profile
+  belongs_to :period
   validates :date, presence: true
 
   # Virtual attribute for profile IDs

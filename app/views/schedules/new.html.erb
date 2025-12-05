@@ -19,6 +19,13 @@
             wrapper_html: { class: "row" },
             label: "Dias da semana" %>
   </div>
+  <%= f.input :period_id,
+              as: :radio_buttons,
+              collection: Period.all,
+              label_method: :description,
+              value_method: :id,
+              label: "Período",
+              required: true %>
   <%= f.input :profile_ids,
               as: :check_boxes,
               collection: Profile.where(company: current_user.profiles.first.company, active: true).order(:name),

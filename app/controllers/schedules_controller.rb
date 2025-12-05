@@ -26,7 +26,8 @@ class SchedulesController < ApplicationController
         Schedule.create!(
           date: date,
           profile_id: profile_id,
-          gemba_id: schedule_params[:gemba_id]
+          gemba_id: schedule_params[:gemba_id],
+          period_id: schedule_params[:period_id]
         )
       end
     end
@@ -51,6 +52,6 @@ class SchedulesController < ApplicationController
   private
 
   def schedule_params
-    params.require(:schedule).permit(:date, :gemba_id)
+    params.require(:schedule).permit(:date, :gemba_id, :period_id)
   end
 end
