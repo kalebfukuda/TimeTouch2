@@ -55,19 +55,28 @@
   <div class="mt-3" data-controller="scheduler">
     <%= month_calendar do |date| %>
       <%
-      has_schedule = @schedules.where(date: date).any?
-      passed_without_register = has_schedule && date < Date.today && @registers.where(date: date).empty?
+      date_schedule = @schedules.where(date: date)
+      passed_without_register = date_schedule.any? && date < Date.today && @registers.where(date: date).empty?
 
       bg_class =
         if passed_without_register
           "bg-past-schedule"
-        elsif has_schedule
-          "bg-highlight"
+        elsif date_schedule.any?
+          has_day   = date_schedule.exists?(period_id: 1)
+          has_night = date_schedule.exists?(period_id: 2)
+
+          if has_day && has_night
+            "bg-scheduled-daynight"
+          elsif has_day
+            "bg-scheduled-day"
+          elsif has_night
+            "bg-scheduled-night"
+          end
         else
           ""
         end
 
-      action_attr = has_schedule ? "click->scheduler#showHint" : nil
+      action_attr = date_schedule.any? ? "click->scheduler#showHint" : nil
       name_and_period =
         Gemba.arel_table[:name]
           .concat(Arel::Nodes.build_quoted(' - '))
