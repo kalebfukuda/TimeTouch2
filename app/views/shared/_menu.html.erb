@@ -29,7 +29,7 @@
             data-action="click->notification#select"
             data-notification-date="<%= schedule.date %>"
             data-notification-gemba-id="<%= schedule.gemba_id %>">
-            <%= schedule.date.strftime("%d/%m/%Y") + " - " + schedule.gemba.name %>
+            <%= schedule.date.strftime("%d/%m/%Y") + " - " + schedule.gemba.name + " (" + schedule.period.description + ")" %>
           </div>
           <hr>
         <% end %>

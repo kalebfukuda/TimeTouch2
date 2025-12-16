@@ -9,6 +9,18 @@
   font-weight: bold;
 }
 
+.bg-scheduled-day {
+  background-color: #FFF3CD !important;
+}
+
+.bg-scheduled-night {
+  background-color: #232c33 !important;
+}
+
+.bg-scheduled-daynight {
+background: linear-gradient(90deg,rgba(255, 243, 205, 1) 65%, rgba(56, 44, 44, 1) 100%);
+}
+
 .bg-highlight {
   background-color: #FFF3CD !important;
 }
