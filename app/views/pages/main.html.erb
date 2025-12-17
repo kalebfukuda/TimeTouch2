@@ -38,7 +38,10 @@
             prompt: "Selecione um Gemba" %>
           <div class="d-flex gap-3">
             <%= f.input :extra_hour, input_html: { class: "form-control rounded-4"  }, placeholder: "Hora Extra", label: false %>
-            <%= f.input :extra_cost, input_html: { class: "form-control rounded-4" }, placeholder: "Custo Extra", label: false %>
+            <%= f.input :extra_cost, input_html: { class: "form-control rounded-4" }, placeholder: "Custo Extra", label: false,
+              hint: "Último valor: ¥#{@registers.first&.extra_cost || '0'}",
+              hint_html: { class: "text-cWhite" }
+            %>
           </div>
           <%= f.hidden_field :confirmed, value: "false", data: { buttonholder_target: "hidden" } %>
           <button type="button"
