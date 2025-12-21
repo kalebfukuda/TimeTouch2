@@ -16,6 +16,7 @@ class RegistersController < ApplicationController
     else
       @registers = Register.where(profile: current_user.profiles.first).order(date: :desc)
       @schedule = Schedule.find_by(date: Date.current, profile: current_user.profiles.first)
+      @schedules = Schedule.where(profile: current_user.profiles.first).order(date: :desc)
       render "pages/main", status: :unprocessable_entity
     end
   end

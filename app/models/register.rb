@@ -7,6 +7,8 @@ class Register < ApplicationRecord
   validates :date, presence: true
   validates :extra_hour, numericality: { greater_than_or_equal_to: 0 }
   validates :extra_cost, numericality: { greater_than_or_equal_to: 0 }
+  validates :gemba_id, presence: true
+  validates :period_id, presence: true
 
   private
 
