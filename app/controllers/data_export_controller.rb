@@ -47,6 +47,7 @@ class DataExportController < ApplicationController
             0,
             0,
             0,
+            ""
           ]
         else
           records_for_date.each do |r|
@@ -58,7 +59,8 @@ class DataExportController < ApplicationController
                 r.salary,
                 r.extra_cost || 0,
                 r.extra_hour || 0,
-                (r.salary + ((r.extra_hour * ((r.salary / 8) * 1.25)) || 0) + (r.extra_cost || 0))
+                (r.salary + ((r.extra_hour * ((r.salary / 8) * 1.25)) || 0) + (r.extra_cost || 0)),
+                r.note || ""
               ]
               total_salary += r.salary
               total_extra_cost += r.extra_cost || 0
@@ -69,11 +71,11 @@ class DataExportController < ApplicationController
       end
       total_sum = total_salary + total_extra_cost + total_extra_hour
 
-      data << ["TOTAL", "", "", total_salary, total_extra_cost, total_extra_hour, total_sum]
+      data << ["TOTAL", "", "", total_salary, total_extra_cost, total_extra_hour, total_sum, ""]
 
 
       workbook.add_worksheet(name: Profile.find(p).name) do |sheet|
-        sheet.add_row ["Data", "Gemba", "Período", "Salario", "Gasto Extra", "Hora Extra", "Total"]
+        sheet.add_row ["Data", "Gemba", "Período", "Salario", "Gasto Extra", "Hora Extra", "Total",  "Observações"]
         # Renders the common lines
         data[0...-1].each do |row|
           sheet.add_row row
