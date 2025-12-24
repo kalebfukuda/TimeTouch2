@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_05_074639) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_24_094524) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_05_074639) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "salary"
+    t.string "note"
     t.index ["gemba_id"], name: "index_registers_on_gemba_id"
     t.index ["period_id"], name: "index_registers_on_period_id"
     t.index ["profile_id"], name: "index_registers_on_profile_id"
