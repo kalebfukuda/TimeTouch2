@@ -24,6 +24,6 @@ class RegistersController < ApplicationController
   private
 
   def register_params
-    params.require(:register).permit(:date, :extra_hour, :extra_cost, :gemba_id, :period_id)
+    params.require(:register).permit(:date, :extra_hour, :extra_cost, :gemba_id, :period_id, :note)
   end
 end
