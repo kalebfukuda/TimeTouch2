@@ -13,17 +13,24 @@ class DataExportController < ApplicationController
   end
 
   def month_export
+    if params[:export][:month].blank? || params[:export][:year].blank?
+      redirect_back(
+        fallback_location: root_path,
+        alert: "Mês e ano são obrigatórios"
+      )
+      return
+    end
     package = Axlsx::Package.new
     workbook = package.workbook
     total_style = workbook.styles.add_style(
       bg_color: "FFFF00",
       b: true
     )
-    month_year = params[:export][:month_year]
+    month = params[:export][:month].to_i
+    year = params[:export][:year].to_i
     profiles = params[:export][:profile_ids].reject(&:blank?).map(&:to_i)
 
-    puts profiles.inspect
-    begin_of_month = Date.parse("#{month_year}-01")
+    begin_of_month = Date.parse("#{year}-#{month}-01")
     end_of_month = begin_of_month.end_of_month
 
     profiles.each do |p|
@@ -73,10 +80,8 @@ class DataExportController < ApplicationController
 
       data << ["TOTAL", "", "", total_salary, total_extra_cost, total_extra_hour, total_sum, ""]
 
-
       workbook.add_worksheet(name: Profile.find(p).name) do |sheet|
-        sheet.add_row ["Data", "Gemba", "Período", "Salario", "Gasto Extra", "Hora Extra", "Total",  "Observações"]
-        # Renders the common lines
+        sheet.add_row ["Data", "Gemba", "Período", "Salario", "Gasto Extra", "Hora Extra", "Total", "Observações"]
         data[0...-1].each do |row|
           sheet.add_row row
         end

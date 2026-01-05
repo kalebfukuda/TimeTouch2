@@ -2,11 +2,21 @@
 <hr>
 <h2>Fechamento Mês</h2>
 <%= simple_form_for :export, url: month_export_path, method: :post, as: nil, data: { turbo: false } do |f| %>
-  <div class="col-auto">
-    <%= f.input :month_year,
-      collection: month_year_list(2022),
+  <div class="d-flex justify-content-between">
+    <div>
+      <%= f.input :month,
+      collection: month_list,
       label: false,
-      prompt: "Selecione o mês/ano" %>
+      input_html: { required: true },
+      prompt: "Selecione mês" %>
+    </div>
+    <div>
+      <%= f.input :year,
+      collection: year_list(2025),
+      label: false,
+      input_html: { required: true },
+      prompt: "Selecione o ano" %>
+    </div>
   </div>
   <div class="col-auto overflow-y-auto" style="max-height: 200px;">
     <% profile_collection = unless current_user.profiles&.first&.role&.id == 2
