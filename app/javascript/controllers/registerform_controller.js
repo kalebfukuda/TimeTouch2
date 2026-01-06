@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="registerform"
 export default class extends Controller {
-  static targets = ["date", "gemba"]
+  static targets = ["date", "gemba", "validation"]
 
   connect() {
     window.addEventListener("notification:selected", this.fillFromNotification)

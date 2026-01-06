@@ -14,11 +14,20 @@
               <% end %>
             <% end %>
           </div>
+          <% date_value =
+            if f.object.date.present?
+              f.object.date.to_date
+            elsif params.dig(:register, :date).present?
+              params.dig(:register, :date)
+            else
+              Date.today
+            end
+          %>
           <%= f.input :date,  as: :string,
             input_html: { type: "date",
             class: "form-control rounded-4",
             data: { registerform_target: "date" },
-            value: f.object.date || Date.today }, label: false  %>
+            value: date_value }, label: false  %>
           <%= f.input :gemba_id,
             as: :select,
             collection: Gemba.where(company_id: current_user.profiles.first.company_id).map { |g| [g.name, g.id] },
@@ -39,6 +48,7 @@
             <%= f.input :note, input_html: { class: "form-control rounded-4" }, placeholder: "Observações", label: false %>
           </div>
           <%= f.hidden_field :confirmed, value: "false", data: { buttonholder_target: "hidden" } %>
+          <%= f.hidden_field :duplicated_register, value: "false", id: "duplicated_register" %>
           <button type="button"
             data-buttonholder-target="button"
             data-action="mousedown->buttonholder#startHold mouseup->buttonholder#cancelHold mouseleave->buttonholder#cancelHold
@@ -103,4 +113,35 @@
       </div>
     <% end %>
   </div>
+  <% if flash.now[:confirm_required] %>
+    <div data-controller="modal">
+      <div class="modal fade" tabindex="-1" data-modal-target="modal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content rounded-4">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirmação</h5>
+              <button type="button" class="btn-close" data-action="click->modal#close"></button>
+            </div>
+            <div class="modal-body">
+              Já existe um registro para este período.
+              Deseja continuar?
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-cBlue"
+                data-action="click->modal#confirmRegister">
+                Confirmar
+              </button>
+              <button type="button"
+                class="btn btn-secondary"
+                data-action="click->modal#close">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
