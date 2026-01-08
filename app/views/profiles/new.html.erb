@@ -18,6 +18,10 @@
               value_method: :id,
               label: "Empresa",
               required: true %>
+    <%= f.input :locale,
+      collection: I18n.available_locales.map { |l| [l.to_s.upcase, l] },
+      include_blank: "System default",
+      label: t("profile.language") %>
     <%= f.button :submit, "Criar Perfil", class: "btn btn-cYellow w-100" %>
   <% end %>
 </div>

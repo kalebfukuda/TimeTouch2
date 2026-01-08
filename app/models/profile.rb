@@ -7,7 +7,10 @@ class Profile < ApplicationRecord
   has_many :schedules, dependent: :destroy
   validates :name, presence: true
   validates :salary, numericality: { greater_than_or_equal_to: 0 }
-
+  validates :locale, inclusion: {
+    in: I18n.available_locales.map(&:to_s),
+    allow_nil: true
+  }
   private
 
   def handle_salary_change

@@ -1,0 +1,6 @@
+en:
+  devise:
+    failure:
+      invalid: "Invalid email or password."
+    sessions:
+      signed_in: "Signed in successfully."

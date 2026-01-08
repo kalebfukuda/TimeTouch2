@@ -1,0 +1,8 @@
+pt:
+  devise:
+    failure:
+      invalid: "Email ou senha inválidos."
+      unauthenticated: "Você precisa fazer login para continuar."
+    sessions:
+      signed_in: "Login realizado com sucesso."
+      signed_out: "Logout realizado com sucesso."

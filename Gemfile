@@ -53,6 +53,7 @@ gem "sassc-rails"
 gem "simple_calendar"
 gem 'anime_js_rails'
 gem 'spreadsheet_architect'
+gem "rails-i18n"
 
 group :development, :test do
   gem "dotenv-rails"
