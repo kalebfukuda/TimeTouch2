@@ -1,0 +1,6 @@
+pt:
+ buttons:
+    submit: "Enviar"
+    cancel: "Cancelar"
+    save: "Salvar"
+    confirm: "Confirmar"

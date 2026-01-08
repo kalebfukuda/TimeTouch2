@@ -1,0 +1,5 @@
+pt:
+  common:
+    yes: "Yes"
+    no: "Não"
+    loading: "Carregando..."
