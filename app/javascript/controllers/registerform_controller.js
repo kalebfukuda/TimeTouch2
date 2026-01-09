@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="registerform"
 export default class extends Controller {
-  static targets = ["date", "gemba", "validation"]
+  static targets = ["date", "gemba", "validation", "customValue"]
 
   connect() {
     window.addEventListener("notification:selected", this.fillFromNotification)
@@ -19,5 +19,9 @@ export default class extends Controller {
     if (this.hasGembaTarget) this.gembaTarget.value = gembaId
     console.log(this.gembaTarget);
 
+  }
+
+  toggleCustomValue(event) {
+    this.customValueTarget.classList.toggle("d-none", !event.target.checked)
   }
 }

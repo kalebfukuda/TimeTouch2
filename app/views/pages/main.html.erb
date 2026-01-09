@@ -37,6 +37,16 @@
             },
             label: false,
             prompt: "Selecione um Gemba" %>
+          <%= f.input :custom_value,
+            as: :boolean,
+            label: "Valor personalizado",
+            label_html: { class: "text-cWhite" },
+            input_html: {
+              data: { action: "change->registerform#toggleCustomValue" }
+            } %>
+          <div data-registerform-target="customValue" class="d-none">
+            <%= f.input :custom_salary, input_html: { class: "form-control rounded-4"  }, placeholder: "Custo dia", label: false %>
+          </div>
           <div class="d-flex gap-3">
             <%= f.input :extra_hour, input_html: { class: "form-control rounded-4"  }, placeholder: "Hora Extra", label: false %>
             <%= f.input :extra_cost, input_html: { class: "form-control rounded-4" }, placeholder: "Custo Extra", label: false,
