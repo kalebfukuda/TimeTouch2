@@ -9,6 +9,8 @@ class Register < ApplicationRecord
   validates :extra_cost, numericality: { greater_than_or_equal_to: 0 }
   validates :gemba_id, presence: true
   validates :period_id, presence: true
+  attribute :custom_value
+  attribute :custom_salary, :integer
 
   private
 

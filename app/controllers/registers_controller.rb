@@ -1,14 +1,13 @@
 class RegistersController < ApplicationController
   def create
     old_register = Register.where(date: params[:register][:date],
-                                    profile: current_user.profiles.first,
-                                    period_id: params[:register][:period_id])
+                                  profile: current_user.profiles.first,
+                                  period_id: params[:register][:period_id])
 
     @register = Register.new(register_params)
     @register.profile = current_user.profiles.first
 
     if old_register.exists? && params[:register][:duplicated_register] != "true"
-      puts "--------------------------------" + params[:register][:date]
       flash.now[:confirm_required] = true
       prepare_collections
       render "pages/main", status: :unprocessable_entity
@@ -16,16 +15,13 @@ class RegistersController < ApplicationController
     end
 
     # If confirmed to duplicate, delete old register
-    if params[:register][:duplicated_register] == "true"
-      old_register.destroy_all
-    end
-
-
+    old_register.destroy_all if params[:register][:duplicated_register] == "true"
 
     dt_start = @register.profile.date_start_salary || Date.new(1900, 1, 1)
 
-
-    if (params[:register][:date].to_date < dt_start)
+    if params[:register][:custom_value] == "1" && params[:register][:custom_salary].present?
+      @register.salary = params[:register][:custom_salary].to_i
+    elsif params[:register][:date].to_date < dt_start
       @register.salary = @register.profile.previous_salary
     else
       @register.salary = @register.profile.salary
@@ -42,7 +38,16 @@ class RegistersController < ApplicationController
   private
 
   def register_params
-    params.require(:register).permit(:date, :extra_hour, :extra_cost, :gemba_id, :period_id, :note)
+    params.require(:register).permit(
+      :date,
+      :extra_hour,
+      :extra_cost,
+      :gemba_id,
+      :period_id,
+      :note,
+      :custom_value,
+      :custom_salary
+    )
   end
 
   def prepare_collections
