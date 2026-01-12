@@ -1,6 +1,7 @@
 ja:
- buttons:
+  buttons:
     submit: "送信"
     cancel: "キャンセル"
     save: "保存"
     confirm: "確認"
+    create: "作成"
