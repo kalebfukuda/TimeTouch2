@@ -1,0 +1,10 @@
+pt:
+  data_export:
+    title: "Exportar Dados"
+    subtitle:
+      month_closing: "Fechamento Mês"
+    labels:
+      select_month: "Selecione o Mês"
+      select_year: "Selecione o Ano"
+      employees: "Funcionários"
+      export_data: "Exportar Dados"

@@ -4,3 +4,5 @@ pt:
     no: "Não"
     loading: "Carregando..."
     name: "Nome"
+    month: "Mês"
+    year: "Ano"
