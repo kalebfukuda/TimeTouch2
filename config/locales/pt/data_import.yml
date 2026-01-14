@@ -1,0 +1,10 @@
+pt:
+  data_import:
+    title: "Importação de Dados"
+    description: "Selecione um arquivo e importe dados para o sistema."
+    subtitle:
+      import_users: "Importar Usuários do CSV"
+      gemba: "Importar Gemba do CSV"
+    labels:
+      select_company: "Selecione uma Empresa"
+      csv_file: "Arquivo CSV"

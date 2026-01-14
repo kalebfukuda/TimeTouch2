@@ -1,0 +1,10 @@
+ja:
+  data_import:
+    title: "データインポート"
+    description: "ファイルを選択してデータをシステムにインポートします。"
+    subtitle:
+      users: "ユーザーをCSVからインポート"
+      gemba: "GembaをCSVからインポート"
+    labels:
+      select_company: "会社を選択"
+      csv_file: "CSVファイル"

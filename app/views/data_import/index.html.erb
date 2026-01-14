@@ -1,30 +1,30 @@
-<h1>Importar Dados</h1>
-<p>Selecione um arquivo e importe os dados para o sistema.</p>
+<h1><%= t('data_import.title') %></h1>
+<p><%= t('data_import.description') %></p>
 <hr>
-<h2>Importar Usuários do CSV</h2>
+<h2><%= t('data_import.subtitle.users') %></h2>
 <%= simple_form_for :data_import, url: data_import_users_path, html: { multipart: true } do |f| %>
-  <%= f.input :file, as: :file, required: true, label: "Arquivo CSV" %>
+  <%= f.input :file, as: :file, required: true, label: t("data_import.labels.csv_file") %>
   <%= f.input :company_id,
               as: :select,
               collection: Company.all.order(:name),
               label_method: :name,
               value_method: :id,
-              prompt: "Selecione uma empresa",
-              label: "Empresa",
+              prompt: t("data_import.labels.select_company"),
+              label: t("common.company"),
               required: true %>
-  <%= f.button :submit, "Importar Usuários", class: "btn btn-cYellow w-100" %>
+  <%= f.button :submit, t("buttons.import_data"), class: "btn btn-cYellow w-100" %>
 <% end %>
 <hr>
-<h2>Importar Gemba do CSV</h2>
+<h2><%= t('data_import.subtitle.gemba') %></h2>
 <%= simple_form_for :data_import, url: data_import_gembas_path, html: { multipart: true } do |f| %>
-  <%= f.input :file, as: :file, required: true, label: "Arquivo CSV" %>
+  <%= f.input :file, as: :file, required: true, label: t("data_import.labels.csv_file") %>
   <%= f.input :company_id,
               as: :select,
               collection: Company.all.order(:name),
               label_method: :name,
               value_method: :id,
-              prompt: "Selecione uma empresa",
-              label: "Empresa",
+              prompt: t("data_import.labels.select_company"),
+              label: t("common.company"),
               required: true %>
-  <%= f.button :submit, "Importar Gembas", class: "btn btn-cYellow w-100" %>
+  <%= f.button :submit, t("buttons.import_data"), class: "btn btn-cYellow w-100" %>
 <% end %>

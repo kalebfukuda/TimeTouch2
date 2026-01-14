@@ -1,0 +1,10 @@
+en:
+  data_import:
+    title: "Data Import"
+    description: "Select a file and import data to the system."
+    subtitle:
+      users: "Import Users from CSV"
+      gemba: "Import Gemba from CSV"
+    labels:
+      select_company: "Select Company"
+      csv_file: "CSV File"
