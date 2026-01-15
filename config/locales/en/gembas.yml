@@ -1,0 +1,6 @@
+en:
+  gembas:
+    title: "New Gemba"
+    labels:
+      name: "Name"
+      code: "Code"
