@@ -7,3 +7,4 @@ pt:
     create: "Criar"
     export_data: "Exportar Dados"
     import_data: "Importar Dados"
+    update: "Atualizar"

@@ -1,29 +1,29 @@
 <div>
-  <h1>Perfil</h1>
+  <h1><%= t("profiles.title") %></h1>
   <%= simple_form_for @profile do |f| %>
-    <%= f.input :name, label: "Nome" %>
+    <%= f.input :name, label: t("common.name") %>
     <%= f.input :date_start_salary,  as: :string,
-            input_html: { type: "date",
+            input_html: { type: t("common.date"),
             class: "form-control rounded-4",
             data: { registerform_target: "date" },
-            value: Date.today }, label: "Data de Início do Novo Salário"  %>
-    <%= f.input :salary, label: "Salário" %>
+            value: Date.today }, label: t("profiles.labels.date_start_salary")  %>
+    <%= f.input :salary, label: t("common.salary") %>
     <%= f.input :role_id,
               as: :select,
               collection: Role.where(id: [2, 3]),
               label_method: :description,
               value_method: :id,
-              label: "Função",
+              label: t("common.role"),
               required: true %>
     <div>
-      <%= f.input :can_drive, label: "Pode dirigir?" %>
-      <%= f.input :active, label: "Ativo" %>
+      <%= f.input :can_drive, label: t("profiles.labels.can_drive") %>
+      <%= f.input :active, label: t("common.active") %>
     </div>
     <%= f.input :locale,
       collection: I18n.available_locales.map { |l| [l.to_s.upcase, l] },
       include_blank: "System default",
       label: t("profile.language") %>
-    <%= f.button :submit, "Atualizar Perfil", class: "btn btn-cYellow w-100" %>
+    <%= f.button :submit, t("buttons.update"), class: "btn btn-cYellow w-100" %>
   <% end %>
-  <%= link_to "Cancelar", profiles_path, class: "btn btn-cDarkGray w-100 mt-3" %>
+  <%= link_to t("buttons.cancel"), profiles_path, class: "btn btn-cDarkGray w-100 mt-3" %>
 </div>
