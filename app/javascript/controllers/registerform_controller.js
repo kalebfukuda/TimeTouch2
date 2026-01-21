@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="registerform"
 export default class extends Controller {
-  static targets = ["date", "gemba", "validation", "customValue"]
+  static targets = ["date", "gemba", "validation", "customValue", "extraCost"]
 
   connect() {
     window.addEventListener("notification:selected", this.fillFromNotification)
@@ -23,5 +23,10 @@ export default class extends Controller {
 
   toggleCustomValue(event) {
     this.customValueTarget.classList.toggle("d-none", !event.target.checked)
+  }
+
+  copyLastValue(event) {
+    const lastValue = event.currentTarget.dataset.lastValue
+    this.extraCostTarget.value = lastValue;
   }
 }
