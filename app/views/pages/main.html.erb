@@ -51,7 +51,7 @@
             <%= f.input :extra_hour, input_html: { class: "form-control rounded-4"  }, placeholder: "Hora Extra", label: false %>
             <%= f.input :extra_cost, input_html: { class: "form-control rounded-4",  data: { registerform_target: "extraCost" } }, placeholder: "Custo Extra", label: false,
               hint: content_tag(:span, "Último valor: ¥#{@registers.first&.extra_cost || '0'}",
-                class: "text-cWhite",
+                class: "text-cRed",
                 data: { action: "click->registerform#copyLastValue",  last_value: @registers.first&.extra_cost || '0' })
             %>
           </div>
