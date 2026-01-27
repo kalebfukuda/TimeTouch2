@@ -1,27 +1,27 @@
 <div>
   <h1>Perfil</h1>
   <%= simple_form_for @profile do |f| %>
-    <%= f.input :name, label: "Nome" %>
-    <%= f.input :salary, label: "Salário" %>
-    <%= f.input :can_drive, label: "Pode dirigir?" %>
+    <%= f.input :name, label: t("common.name") %>
+    <%= f.input :salary, label: t("common.salary") %>
+    <%= f.input :can_drive, label: t("profiles.labels.can_drive") %>
     <%= f.input :role_id,
               as: :select,
               collection: Role.where(id: [2, 3]),
               label_method: :description,
               value_method: :id,
-              label: "Função",
+              label: t("common.role"),
               required: true %>
     <%= f.input :company_id,
               as: :select,
               collection: Company.all,
               label_method: :name,
               value_method: :id,
-              label: "Empresa",
+              label: t("common.company"),
               required: true %>
     <%= f.input :locale,
       collection: I18n.available_locales.map { |l| [l.to_s.upcase, l] },
-      include_blank: "System default",
+      include_blank: t("common.default_language"),
       label: t("profile.language") %>
-    <%= f.button :submit, "Criar Perfil", class: "btn btn-cYellow w-100" %>
+    <%= f.button :submit, t("buttons.create"), class: "btn btn-cYellow w-100" %>
   <% end %>
 </div>

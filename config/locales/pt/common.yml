@@ -14,3 +14,4 @@ pt:
     date: "Data"
     role: "Função"
     active: "Ativo"
+    default_language: "Idioma Padrão"

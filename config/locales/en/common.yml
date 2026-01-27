@@ -14,3 +14,4 @@ en:
     date: "Date"
     role: "Role"
     active: "Active"
+    default_language: "Default Language"
