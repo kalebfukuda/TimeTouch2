@@ -1,0 +1,5 @@
+en:
+  schedules:
+    title: "Schedule"
+    labels:
+      no_register: "No Register for this date"
