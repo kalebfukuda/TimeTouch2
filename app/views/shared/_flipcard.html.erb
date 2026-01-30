@@ -21,7 +21,7 @@
 
         total = registers.sum(
           "salary
-          + COALESCE(extra_hour, 0) * (salary / 8.0 * 1.25)
+          + COALESCE(extra_hour, 0) * ROUND((salary / 8.0) * 1.25)
           + COALESCE(extra_cost, 0)"
         )
       %>
