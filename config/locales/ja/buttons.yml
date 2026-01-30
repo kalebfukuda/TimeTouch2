@@ -1,0 +1,10 @@
+ja:
+  buttons:
+    submit: "送信"
+    cancel: "キャンセル"
+    save: "保存"
+    confirm: "確認"
+    create: "作成"
+    export_data: "データエクスポート"
+    import_data: "データインポート"
+    update: "更新"

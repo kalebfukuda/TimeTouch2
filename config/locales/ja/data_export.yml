@@ -1,0 +1,9 @@
+ja:
+  data_export:
+    title: "データエクスポート"
+    subtitle:
+      month_closing: "月次クロージング"
+    labels:
+      select_month: "月を選択"
+      select_year: "年を選択"
+      employees: "従業員"

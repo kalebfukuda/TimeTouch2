@@ -1,0 +1,17 @@
+pt:
+  common:
+    yes: "Yes"
+    no: "Não"
+    loading: "Carregando..."
+    name: "Nome"
+    month: "Mês"
+    year: "Ano"
+    company: "Empresa"
+    salary: "Salário"
+    address: "Endereço"
+    phone: "Telefone"
+    email: "Email"
+    date: "Data"
+    role: "Função"
+    active: "Ativo"
+    default_language: "Idioma Padrão"

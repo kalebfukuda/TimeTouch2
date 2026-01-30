@@ -1,7 +1,7 @@
 <div>
-  <h1>Nova Empresa</h1>
+  <h1><%= t("companies.title.new_company") %></h1>
   <%= simple_form_for @company do |f| %>
-    <%= f.input :name, label: "Nome" %>
-    <%= f.button :submit, "Criar Empresa", class: "btn btn-cYellow w-100" %>
+    <%= f.input :name, label: t("common.name") %>
+    <%= f.button :submit, t("buttons.create"), class: "btn btn-cYellow w-100" %>
   <% end %>
 </div>

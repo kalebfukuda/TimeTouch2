@@ -13,7 +13,7 @@
   </head>
   <%= render "shared/flashes" %>
   <div class="<%= current_page?(root_path) ? '' : 'p-3' %>">
-    <% unless current_page?(root_path) || devise_controller? %>
+    <% if user_signed_in? %>
       <%= render "shared/menu" %>
     <% end %>
     <%= yield %>

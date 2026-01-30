@@ -1,0 +1,6 @@
+pt:
+  gembas:
+    title: "Novo Gemba"
+    labels:
+      name: "Nome"
+      code: "Código"

@@ -1,0 +1,7 @@
+ja:
+  profiles:
+    title: "プロファイル"
+    labels:
+      date_start_salary: "新しい給与の開始日"
+      code: "Code"
+      can_drive: "運転できますか？"

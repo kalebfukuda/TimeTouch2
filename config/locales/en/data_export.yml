@@ -1,0 +1,9 @@
+en:
+  data_export:
+    title: "Data Export"
+    subtitle:
+      month_closing: "Month-End Closing"
+    labels:
+      select_month: "Select Month"
+      select_year: "Select Year"
+      employees: "Employees"

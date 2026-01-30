@@ -1,0 +1,6 @@
+en:
+  profiles:
+    title: "Profile"
+    labels:
+      date_start_salary: "Start Date of New Salary"
+      can_drive: "Can Drive?"

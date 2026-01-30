@@ -1,21 +1,21 @@
-<h1>Exportar Dados</h1>
+<h1><%= t("data_export.title") %></h1>
 <hr>
-<h2>Fechamento Mês</h2>
+<h2><%= t("data_export.subtitle.month_closing") %></h2>
 <%= simple_form_for :export, url: month_export_path, method: :post, as: nil, data: { turbo: false } do |f| %>
   <div class="d-flex justify-content-between">
-    <div>
+    <div class="w-50 pe-1">
       <%= f.input :month,
       collection: month_list,
       label: false,
       input_html: { required: true },
-      prompt: "Selecione mês" %>
+      prompt: t("data_export.labels.select_month") %>
     </div>
-    <div>
+    <div class="w-50 ps-1">
       <%= f.input :year,
       collection: year_list(2025),
       label: false,
       input_html: { required: true },
-      prompt: "Selecione o ano" %>
+      prompt: t("data_export.labels.select_year") %>
     </div>
   </div>
   <div class="col-auto overflow-y-auto" style="max-height: 200px;">
@@ -29,11 +29,11 @@
         collection: profile_collection,
         label_method: :name,
         value_method: :id,
-        label: "Funcionários",
+        label: t("data_export.labels.employees"),
         required: true %>
   </div>
   <div class="col-auto d-flex align-items-end">
-    <%= f.button :submit, "Exportar Fechamento", class: "btn btn-cYellow w-100" %>
+    <%= f.button :submit, t("buttons.export_data"), class: "btn btn-cYellow w-100" %>
   </div>
 <% end %>
 <hr>

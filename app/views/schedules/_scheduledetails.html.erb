@@ -1,5 +1,5 @@
 <% if schedules.nil? || schedules.empty? %>
-  <p>Nenhum registro nesse dia.</p>
+  <p><%= t('schedules.labels.no_register') %></p>
 <% else %>
   <% schedules.each do |schedule| %>
     <div class="card text-cWhite mb-3">

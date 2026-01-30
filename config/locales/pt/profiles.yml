@@ -1,0 +1,6 @@
+pt:
+  profiles:
+    title: "Perfil"
+    labels:
+      date_start_salary: "Data de Início do Novo Salário"
+      can_drive: "Pode Dirigir?"

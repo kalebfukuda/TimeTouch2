@@ -1,0 +1,10 @@
+pt:
+ buttons:
+    submit: "Enviar"
+    cancel: "Cancelar"
+    save: "Salvar"
+    confirm: "Confirmar"
+    create: "Criar"
+    export_data: "Exportar Dados"
+    import_data: "Importar Dados"
+    update: "Atualizar"

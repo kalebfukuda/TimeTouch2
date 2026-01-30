@@ -1,0 +1,5 @@
+pt:
+  schedules:
+    title: "Agenda"
+    labels:
+      no_register: "Nenhum registro para esta data"
