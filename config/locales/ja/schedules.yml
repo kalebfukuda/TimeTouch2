@@ -4,3 +4,5 @@ ja:
     labels:
       no_register: "この日には登録がありません"
       new_schedule: "新しいスケジュール"
+      employee: "従業員"
+      select_gemba: "現場を選択"

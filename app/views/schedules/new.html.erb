@@ -7,39 +7,39 @@
     <%= f.input :week_days,
             as: :check_boxes,
             collection: [
-              ['Segunda', 1],
-              ['Terça', 2],
-              ['Quarta', 3],
-              ['Quinta', 4],
-              ['Sexta', 5],
-              ['Sábado', 6],
-              ['Domingo', 0]
+              [t("common.monday"), 1],
+              [t("common.tuesday"), 2],
+              [t("common.wednesday"), 3],
+              [t("common.thursday"), 4],
+              [t("common.friday"), 5],
+              [t("common.saturday"), 6],
+              [t("common.sunday"), 0]
             ],
             item_wrapper_class: "col-6 d-flex align-items-center gap-2",
             wrapper_html: { class: "row" },
-            label: "Dias da semana" %>
+            label: t("common.day_of_week") %>
   </div>
   <%= f.input :period_id,
               as: :radio_buttons,
               collection: Period.all,
               label_method: :description,
               value_method: :id,
-              label: "Período",
+              label: t("common.period"),
               required: true %>
   <%= f.input :profile_ids,
               as: :check_boxes,
               collection: Profile.where(company: current_user.profiles.first.company, active: true).order(:name),
               label_method: :name,
               value_method: :id,
-              label: "Funcionários",
+              label: t("schedules.labels.employee"),
               required: true %>
   <%= f.input :gemba_id,  # agora é singular, pertence a Schedule
               as: :select,
               collection: Gemba.where(company: current_user.profiles.first.company).order(:name),
               label_method: :name,
               value_method: :id,
-              prompt: "Selecione um Gemba",
-              label: "Gemba",
+              prompt: t("schedules.labels.select_gemba"),
+              label: t("common.gemba"),
               required: true %>
-  <%= f.button :submit, "Criar Agendamento", class: "btn btn-cYellow w-100" %>
+  <%= f.button :submit, t("buttons.create"), class: "btn btn-cYellow w-100" %>
 <% end %>
