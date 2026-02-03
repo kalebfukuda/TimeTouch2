@@ -3,3 +3,4 @@ ja:
     title: "スケジュール"
     labels:
       no_register: "この日には登録がありません"
+      new_schedule: "新しいスケジュール"
