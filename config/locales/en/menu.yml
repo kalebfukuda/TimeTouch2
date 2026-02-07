@@ -1,0 +1,7 @@
+en:
+  menu:
+    title: "Schedule"
+    labels:
+      unread_msg: "Unread Messages"
+      home: "Home"
+      logout: "Logout"

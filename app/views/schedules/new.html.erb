@@ -33,7 +33,7 @@
               value_method: :id,
               label: t("schedules.labels.employee"),
               required: true %>
-  <%= f.input :gemba_id,  # agora é singular, pertence a Schedule
+  <%= f.input :gemba_id,
               as: :select,
               collection: Gemba.where(company: current_user.profiles.first.company).order(:name),
               label_method: :name,
