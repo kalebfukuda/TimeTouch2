@@ -118,7 +118,9 @@
         <%= date.day %>
         <% if @registers.where(date: date).any? %>
           <div class="mt-1">
-            <div class="position-absolute rounded-circle day-circle"></div>
+            <div class="position-absolute check-mark">
+              <i class="fa-solid fa-check"></i>
+            </div>
           </div>
         <% end %>
       </div>
