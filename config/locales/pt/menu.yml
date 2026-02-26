@@ -1,0 +1,7 @@
+pt:
+  menu:
+    title: "Schedule"
+    labels:
+      unread_msg: "Mensagens não lidas"
+      home: "Home"
+      logout: "Sair"

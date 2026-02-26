@@ -3,3 +3,6 @@ en:
     title: "Schedule"
     labels:
       no_register: "No Register for this date"
+      new_schedule: "New Schedule"
+      employee: "Employee"
+      select_gemba: "Select Gemba"

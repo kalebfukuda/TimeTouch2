@@ -1,0 +1,7 @@
+ja:
+  menu:
+    title: "Schedule"
+    labels:
+      unread_msg: "未読メッセージ"
+      home: "ホーム"
+      logout: "ログアウト"

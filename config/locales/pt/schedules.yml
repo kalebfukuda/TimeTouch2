@@ -3,3 +3,6 @@ pt:
     title: "Agenda"
     labels:
       no_register: "Nenhum registro para esta data"
+      new_schedule: "Nova Agenda"
+      employee: "Funcionário"
+      select_gemba: "Selecionar Gemba"
