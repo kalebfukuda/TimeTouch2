@@ -4,8 +4,55 @@ body {
   color: $c-white
 }
 
+#headline{
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+#subheadline{
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.btn-cta {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin: 0 0 10px 0;
+}
+
+.btn-test{
+  background-color: #39a4c1;
+  color: white;
+  border-color:#39a4c1;
+}
+
+.btn-test:hover {
+  background-color: #2e7a8c;
+  color: white;
+  border-color:#2e7a8c
+}
+
+.btn-demo{
+  background-color: transparent;
+  color: #39a4c1;
+  border-color:#39a4c1
+}
+
+.btn-demo:hover {
+  background-color: transparent;
+  color: #2e7a8c;
+  border-color:#2e7a8c
+}
 .font-home {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size:2rem;
   display:inline-block;
 }
