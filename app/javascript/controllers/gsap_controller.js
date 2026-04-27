@@ -48,7 +48,22 @@ export default class extends Controller {
     gsap.registerPlugin(ScrollTrigger);
     gsap.set("#svg_timetouch svg #Loading", { scaleX: 0, transformOrigin: "0 50%" });
     gsap.set("#svg_timetouch svg #popup", {opacity: 0, transformOrigin: "0 50%"});
+    const tlHero = gsap.timeline();
 
+    //Section_hero
+    tlHero.from("#headline",{
+      opacity: 0,
+      y: 80,
+      duration: 0.6
+      }, "start"
+    ).from("#subheadline", {
+      opacity: 0,
+      y: 80,
+      duration: 0.6
+    }, "start+=0.2"
+    ).from("#divCta", {
+      opacity: 0, y: 80
+    }, "start+=0.4");
 
     //Section_3
     gsap.set(["#section_3"],
@@ -91,7 +106,7 @@ export default class extends Controller {
         pinSpacing: true,
         onLeave: () => {
           gsap.to(window, {
-            duration: 1.5,
+            duration: 1.0,
             scrollTo: "#section_2",
             ease: "power2.inOut"
           })
