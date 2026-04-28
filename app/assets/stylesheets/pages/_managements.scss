@@ -1,0 +1,167 @@
+/* layout */
+.container-fluid {
+  overflow: hidden;
+}
+
+/* cards de métrica */
+.custom-card {
+  background: #2e3a45;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 2px;
+}
+
+.value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.trend {
+  font-size: 0.72rem;
+  color: #5dba80;
+  margin-top: 2px;
+  text-align: center;
+}
+
+.icon-box {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* tabela */
+.card.rounded-4 {
+  background: #2e3a45;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  overflow: hidden;
+}
+
+.custom-table,
+.custom-table thead,
+.custom-table tbody,
+.custom-table tr,
+.custom-table th,
+.custom-table td {
+  background-color: transparent !important;
+}
+
+.custom-table thead tr {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.custom-table th {
+  padding: 13px 18px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #1e2a33 !important;
+}
+
+.custom-table td {
+  padding: 14px 18px;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.82);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-top: none !important;
+}
+
+.custom-table tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+td:first-child {
+  font-weight: 600;
+  color: #fff;
+}
+
+.custom-table tbody tr {
+  transition: background 0.15s;
+}
+
+.custom-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* status */
+.status-active {
+  background: rgba(74, 197, 120, 0.15);
+  color: #5dba80;
+  border: 1px solid rgba(74, 197, 120, 0.25);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.status-inactive {
+  background: rgba(230, 80, 80, 0.13);
+  color: #e06060;
+  border: 1px solid rgba(230, 80, 80, 0.22);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* botão */
+.action-btn {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.13);
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+
+.dashboard-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
