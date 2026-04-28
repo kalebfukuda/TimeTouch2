@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :gembas, only: [:new, :create]
   resources :companies, only: [:new, :create]
   resources :profiles, only: [:new, :create, :index, :update, :edit]
+  resources :managements, only: [:index]
   resources :schedules, only: [:new, :create, :index] do
     collection do
       get :by_date
@@ -27,6 +28,10 @@ post "data_import/gembas",     to: "data_import#gembas"
 get "data_export", to: "data_export#index"
 get "data_export/example_export", to: "data_export#example_export", as: :example_export
 post "data_export/month_export", to: "data_export#month_export", as: :month_export
+
+# dashboard
+get 'managements/stats', to: 'managements#stats'
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
