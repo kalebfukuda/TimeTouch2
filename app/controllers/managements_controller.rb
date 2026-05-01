@@ -19,8 +19,6 @@ class ManagementsController < ApplicationController
         .where(date: start_date..end_date)
         .includes(:gemba, :profile)
 
-      @total_days = @registers.sum(:extra_hour)
-
       @total_earned = @registers.sum do |r|
         r.salary + (r.extra_hour || 0) * (r.salary / 8.0 * 1.25) + (r.extra_cost || 0)
       end
@@ -33,13 +31,16 @@ class ManagementsController < ApplicationController
         .where(profiles: { company_id: company.id })
         .includes(:gemba, :profile)
 
-      @total_days = @registers.sum(:extra_hour)
       @total_earned = @registers.sum do |r|
         r.salary + (r.extra_hour || 0) * (r.salary / 8.0 * 1.25) + (r.extra_cost || 0)
       end
       @total_active_employees = @profiles.count { |p| p.active }
       @name = company.name
     end
+
+
+      @total_extra_hours = @registers.sum(:extra_hour)
+      @total_days = @registers.count
 
     if turbo_frame_request?
       render partial: "managements/details"
