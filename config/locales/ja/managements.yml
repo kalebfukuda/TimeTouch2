@@ -1,0 +1,11 @@
+ja:
+  managements:
+    title: "管理"
+    labels:
+      extraHours: "残業時間"
+      TotalDebit: "合計借方"
+      ActiveEmployees: "アクティブな従業員"
+      totalEarned: "合計獲得額"
+      status: "ステータス"
+      extraCost: "追加費用"
+      workedDays: "勤務日数"

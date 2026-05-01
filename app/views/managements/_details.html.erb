@@ -7,7 +7,7 @@
           <div class="icon-box">
             <i class="fa-solid fa-clock"></i>
           </div>
-          <div class="label">Horas Extra</div>
+          <div class="label"><%= t("managements.labels.extraHours") %></div>
         </div>
         <div class="value"><%= @total_extra_hours %>h</div>
         <div class="trend">+ 12% vs mês anterior</div>
@@ -21,7 +21,7 @@
           <div class="icon-box">
             <i class="fa-solid fa-yen-sign"></i>
           </div>
-          <div class="label">Total a Pagar</div>
+          <div class="label"><%= t("managements.labels.totalEarned") %></div>
         </div>
         <div class="value">¥<%= number_with_delimiter(@total_earned) %></div>
         <div class="trend">+ 12% vs mês anterior</div>
@@ -36,7 +36,7 @@
             <div class="icon-box">
               <i class="fa-solid fa-calendar-days"></i>
             </div>
-            <div class="label">Dias trabalhados</div>
+            <div class="label"><%= t("managements.labels.workedDays") %></div>
           </div>
           <div class="value"><%= @total_days %></div>
           <div class="trend">+ 5% vs mês anterior</div>
@@ -52,7 +52,7 @@
           <div class="icon-box">
             <i class="fa-solid fa-helmet-safety"></i>
           </div>
-          <div class="label">Funcionários Ativos</div>
+          <div class="label"><%= t("managements.labels.ActiveEmployees") %></div>
         </div>
         <div class="value"><%= @total_active_employees %></div>
         <div class="trend">+ 5% vs mês anterior</div>
@@ -69,11 +69,11 @@
         <table class="table align-middle mb-0 custom-table table-borderless">
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>Data</th>
-              <th>Gemba</th>
-              <th>Hora Extra</th>
-              <th>Gasto Extra</th>
+              <th><%= t("common.name") %></th>
+              <th><%= t("common.date") %></th>
+              <th><%= t("common.gemba") %></th>
+              <th><%= t("managements.labels.extraHours") %></th>
+              <th><%= t("managements.labels.extraCost") %></th>
             </tr>
           </thead>
           <tbody>
