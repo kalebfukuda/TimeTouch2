@@ -1,7 +1,11 @@
 class ManagementsController < ApplicationController
   def index
-    start_date = Date.current.beginning_of_month
-    end_date = Date.current.end_of_month
+    @month = (params[:month] || Date.today.month).to_i
+    @year  = (params[:year]  || Date.today.year).to_i
+
+    start_date = Date.new(@year, @month, 1)
+    end_date   = start_date.end_of_month
+
     company = current_user.profiles.first.company
     @name = company.name
     @profiles = company.profiles
@@ -20,8 +24,11 @@ class ManagementsController < ApplicationController
   end
 
   def stats
-    start_date = Date.current.beginning_of_month
-    end_date   = Date.current.end_of_month
+    @month = (params[:month] || Date.today.month).to_i
+    @year  = (params[:year]  || Date.today.year).to_i
+
+    start_date = Date.new(@year, @month, 1)
+    end_date   = start_date.end_of_month
     company    = current_user.profiles.first.company
 
     profiles = company.profiles.with_register_stats(start_date, end_date)

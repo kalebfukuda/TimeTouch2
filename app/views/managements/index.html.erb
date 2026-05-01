@@ -1,5 +1,26 @@
 <div class="container-fluid mt-4 d-flex flex-column">
-  <h1 class="mb-3"><%= @name %></h1>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="mb-3"><%= @name %></h1>
+    <div class="d-flex justify-content-end mb-3">
+      <%= form_with url: request.path, method: :get, local: true, class: "d-flex gap-2 form-select" do %>
+        <%= select_tag :month,
+      options_for_select(
+        Date::MONTHNAMES.compact.each_with_index.map { |m, i| [m, i + 1] },
+        params[:month] || Date.today.month
+      ),
+      class: "form-select rounded-3"
+    %>
+        <%= select_tag :year,
+      options_for_select(
+        (Date.today.year - 1..Date.today.year).to_a.reverse,
+        params[:year] || Date.today.year
+      ),
+      class: "form-select rounded-3"
+    %>
+        <%= submit_tag "Filtrar", class: "btn btn-filter rounded-3 px-3" %>
+      <% end %>
+    </div>
+  </div>
   <div class="row flex-fill" style="min-height: 0;">
     <!-- ESQUERDA -->
     <div class="col-12 col-md-6 mb-3 mb-md-0 d-flex flex-column">
