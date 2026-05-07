@@ -13,100 +13,235 @@
               <button type="button" class="btn btn-cta btn-demo">Ver demonstração</button>
             </div>
           </div>
-          <div class="col-12 col-md-7">
-            Lado direito
+          <div id="browser-container" class="col-12 col-md-7">
+            <div class="browser-wrapper">
+              <div class="browser-topbar">
+                <div class="browser-dots">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <div class="browser-url">
+                  <span>www.timetouch.com/</span>
+                </div>
+              </div>
+              <div class="container-fluid-home d-flex flex-column">
+                <div class="row flex-fill" style="min-height: 0;">
+                  <div class="col-12 d-flex flex-column">
+                    <div class="row mb-3 flex-shrink-0">
+                      <div id="cardExtraHours" class="col-12 col-md-4 d-flex mb-3 mb-md-0">
+                        <div class="card flex-fill border-0 rounded-4 custom-card">
+                          <div class="card-body d-flex flex-column gap-2 p-2">
+                            <div class="d-flex align-items-center gap-2">
+                              <div class="icon-box">
+                                <i class="fa-solid fa-clock"></i>
+                              </div>
+                              <div class="label"><%= t("managements.labels.extraHours") %></div>
+                            </div>
+                            <div id="extra-hours-value" class="value">34h</div>
+                            <div class="trend">+ 12% vs mês anterior</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="cardTotalEarned" class="col-12 col-md-4 d-flex mb-3 mb-md-0">
+                        <div class="card flex-fill border-0 rounded-4 custom-card">
+                          <div class="card-body d-flex flex-column gap-2 p-2">
+                            <div class="d-flex align-items-center gap-2">
+                              <div class="icon-box">
+                                <i class="fa-solid fa-yen-sign"></i>
+                              </div>
+                              <div class="label"><%= t("managements.labels.totalEarned") %></div>
+                            </div>
+                            <div id="total-earned-value" class="value">¥1.669.967</div>
+                            <div class="trend">+ 33% vs mês anterior</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="cardActiveEmployees" class="col-12 col-md-4 d-flex mb-3 mb-md-0">
+                        <div class="card flex-fill border-0 rounded-4 custom-card">
+                          <div class="card-body d-flex flex-column gap-2 p-2">
+                            <div class="d-flex align-items-center gap-2">
+                              <div class="icon-box">
+                                <i class="fa-solid fa-helmet-safety"></i>
+                              </div>
+                              <div class="label"><%= t("managements.labels.ActiveEmployees") %></div>
+                            </div>
+                            <div id="active-employees-value" class="value">5</div>
+                            <div class="trend">+ 5% vs mês anterior</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="cardTable" class="flex-fill d-flex dashboard-scroll" style="min-height: 0;max-height: 350px;">
+                      <div class="col-12 mb-3 mb-md-0 d-flex flex-column">
+                        <div class="flex-fill d-flex " style="min-height: 0;">
+                          <div class="card flex-fill border-0 shadow-sm rounded-4" style="min-height: 0;">
+                            <div class="card-body p-0 d-flex flex-column" style="min-height: 0;">
+                              <div style="flex: 1; overflow-y: auto; min-height: 0;">
+                                <table class="table align-middle mb-0 custom-table table-borderless">
+                                  <thead>
+                                    <tr>
+                                      <th><%= t("common.name") %></th>
+                                      <th><%= t("managements.labels.workedDays") %></th>
+                                      <th><%= t("managements.labels.extraHours") %></th>
+                                      <th><%= t("managements.labels.totalEarned") %></th>
+                                      <th><%= t("managements.labels.status") %></th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr class="table-row">
+                                      <td class="fw-semibold">Yasunori Soga
+                                      </td>
+                                      <td>22</td>
+                                      <td>15h</td>
+                                      <td class="fw-semibold">¥389.500</td>
+                                      <td>
+                                        <span class="badge status-active">Ativo</span>
+                                      </td>
+                                    </tr>
+                                    <tr class="table-row">
+                                      <td class="fw-semibold">Miki Ando
+                                      </td>
+                                      <td>20</td>
+                                      <td>3h</td>
+                                      <td class="fw-semibold">¥367.968</td>
+                                      <td>
+                                        <span class="badge status-active">Ativo</span>
+                                      </td>
+                                    </tr>
+                                    <tr class="table-row">
+                                      <td class="fw-semibold">Setsuna Arima
+                                      </td>
+                                      <td>22</td>
+                                      <td>15h</td>
+                                      <td class="fw-semibold">¥365.156</td>
+                                      <td>
+                                        <span class="badge status-active">Ativo</span>
+                                      </td>
+                                    </tr>
+                                    <tr class="table-row">
+                                      <td class="fw-semibold">Takahide Endō
+                                      </td>
+                                      <td>20</td>
+                                      <td>0h</td>
+                                      <td class="fw-semibold">¥320.000</td>
+                                      <td>
+                                        <span class="badge status-active">Ativo</span>
+                                      </td>
+                                    </tr>
+                                    <tr class="table-row">
+                                      <td class="fw-semibold">Sunao Otavio
+                                      </td>
+                                      <td>15</td>
+                                      <td>1h</td>
+                                      <td class="fw-semibold">¥227.343</td>
+                                      <td>
+                                        <span class="badge status-active">Ativo</span>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <section id="section_1" class="home-section">
-    <div class="home-up d-flex">
+    </section>
+    <section id="section_1" class="home-section">
+      <div class="home-up d-flex">
+        <div class="container">
+          <span id="span_1" class="font-home" style="font-size:3rem;display:inline-block">Bater o ponto nunca foi tão fácil.</span>
+          <a class="btn btn-flat" href="#">Login</a>
+        </div>
+      </div>
+      <div id="svg_timetouch">
+      </div>
+    </section>
+    <section id="section_2" class="home-section">
+      <div class="home-up d-flex flex-column" style="padding: 80px 0">
+        <div class="container">
+          <span class="font-home" >Gerenciar o ponto de uma equipe multicultural pode ser um <strong>desafio</strong>.</span>
+          <br>
+        </div>
+      </div>
+      <div id="desafio_1" class="desafios">
+        <div class="desafio_l">
+          <span>Dificuldade de comunicação</span>
+        </div>
+      </div>
+      <br>
+      <div id="desafio_2" class="desafios">
+        <div class="desafio_r">
+          <span>Falta de clareza nos horários e registros</span>
+        </div>
+      </div>
+      <br>
+      <div id="desafio_3" class="desafios">
+        <div class="desafio_l">
+          <span>Processos manuais lentos e confusos</span>
+        </div>
+      </div>
+      <br>
+      <div id="desafio_result" class="desafio_result">
+        <span class="px-2">Atrapalham o gerenciamento e o dia a dia de sua equipe.</span>
+      </div>
+    </section>
+    <section id="section_3" class="home-section">
+      <div class="home-up d-flex">
+        <div class="container">
+          <h2 style="color:white;">Conheça o <span><strong>Timetouch</strong></span> — o ponto digital que fala a língua de todos.</h2>
+          <ul>
+            <li>Interface em vários idiomas</li>
+            <li>Registro rápido e seguro</li>
+            <li>Totalmente online (sem instalação complexa)</li>
+            <li>Relatórios automáticos de presença e horas trabalhadas</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section class="section" style="min-height: 100vh">Section 4</section>
+    <div style="background-color: white;color:black;padding:150px 0;">
       <div class="container">
-        <span id="span_1" class="font-home" style="font-size:3rem;display:inline-block">Bater o ponto nunca foi tão fácil.</span>
-        <a class="btn btn-flat" href="#">Login</a>
-      </div>
-    </div>
-    <div id="svg_timetouch">
-    </div>
-  </section>
-  <section id="section_2" class="home-section">
-    <div class="home-up d-flex flex-column" style="padding: 80px 0">
-      <div class="container">
-        <span class="font-home" >Gerenciar o ponto de uma equipe multicultural pode ser um <strong>desafio</strong>.</span>
-        <br>
-      </div>
-    </div>
-    <div id="desafio_1" class="desafios">
-      <div class="desafio_l">
-        <span>Dificuldade de comunicação</span>
-      </div>
-    </div>
-    <br>
-    <div id="desafio_2" class="desafios">
-      <div class="desafio_r">
-        <span>Falta de clareza nos horários e registros</span>
-      </div>
-    </div>
-    <br>
-    <div id="desafio_3" class="desafios">
-      <div class="desafio_l">
-        <span>Processos manuais lentos e confusos</span>
-      </div>
-    </div>
-    <br>
-    <div id="desafio_result" class="desafio_result">
-      <span class="px-2">Atrapalham o gerenciamento e o dia a dia de sua equipe.</span>
-    </div>
-  </section>
-  <section id="section_3" class="home-section">
-    <div class="home-up d-flex">
-      <div class="container">
-        <h2 style="color:white;">Conheça o <span><strong>Timetouch</strong></span> — o ponto digital que fala a língua de todos.</h2>
+        <h2>Mais autonomia para quem trabalha. Menos barreiras para quem contrata.</h2>
+        <br/>
+        <br/>
         <ul>
-          <li>Interface em vários idiomas</li>
-          <li>Registro rápido e seguro</li>
-          <li>Totalmente online (sem instalação complexa)</li>
-          <li>Relatórios automáticos de presença e horas trabalhadas</li>
+          <li>O app detecta idioma automaticamente</li>
+          <li>Interface visual clara, sem termos técnicos</li>
         </ul>
       </div>
     </div>
-  </section>
-  <section class="section" style="min-height: 100vh">Section 4</section>
-  <div style="background-color: white;color:black;padding:150px 0;">
-    <div class="container">
-      <h2>Mais autonomia para quem trabalha. Menos barreiras para quem contrata.</h2>
-      <br/>
-      <br/>
-      <ul>
-        <li>O app detecta idioma automaticamente</li>
-        <li>Interface visual clara, sem termos técnicos</li>
-      </ul>
+    <div style="background-color: $c-primary;color:white;padding:150px 0;">
+      <div class="container">
+        <h2>Mais controle. Menos complicação.</h2>
+        <br/>
+        <br/>
+        <ul>
+          <li>Acesso instantâneo aos registros de ponto</li>
+          <li>Alertas automáticos de atrasos e horas extras</li>
+          <li>Exportação de relatórios em segundos</li>
+        </ul>
+      </div>
+    </div>
+    <div style="background-color: white;color:black;padding:150px 0;">
+      <div class="container">
+        <h2>Menos burocracia, mais tempo para crescer.</h2>
+      </div>
+    </div>
+    <div style="background-color: $c-primary;color:white;padding:150px 0;">
+      <div class="container">
+        <h2>Transforme a forma como sua equipe marca o ponto.</h2>
+        <p>Um aplicativo online simples, rápido e pensado para equipes multiculturais.</p>
+        <br/>
+        <br/>
+      </div>
     </div>
   </div>
-  <div style="background-color: $c-primary;color:white;padding:150px 0;">
-    <div class="container">
-      <h2>Mais controle. Menos complicação.</h2>
-      <br/>
-      <br/>
-      <ul>
-        <li>Acesso instantâneo aos registros de ponto</li>
-        <li>Alertas automáticos de atrasos e horas extras</li>
-        <li>Exportação de relatórios em segundos</li>
-      </ul>
-    </div>
-  </div>
-  <div style="background-color: white;color:black;padding:150px 0;">
-    <div class="container">
-      <h2>Menos burocracia, mais tempo para crescer.</h2>
-    </div>
-  </div>
-  <div style="background-color: $c-primary;color:white;padding:150px 0;">
-    <div class="container">
-      <h2>Transforme a forma como sua equipe marca o ponto.</h2>
-      <p>Um aplicativo online simples, rápido e pensado para equipes multiculturais.</p>
-      <br/>
-      <br/>
-    </div>
-  </div>
-</div>
