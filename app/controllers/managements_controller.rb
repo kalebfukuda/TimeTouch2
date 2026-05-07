@@ -20,10 +20,19 @@ class ManagementsController < ApplicationController
         .includes(:gemba, :profile)
 
       @total_earned = @registers.sum do |r|
-        r.salary + (r.extra_hour || 0) * (r.salary / 8.0 * 1.25) + (r.extra_cost || 0)
+        r.salary + ((r.extra_hour || 0) * (r.salary / 8.0 * 1.25)) + (r.extra_cost || 0)
       end
       @name = @selected_profile.name
       @total_active_employees = 1
+      @total_worked_days = @registers.sum do |r|
+        r.salary
+      end
+      @total_extra_hours = @registers.sum do |r|
+        r.extra_hour * ((r.salary / 8.0) * 1.25)
+      end
+      @total_extra_cost = @registers.sum do |r|
+        r.extra_cost || 0
+      end
     else
       @registers = Register
         .where(date: start_date..end_date)
@@ -32,14 +41,12 @@ class ManagementsController < ApplicationController
         .includes(:gemba, :profile)
 
       @total_earned = @registers.sum do |r|
-        r.salary + (r.extra_hour || 0) * (r.salary / 8.0 * 1.25) + (r.extra_cost || 0)
+        r.salary + ((r.extra_hour || 0) * (r.salary / 8.0 * 1.25)) + (r.extra_cost || 0)
       end
       @total_active_employees = @profiles.count { |p| p.active }
       @name = company.name
     end
-
-
-      @total_extra_hours = @registers.sum(:extra_hour)
+      @total_extra_hour = @registers.sum(:extra_hour)
       @total_days = @registers.count
 
     if turbo_frame_request?
