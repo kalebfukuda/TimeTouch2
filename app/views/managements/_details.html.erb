@@ -1,66 +1,93 @@
   <!-- TOPO (3 CARDS) -->
 <div class="row mb-3 flex-shrink-0">
-  <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
-    <div class="card flex-fill border-0 rounded-4 custom-card">
-      <div class="card-body d-flex flex-column gap-2 p-2">
-        <div class="d-flex align-items-center gap-2">
-          <div class="icon-box">
-            <i class="fa-solid fa-clock"></i>
-          </div>
-          <div class="label"><%= t("managements.labels.extraHours") %></div>
-        </div>
-        <div class="value"><%= @total_extra_hours %>h</div>
-        <div class="trend">+ 12% vs mês anterior</div>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
-    <div class="card flex-fill border-0 rounded-4 custom-card">
-      <div class="card-body d-flex flex-column gap-2 p-2">
-        <div class="d-flex align-items-center gap-2">
-          <div class="icon-box">
-            <i class="fa-solid fa-yen-sign"></i>
-          </div>
-          <div class="label"><%= t("managements.labels.totalEarned") %></div>
-        </div>
-        <div class="value">¥<%= number_with_delimiter(@total_earned) %></div>
-        <div class="trend">+ 12% vs mês anterior</div>
-      </div>
-    </div>
-  </div>
   <% if @selected_profile %>
     <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
       <div class="card flex-fill border-0 rounded-4 custom-card">
         <div class="card-body d-flex flex-column gap-2 p-2">
           <div class="d-flex align-items-center gap-2">
             <div class="icon-box">
-              <i class="fa-solid fa-calendar-days"></i>
+              <i class="fa-solid fa-yen-sign"></i>
             </div>
-            <div class="label"><%= t("managements.labels.workedDays") %></div>
+            <div class="label">Valor Dias Trabalhados</div>
           </div>
-          <div class="value"><%= @total_days %></div>
+          <div class="value">¥<%= number_with_delimiter(@total_worked_days) %></div>
           <div class="trend">+ 5% vs mês anterior</div>
         </div>
       </div>
     </div>
-  </div>
-<% else %>
-  <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
-    <div class="card flex-fill border-0 rounded-4 custom-card">
-      <div class="card-body d-flex flex-column gap-2 p-2">
-        <div class="d-flex align-items-center gap-2">
-          <div class="icon-box">
-            <i class="fa-solid fa-helmet-safety"></i>
+    <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
+      <div class="card flex-fill border-0 rounded-4 custom-card">
+        <div class="card-body d-flex flex-column gap-2 p-2">
+          <div class="d-flex align-items-center gap-2">
+            <div class="icon-box">
+              <i class="fa-solid fa-yen-sign"></i>
+            </div>
+            <div class="label">Hora Extra</div>
           </div>
-          <div class="label"><%= t("managements.labels.ActiveEmployees") %></div>
+          <div class="value">¥<%= number_with_delimiter(@total_extra_hours) %></div>
+          <div class="trend">+ 5% vs mês anterior</div>
         </div>
-        <div class="value"><%= @total_active_employees %></div>
-        <div class="trend">+ 5% vs mês anterior</div>
       </div>
     </div>
-  </div>
+    <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
+      <div class="card flex-fill border-0 rounded-4 custom-card">
+        <div class="card-body d-flex flex-column gap-2 p-2">
+          <div class="d-flex align-items-center gap-2">
+            <div class="icon-box">
+              <i class="fa-solid fa-yen-sign"></i>
+            </div>
+            <div class="label">Custo Extra</div>
+          </div>
+          <div class="value">¥<%= number_with_delimiter(@total_extra_cost) %></div>
+          <div class="trend">+ 5% vs mês anterior</div>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
+      <div class="card flex-fill border-0 rounded-4 custom-card">
+        <div class="card-body d-flex flex-column gap-2 p-2">
+          <div class="d-flex align-items-center gap-2">
+            <div class="icon-box">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="label"><%= t("managements.labels.extraHours") %></div>
+          </div>
+          <div class="value"><%= @total_extra_hour %>h</div>
+          <div class="trend">+ 12% vs mês anterior</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
+      <div class="card flex-fill border-0 rounded-4 custom-card">
+        <div class="card-body d-flex flex-column gap-2 p-2">
+          <div class="d-flex align-items-center gap-2">
+            <div class="icon-box">
+              <i class="fa-solid fa-yen-sign"></i>
+            </div>
+            <div class="label"><%= t("managements.labels.totalEarned") %></div>
+          </div>
+          <div class="value">¥<%= number_with_delimiter(@total_earned) %></div>
+          <div class="trend">+ 12% vs mês anterior</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
+      <div class="card flex-fill border-0 rounded-4 custom-card">
+        <div class="card-body d-flex flex-column gap-2 p-2">
+          <div class="d-flex align-items-center gap-2">
+            <div class="icon-box">
+              <i class="fa-solid fa-helmet-safety"></i>
+            </div>
+            <div class="label"><%= t("managements.labels.ActiveEmployees") %></div>
+          </div>
+          <div class="value"><%= @total_active_employees %></div>
+          <div class="trend">+ 5% vs mês anterior</div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
-<% end %>
 <!-- CARD GRANDE COM TABELA -->
 <div class="flex-fill d-flex dashboard-scroll" style="min-height: 0;max-height: 350px;">
   <div class="card flex-fill border-0 shadow-sm rounded-4" style="min-height: 0;">
