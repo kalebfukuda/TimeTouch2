@@ -1,0 +1,11 @@
+en:
+  managements:
+    title: "Management"
+    labels:
+      extraHours: "Extra Hours"
+      TotalDebit: "Total Debit"
+      ActiveEmployees: "Active Employees"
+      totalEarned: "Total Earned"
+      status: "Status"
+      extraCost: "Extra Cost"
+      workedDays: "Worked Days"

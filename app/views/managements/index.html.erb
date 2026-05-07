@@ -1,5 +1,34 @@
 <div class="container-fluid mt-4 d-flex flex-column">
-  <h1 class="mb-3"><%= @name %></h1>
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3 gap-2">
+    <div class="d-flex align-items-center gap-2">
+      <% if @selected_profile %>
+        <%= link_to managements_path(month: @month, year: @year),
+        class: "btn btn-sm action-btn" do %>
+          <i class="fa-solid fa-arrow-left"></i>
+        <% end %>
+      <% end %>
+      <h1 class="mb-0"><%= @name %></h1>
+    </div>
+    <div class="d-flex justify-content-end mb-3">
+      <%= form_with url: request.path, method: :get, local: true, class: "d-flex gap-2 form-select-dashboard" do %>
+        <%= select_tag :month,
+          options_for_select(
+            (1..12).map { |m| [I18n.t("date.month_names")[m], m] },
+            params[:month] || Date.today.month
+          ),
+          class: "form-select-dashboard rounded-3"
+        %>
+        <%= select_tag :year,
+      options_for_select(
+        (Date.today.year - 1..Date.today.year).to_a.reverse,
+        params[:year] || Date.today.year
+      ),
+      class: "form-select-dashboard rounded-3"
+    %>
+        <%= submit_tag I18n.t("buttons.filter"), class: "btn btn-filter rounded-3 px-3" %>
+      <% end %>
+    </div>
+  </div>
   <div class="row flex-fill" style="min-height: 0;">
     <!-- ESQUERDA -->
     <div class="col-12 col-md-6 mb-3 mb-md-0 d-flex flex-column">
@@ -10,17 +39,22 @@
               <table class="table align-middle mb-0 custom-table table-borderless">
                 <thead>
                   <tr>
-                    <th>Nome</th>
-                    <th>Dias</th>
-                    <th>Hora Extra</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th class="text-end">Ações</th>
+                    <th><%= t("common.name") %></th>
+                    <th><%= t("managements.labels.workedDays") %></th>
+                    <th><%= t("managements.labels.extraHours") %></th>
+                    <th><%= t("managements.labels.totalEarned") %></th>
+                    <th><%= t("managements.labels.status") %></th>
                   </tr>
                 </thead>
                 <tbody>
                   <% @profiles.each do |profile| %>
-                    <tr>
+                    <tr data-controller="managements"
+                      data-action="click->managements#updateDetails"
+                      data-url="<%= managements_path(
+                        profile_id: profile.id,
+                        month: params[:month],
+                        year: params[:year]
+                      ) %>">
                       <td class="fw-semibold"><%= profile.name %></td>
                       <td><%= profile.total_days %></td>
                       <td><%= profile.total_extra_hours %>h</td>
@@ -30,11 +64,6 @@
                           <span class="badge status-active">Ativo</span>
                         <% else %>
                           <span class="badge status-inactive">Inativo</span>
-                        <% end %>
-                      </td>
-                      <td class="text-end">
-                        <%= link_to edit_profile_path(profile), class: "btn btn-sm action-btn" do %>
-                          <i class="fa-solid fa-pen"></i>
                         <% end %>
                       </td>
                     </tr>
@@ -47,83 +76,14 @@
       </div>
     </div>
     <!-- DIREITA -->
-    <div class="col-12 col-md-6 d-flex flex-column" style="min-height: 0;">
-      <!-- TOPO (3 CARDS) -->
-      <div class="row mb-3 flex-shrink-0">
-        <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
-          <div class="card flex-fill border-0 rounded-4 custom-card">
-            <div class="card-body d-flex flex-column gap-2 p-2">
-              <div class="d-flex align-items-center gap-2">
-                <div class="icon-box">
-                  <i class="fa-solid fa-clock"></i>
-                </div>
-                <div class="label">Horas trabalhadas</div>
-              </div>
-              <div class="value"><%= @total_days %>h</div>
-              <div class="trend">+ 12% vs mês anterior</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
-          <div class="card flex-fill border-0 rounded-4 custom-card">
-            <div class="card-body d-flex flex-column gap-2 p-2">
-              <div class="d-flex align-items-center gap-2">
-                <div class="icon-box">
-                  <i class="fa-solid fa-yen-sign"></i>
-                </div>
-                <div class="label">Total a Pagar</div>
-              </div>
-              <div class="value">¥<%= number_with_delimiter(@total_earned) %></div>
-              <div class="trend">+ 12% vs mês anterior</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-4 d-flex mb-3 mb-md-0">
-          <div class="card flex-fill border-0 rounded-4 custom-card">
-            <div class="card-body d-flex flex-column gap-2 p-2">
-              <div class="d-flex align-items-center gap-2">
-                <div class="icon-box">
-                  <i class="fa-solid fa-helmet-safety"></i>
-                </div>
-                <div class="label">Funcionários Ativos</div>
-              </div>
-              <div class="value"><%= @total_active_employees %></div>
-              <div class="trend">+ 5% vs mês anterior</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- CARD GRANDE COM TABELA -->
-      <div class="flex-fill d-flex dashboard-scroll" style="min-height: 0;max-height: 350px;">
-        <div class="card flex-fill border-0 shadow-sm rounded-4" style="min-height: 0;">
-          <div class="card-body p-0 d-flex flex-column" style="min-height: 0;">
-            <div style="flex: 1; overflow-y: auto; min-height: 0;">
-              <table class="table align-middle mb-0 custom-table table-borderless">
-                <thead>
-                  <tr>
-                    <th>Nome</th>
-                    <th>Data</th>
-                    <th>Gemba</th>
-                    <th>Hora Extra</th>
-                    <th>Gasto Extra</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @registers.each do |register| %>
-                    <tr>
-                      <td class="fw-semibold"><%= register.profile_name %></td>
-                      <td><%= register.created_at.strftime("%d/%m/%Y %H:%M") %></td>
-                      <td><%= register.gemba.name %></td>
-                      <td><%= register.extra_hour %>h</td>
-                      <td class="fw-semibold">¥<%= number_with_delimiter(register.extra_cost) %></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="col-12 col-md-6 d-flex flex-column">
+      <turbo-frame id="dashboard_details">
+        <%= render "managements/details",
+        registers: @registers,
+        total_days: @total_days,
+        total_earned: @total_earned,
+        total_active_employees: @total_active_employees %>
+      </turbo-frame>
     </div>
   </div>
 </div>

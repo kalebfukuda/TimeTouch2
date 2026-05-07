@@ -1,0 +1,11 @@
+pt:
+  managements:
+    title: "Gerenciamento"
+    labels:
+      extraHours: "Horas Extras"
+      TotalDebit: "Débito Total"
+      ActiveEmployees: "Funcionários Ativos"
+      totalEarned: "Valor Total"
+      status: "Status"
+      extraCost: "Custo Extra"
+      workedDays: "Dias Trabalhados"

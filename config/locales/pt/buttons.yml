@@ -8,3 +8,4 @@ pt:
     export_data: "Exportar Dados"
     import_data: "Importar Dados"
     update: "Atualizar"
+    filter: "Filtrar"

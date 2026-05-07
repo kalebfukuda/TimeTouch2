@@ -23,6 +23,7 @@ class Profile < ApplicationRecord
         COALESCE(reg.total_extra_cost, 0) AS total_extra_cost,
         COALESCE(reg.total_earned, 0) AS total_earned
       ")
+      .order(active: :desc, name: :asc)
   }
   before_update :handle_salary_change, if: :will_save_change_to_salary?
 
