@@ -149,34 +149,23 @@ body {
 .browser-wrapper {
   background: #0f172a;
   border-radius: 24px;
-
   overflow: hidden;
-
   border: 1px solid rgba(255,255,255,0.08);
-
   box-shadow:
     0 20px 80px rgba(0,0,0,0.45),
     0 0 0 1px rgba(255,255,255,0.03);
-
   backdrop-filter: blur(10px);
-
   max-width: 1000px;
-
   margin: 0 auto;
 }
 
 .browser-topbar {
   height: 56px;
-
   background: rgba(255,255,255,0.03);
-
   border-bottom: 1px solid rgba(255,255,255,0.06);
-
   display: flex;
   align-items: center;
-
   padding: 0 20px;
-
   gap: 16px;
 }
 
@@ -188,7 +177,6 @@ body {
 .dot {
   width: 12px;
   height: 12px;
-
   border-radius: 999px;
 }
 
@@ -228,4 +216,41 @@ body {
 
 #0E131F {
   background-color: #0E131F;
+}
+
+.label-home {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 2px;
+}
+
+.value-home {
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.trend-home{
+  font-size: 0.45rem;
+  color: #5dba80;
+  margin-top: 2px;
+  text-align: center;
+}
+
+.table-home thead tr th {
+  font-size: 0.45rem;
+  padding: 5px;
+}
+
+.table-home tbody tr td {
+  font-size: 0.45rem;
+  padding: 5px;
+}
+
+.card-home {
+  background-color: $c-dark-gray;
+  border-radius: 16px;
+  width: 100%;
+  padding:8px;
 }

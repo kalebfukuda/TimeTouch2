@@ -76,9 +76,19 @@ export default class extends Controller {
     .from("#browser-container", {
       opacity: 0, y: 80
     }, "start+=0.6")
-    .from("#cardExtraHours", {
+    .from("#cardTable", {
       opacity: 0, y: 80
     }, "start+=0.8")
+    .from(".table-row", {
+      opacity: 0,
+      x: 100,
+      duration: 0.4,
+      stagger: 0.08,
+      ease: "power2.out"
+    }, "start+=0.8")
+    .from("#cardExtraHours", {
+      opacity: 0, y: 80
+    }, "start+=1.0")
     .to(counterExtraHours, {
       value: 34,
       duration: 1,
@@ -87,22 +97,22 @@ export default class extends Controller {
         document.querySelector("#extra-hours-value").textContent =
           Math.floor(counterExtraHours.value) + "h";
       }
-    }, "start+=0.8")
+    }, "start+=1.0")
     .from("#cardTotalEarned", {
       opacity: 0, y: 80
-    }, "start+=1.0")
+    }, "start+=1.2")
     .to(counterTotalEarned, {
       value: 1669967,
-      duration: 1.3,
+      duration: 0.8,
       ease: "power2.out",
       onUpdate: () => {
         document.querySelector("#total-earned-value").textContent =
           "¥" + Math.round(counterTotalEarned.value).toLocaleString("de-DE");
       }
-    }, "start+=1.0")
+    }, "start+=1.2")
     .from("#cardActiveEmployees", {
       opacity: 0, y: 80
-    }, "start+=1.2")
+    }, "start+=1.4")
     .to(counterActiveEmployees, {
       value: 5,
       duration: 1,
@@ -111,17 +121,18 @@ export default class extends Controller {
         document.querySelector("#active-employees-value").textContent =
           Math.floor(counterActiveEmployees.value);
       }
-    }, "start+=1.2")
-    .from("#cardTable", {
-      opacity: 0, y: 80
     }, "start+=1.4")
-    .from(".table-row", {
+    .from("#table-registers", {
+      opacity: 0, y: 100
+    }, "start+=1.5")
+    .from(".table-row-register", {
       opacity: 0,
       x: 100,
       duration: 0.4,
       stagger: 0.08,
       ease: "power2.out"
-    }, "start+=1.4");
+    }, "start+=1.5");
+
 
 
 
