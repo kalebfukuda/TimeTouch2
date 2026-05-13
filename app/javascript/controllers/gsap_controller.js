@@ -49,6 +49,13 @@ export default class extends Controller {
     gsap.set("#svg_timetouch svg #Loading", { scaleX: 0, transformOrigin: "0 50%" });
     gsap.set("#svg_timetouch svg #popup", {opacity: 0, transformOrigin: "0 50%"});
     const tlHero = gsap.timeline();
+    const tlProblems = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#problems",
+        start: "top 40%"
+      }
+    });
+
     const counterExtraHours = {
       value: 0
     };
@@ -134,16 +141,51 @@ export default class extends Controller {
     }, "start+=1.8")
     .from("#table-registers", {
       opacity: 0, y: 100
-    }, "start+=1.9")
+    }, "start+=1.8")
     .from(".table-row-register", {
       opacity: 0,
       x: 100,
       duration: 0.4,
       stagger: 0.08,
       ease: "power2.out"
-    }, "start+=1.9");
+    }, "start+=1.8");
 
-
+    //tl problems
+    tlProblems
+  .from("#problems-headline", {
+    opacity: 0,
+    y: 60,
+    duration: 0.8,
+    ease: "power3.out"
+  }, "start")
+  .fromTo(".problem-card",
+    {
+      opacity: 0,
+      y: 60,
+      scale: 0.88,
+    },
+    {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.7,
+      stagger: {
+        amount: 0.6,        // tempo total distribuído entre os cards
+        from: "start",
+        onStart: function() {
+          // alterna rotação por índice: par vai de -3, ímpar de +3
+          const el = this.targets()[0];
+          const idx = [...document.querySelectorAll(".problem-card")].indexOf(el);
+          gsap.from(el, {
+            rotation: idx % 2 === 0 ? -3 : 3,
+            duration: 0.7,
+            ease: "back.out(1.7)"
+          });
+        }
+      },
+      ease: "back.out(1.7)"
+    },
+  "start+=0.3");
 
 
     //Section_3
