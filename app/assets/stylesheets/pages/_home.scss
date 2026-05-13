@@ -145,3 +145,112 @@ body {
   opacity: 0;
   z-index: 10;
 }
+
+.browser-wrapper {
+  background: #0f172a;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 20px 80px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,255,255,0.03);
+  backdrop-filter: blur(10px);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.browser-topbar {
+  height: 56px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 16px;
+}
+
+.browser-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+}
+
+.red {
+  background: #ff5f57;
+}
+
+.yellow {
+  background: #febc2e;
+}
+
+.green {
+  background: #28c840;
+}
+
+.browser-url {
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.5);
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  flex: 1;
+  max-width: 320px;
+}
+
+.container-fluid-home {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(14, 19, 31, 1) 0%,
+      rgb(4, 6, 10) 100%
+    );
+
+  padding: 24px;
+}
+
+
+#0E131F {
+  background-color: #0E131F;
+}
+
+.label-home {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 2px;
+}
+
+.value-home {
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.trend-home{
+  font-size: 0.5rem;
+  color: #5dba80;
+  margin-top: 2px;
+  text-align: center;
+}
+
+.table-home thead tr th {
+  font-size: 0.5rem;
+  padding: 5px;
+}
+
+.table-home tbody tr td {
+  font-size: 0.5rem;
+  padding: 5px;
+}
+
+.card-home {
+  background-color: $c-dark-gray;
+  border-radius: 16px;
+  width: 100%;
+  padding:8px;
+}
