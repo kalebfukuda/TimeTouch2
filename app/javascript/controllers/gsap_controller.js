@@ -152,12 +152,19 @@ export default class extends Controller {
 
     //tl problems
     tlProblems
-  .from("#problems-headline", {
+  .from("#problems-title", {
     opacity: 0,
     y: 60,
     duration: 0.8,
     ease: "power3.out"
   }, "start")
+  .from(".problems-title", {
+    opacity: 0,
+    y:100,
+    duration: 0.4,
+    stagger: 0.1,
+    ease: "power2.out"
+  }, "start+=0.4")
   .fromTo(".problem-card",
     {
       opacity: 0,
