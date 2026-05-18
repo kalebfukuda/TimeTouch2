@@ -55,6 +55,12 @@ export default class extends Controller {
         start: "top 40%"
       }
     });
+    const tlSolution = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#solution",
+        start: "top 40%"
+      }
+    });
 
     const counterExtraHours = {
       value: 0
