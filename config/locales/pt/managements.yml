@@ -9,3 +9,4 @@ pt:
       status: "Status"
       extraCost: "Custo Extra"
       workedDays: "Dias Trabalhados"
+      valueWorkedDays: "Valor dos Dias Trabalhados"

@@ -9,3 +9,4 @@ ja:
       status: "ステータス"
       extraCost: "追加費用"
       workedDays: "勤務日数"
+      valueWorkedDays: "勤務日数の価値"

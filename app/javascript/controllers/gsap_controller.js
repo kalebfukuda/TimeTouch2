@@ -55,6 +55,12 @@ export default class extends Controller {
         start: "top 40%"
       }
     });
+    const tlSolution = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#solution",
+        start: "top 40%"
+      }
+    });
 
     const counterExtraHours = {
       value: 0
@@ -65,6 +71,40 @@ export default class extends Controller {
     const counterActiveEmployees = {
       value: 0
     };
+    const counterWorkedDaysSolution = {
+      value: 330000
+    };
+    const counterExtraHoursSolution = {
+      value: 35145
+    }
+    const counterExtraCostSolution = {
+      value: 24640
+    }
+    const counterSolutionWorkedDays = {
+      value: 22
+    }
+    const counterSolutionExtraHours = {
+      value: 15
+    }
+    const counterTotalEarnedSolution = {
+      value: 382765
+    }
+
+    //Circle check
+    const checkBorder = document.getElementById("border");
+    const length = checkBorder.getTotalLength();
+
+    checkBorder.style.strokeDasharray = length;
+    checkBorder.style.strokeDashoffset = length;
+
+    const row = document.createElement("tr")
+      row.innerHTML = `
+        <td class="fw-semibold">Yasunori Soga</td>
+        <td>23/01/2026 20:41</td>
+        <td>Mansion - Tokyo</td>
+        <td>1.0h</td>
+        <td class="fw-semibold">¥1.120</td>
+      `
 
     //Section_hero
     tlHero.from("#headline",{
@@ -194,19 +234,125 @@ export default class extends Controller {
     },
   "start+=0.3");
 
+  //Solution
+  tlSolution
+    .from("#browser-container-solution", {
+      opacity: 0,
+      y: 60,
+      scale: 0.88,
+      duration: 0.8,
+      ease: "power3.out"
+    }, "start")
+    .from("#svg_timetouch svg",
+      { opacity: 0, scale: 0.88, duration: 0.8, ease: "power2.out" }
+      , ">"
+    )
+    .fromTo("#svg_timetouch svg #clicker",
+      { opacity: 0 },
+      { opacity:1, ease: "power2.out", duration: 0.4},
+      ">")
+    .to("#svg_timetouch svg #Loading", {
+        scaleX: 1,
+        duration: 0.4,
+        ease: "power5.out",
+      }, ">")
+    .fromTo(["#svg_timetouch svg #popup", "#svg_timetouch svg #background"], {
+        opacity: 0
+      } ,
+      {
+        opacity: 1,
+        ease: "power2.out",
+        duration: 0.8,
+      }, ">")
+    .to(checkBorder, {
+        strokeDashoffset: 0,
+        stroke: "#B4DFDD",
+        duration: 0.4,
+        ease: "power2.out"
+      }, ">")
+    .add(() => {
+     const tbody = document.querySelector("#table-body-register-solution")
+      // estado inicial
+      gsap.set(row, {
+        height: 0,
+        opacity: 0
+      })
 
-    //Section_3
-    gsap.set(["#section_3"],
-      { opacity: 0}
-    );
+      gsap.set(row.children, {
+        opacity: 0,
+        y: -20
+      })
 
-
-    //Circle check
-    const checkBorder = document.getElementById("border");
-    const length = checkBorder.getTotalLength();
-
-    checkBorder.style.strokeDasharray = length;
-    checkBorder.style.strokeDashoffset = length;
+      tbody.prepend(row)
+    }, ">")
+    .add("rowInserted")
+    .to(row, {
+      height: "auto",
+      opacity: 1,
+      duration: 0.35,
+      ease: "power2.out"
+    }, "rowInserted")
+    .to(row.children, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.04,
+      duration: 0.4,
+      ease: "back.out(1.7)"
+    }, "rowInserted+=0.1")
+    .to(counterWorkedDaysSolution, {
+      value: 345000,
+      duration: 0.4,
+      ease: "power2.out",
+      onUpdate: () => {
+        document.querySelector("#worked-days-value-solution").textContent =
+          "¥" + Math.round(counterWorkedDaysSolution.value).toLocaleString("de-DE");
+      }
+    }, "rowInserted+=0.1")
+    .to(counterExtraHoursSolution, {
+      value: 37488,
+      duration: 0.4,
+      ease: "power2.out",
+      onUpdate: () => {
+        document.querySelector("#extra-hours-value-solution").textContent =
+          "¥" + Math.round(counterExtraHoursSolution.value).toLocaleString("de-DE");
+      }
+    }, "rowInserted+=0.1")
+    .to(counterExtraCostSolution, {
+      value: 25760,
+      duration: 0.4,
+      ease: "power2.out",
+      onUpdate: () => {
+        document.querySelector("#extra-cost-value-solution").textContent =
+          "¥" + Math.round(counterExtraCostSolution.value).toLocaleString("de-DE");
+      }
+    }, "rowInserted+=0.1")
+    .to(counterSolutionWorkedDays, {
+      value: 23,
+      duration: 0.4,
+      ease: "power2.out",
+      onUpdate: () => {
+        document.querySelector("#solution-worked-days").textContent =
+          Math.round(counterSolutionWorkedDays.value);
+      }
+    }, "rowInserted+=0.1")
+    .to(counterSolutionExtraHours, {
+      value: 16,
+      duration: 0.4,
+      ease: "power2.out",
+      onUpdate: () => {
+        document.querySelector("#solution-extra-hours").textContent =
+          Math.round(counterSolutionExtraHours.value) + "h";
+      }
+    }, "rowInserted+=0.1")
+    .to(counterTotalEarnedSolution, {
+      value: 408248,
+      duration: 0.4,
+      ease: "power2.out",
+      onUpdate: () => {
+        document.querySelector("#solution-total-earned").textContent =
+          "¥" + Math.round(counterTotalEarnedSolution.value).toLocaleString("de-DE");
+      }
+    }, "rowInserted+=0.1");
 
     // Animate text
     gsap.from("#span_1", {
@@ -225,80 +371,80 @@ export default class extends Controller {
       ease: "power2.out",
     });
 
-    let runAnimation = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#section_1",
-        start: "top top",
-        end: "bottom top",
-        scrub: 2.5,
-        markers: false,
-        pin: true,
-        pinSpacing: true,
-        onLeave: () => {
-          gsap.to(window, {
-            duration: 1.0,
-            scrollTo: "#section_2",
-            ease: "power2.inOut"
-          })
-        }
-      }
-    });
+    // let runAnimation = gsap.timeline({
+    //   scrollTrigger: {
+    //     trigger: "#section_1",
+    //     start: "top top",
+    //     end: "bottom top",
+    //     scrub: 2.5,
+    //     markers: false,
+    //     pin: true,
+    //     pinSpacing: true,
+    //     onLeave: () => {
+    //       gsap.to(window, {
+    //         duration: 1.0,
+    //         scrollTo: "#section_2",
+    //         ease: "power2.inOut"
+    //       })
+    //     }
+    //   }
+    // });
 
 
-    runAnimation
-      .fromTo("#svg_timetouch svg",
-        { scale: 1 },
-        { opacity: 1, y: -350, scale: 1.2, duration: 5 }
-      )
-       .to("#span_1", {
-          opacity: 0,
-          y: -20,
-          duration: 3,
-          ease: "power2.out"
-        },
-        "<1")
-      .fromTo("#svg_timetouch svg #clicker",
-        { opacity: 0 },
-        { opacity:1, ease: "power5.in", duration: 3},
-        ">")
-      .to("#svg_timetouch svg #Loading", {
-          scaleX: 1,
-          duration: 3,
-          ease: "power5.out",
-        }, ">")
-      .fromTo(["#svg_timetouch svg #popup", "#svg_timetouch svg #background"], {
-          opacity: 0
-        } ,
-        {
-          opacity: 1,
-          ease: "power2.out",
-          duration: 3,
-        }, ">")
-      .to(checkBorder, {
-          strokeDashoffset: 0,
-          stroke: "#B4DFDD",
-          duration: 3,
-          ease: "power2.inOut"
-        }, ">")
-      .to("#svg_timetouch svg #popup", {
-        scale: 5,
-        ease: "power5.inOut",
-        duration: 3,
-        transformOrigin: "center center"
-      })
-      .to("#svg_timetouch svg #background", {
-        ease: "power3.in",
-        duration: 3,
-        fill: "#E8F7EE"
-      })
-      .to(["#svg_timetouch svg #check", "#svg_timetouch svg #text"],
-        { opacity: 0}, "<1>"
-      )
-      .to("#section_1", {
-          opacity: 0,
-          duration: 1,
-          ease: "power2.in",
-      }, "<1");
+    // runAnimation
+    //   .fromTo("#svg_timetouch svg",
+    //     { scale: 1 },
+    //     { opacity: 1, y: -350, scale: 1.2, duration: 5 }
+    //   )
+    //    .to("#span_1", {
+    //       opacity: 0,
+    //       y: -20,
+    //       duration: 3,
+    //       ease: "power2.out"
+    //     },
+    //     "<1")
+    //   .fromTo("#svg_timetouch svg #clicker",
+    //     { opacity: 0 },
+    //     { opacity:1, ease: "power5.in", duration: 3},
+    //     ">")
+    //   .to("#svg_timetouch svg #Loading", {
+    //       scaleX: 1,
+    //       duration: 3,
+    //       ease: "power5.out",
+    //     }, ">")
+    //   .fromTo(["#svg_timetouch svg #popup", "#svg_timetouch svg #background"], {
+    //       opacity: 0
+    //     } ,
+    //     {
+    //       opacity: 1,
+    //       ease: "power2.out",
+    //       duration: 3,
+    //     }, ">")
+    //   .to(checkBorder, {
+    //       strokeDashoffset: 0,
+    //       stroke: "#B4DFDD",
+    //       duration: 3,
+    //       ease: "power2.inOut"
+    //     }, ">")
+    //   .to("#svg_timetouch svg #popup", {
+    //     scale: 5,
+    //     ease: "power5.inOut",
+    //     duration: 3,
+    //     transformOrigin: "center center"
+    //   })
+    //   .to("#svg_timetouch svg #background", {
+    //     ease: "power3.in",
+    //     duration: 3,
+    //     fill: "#E8F7EE"
+    //   })
+    //   .to(["#svg_timetouch svg #check", "#svg_timetouch svg #text"],
+    //     { opacity: 0}, "<1>"
+    //   )
+    //   .to("#section_1", {
+    //       opacity: 0,
+    //       duration: 1,
+    //       ease: "power2.in",
+    //   }, "<1");
 
 
 
