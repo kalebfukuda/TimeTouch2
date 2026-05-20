@@ -8,7 +8,7 @@
             <div class="icon-box">
               <i class="fa-solid fa-yen-sign"></i>
             </div>
-            <div class="label">Valor Dias Trabalhados</div>
+            <div class="label"><%= t("managements.labels.valueWorkedDays") %></div>
           </div>
           <div class="value">¥<%= number_with_delimiter(@total_worked_days) %></div>
           <div class="trend">+ 5% vs mês anterior</div>
@@ -22,7 +22,7 @@
             <div class="icon-box">
               <i class="fa-solid fa-yen-sign"></i>
             </div>
-            <div class="label">Hora Extra</div>
+            <div class="label"><%= t("managements.labels.extraHours") %></div>
           </div>
           <div class="value">¥<%= number_with_delimiter(@total_extra_hours) %></div>
           <div class="trend">+ 5% vs mês anterior</div>
@@ -36,7 +36,7 @@
             <div class="icon-box">
               <i class="fa-solid fa-yen-sign"></i>
             </div>
-            <div class="label">Custo Extra</div>
+            <div class="label"><%= t("managements.labels.extraCost") %></div>
           </div>
           <div class="value">¥<%= number_with_delimiter(@total_extra_cost) %></div>
           <div class="trend">+ 5% vs mês anterior</div>
