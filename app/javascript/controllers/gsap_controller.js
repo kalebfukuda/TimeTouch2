@@ -14,7 +14,7 @@ export default class extends Controller {
   async loadSVGs() {
   // Array de objetos com id e caminho do SVG
     const svgs = [
-      { id: "svg_timetouch", url: "/images/svg/timetouch.svg" }
+      { id: "svg_timetouch", url: "/images/svg/user_solution.svg" }
     ];
 
     try {
