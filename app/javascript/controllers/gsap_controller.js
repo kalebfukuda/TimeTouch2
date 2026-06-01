@@ -14,7 +14,7 @@ export default class extends Controller {
   async loadSVGs() {
   // Array de objetos com id e caminho do SVG
     const svgs = [
-      { id: "svg_timetouch", url: "/images/svg/timetouch.svg" }
+      { id: "svg_timetouch", url: "/images/svg/user_solution.svg" }
     ];
 
     try {
@@ -240,11 +240,11 @@ export default class extends Controller {
       opacity: 0,
       y: 60,
       scale: 0.88,
-      duration: 0.8,
+      duration: 0.5,
       ease: "power3.out"
     }, "start")
     .from("#svg_timetouch svg",
-      { opacity: 0, scale: 0.88, duration: 0.8, ease: "power2.out" }
+      { opacity: 0, scale: 0.88, duration: 0.4, ease: "power2.out" }
       , ">"
     )
     .fromTo("#svg_timetouch svg #clicker",
