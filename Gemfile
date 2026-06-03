@@ -53,6 +53,8 @@ gem "simple_calendar"
 gem 'anime_js_rails'
 gem 'spreadsheet_architect'
 gem "rails-i18n"
+gem 'line-bot-api'   # SDK oficial da LINE
+gem 'sidekiq'        # background jobs
 
 group :development, :test do
   gem "dotenv-rails"

@@ -32,6 +32,9 @@ post "data_export/month_export", to: "data_export#month_export", as: :month_expo
 # dashboard
 get 'managements/stats', to: 'managements#stats'
 
+#LINE
+post '/webhooks/line', to: 'webhooks/line#receive'
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
