@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'communications/index'
+  get 'communications/new'
+  get 'communications/create'
+  get 'communications/history'
+  get 'communications/templates'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
