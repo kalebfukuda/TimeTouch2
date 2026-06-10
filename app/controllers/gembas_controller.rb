@@ -1,4 +1,8 @@
 class GembasController < ApplicationController
+  def index
+    @gembas = current_user.profiles.first.company.gembas
+  end
+
   def new
     @gemba = Gemba.new
   end
