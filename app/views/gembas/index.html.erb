@@ -11,10 +11,14 @@
             <div>
               <%= check_box_tag(
                   "gembas[#{gemba.id}]",
-                  true,
+                  "1",
                   gemba.active,
-                  class: "form-check-input"
+                  class: "d-none gemba-checkbox"
                 ) %>
+              <i
+              class="gemba-icon fa-solid <%= gemba.active ? 'fa-check text-cGreen' : 'fa-x text-cRed' %>"
+              style="cursor:pointer;"
+            ></i>
             </div>
           </div>
         </a>
