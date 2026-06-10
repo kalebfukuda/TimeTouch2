@@ -30,7 +30,7 @@
             value: date_value }, label: false  %>
           <%= f.input :gemba_id,
             as: :select,
-            collection: Gemba.where(company_id: current_user.profiles.first.company_id).map { |g| [g.name, g.id] },
+            collection: Gemba.where(company_id: current_user.profiles.first.company_id, active: true).order(name: :asc).map { |g| [g.name, g.id] },
             input_html: {
               class: "form-control rounded-4",
               data: { registerform_target: "gemba" }

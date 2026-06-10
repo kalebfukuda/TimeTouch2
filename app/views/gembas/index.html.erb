@@ -1,0 +1,30 @@
+<div>
+  <h1>Gembas</h1>
+  <%= simple_form_for :gembas, url: bulk_update_gembas_path, method: :patch do |f| %>
+    <div class="list-group list_group_custom">
+      <%  @gembas.each do |gemba| %>
+        <a class="list-group-item">
+          <div class="d-flex justify-content-between">
+            <div>
+              <%= gemba.name %>
+            </div>
+            <div>
+              <%= check_box_tag(
+                  "gembas[#{gemba.id}]",
+                  "1",
+                  gemba.active,
+                  class: "d-none gemba-checkbox"
+                ) %>
+              <i
+              class="gemba-icon fa-solid <%= gemba.active ? 'fa-check text-cGreen' : 'fa-x text-cRed' %>"
+              style="cursor:pointer;"
+            ></i>
+            </div>
+          </div>
+        </a>
+      <% end %>
+    </div>
+    <%= f.button :submit, t("buttons.update"), class: "btn btn-cYellow w-100 mt-3" %>
+  <% end %>
+  <%= link_to t("buttons.cancel"), main_path, class: "btn btn-cDarkGray w-100 mt-3" %>
+</div>
