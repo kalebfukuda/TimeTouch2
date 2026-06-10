@@ -15,7 +15,11 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   get "main" => "pages#main", as: :main
   resources :registers, only: [:create]
-  resources :gembas, only: [:new, :create]
+  resources :gembas, only: [:new, :create, :index] do
+    collection do
+      patch :bulk_update
+    end
+  end
   resources :companies, only: [:new, :create]
   resources :profiles, only: [:new, :create, :index, :update, :edit]
   resources :managements, only: [:index]

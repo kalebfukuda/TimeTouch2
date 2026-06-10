@@ -1,6 +1,6 @@
 class GembasController < ApplicationController
   def index
-    @gembas = current_user.profiles.first.company.gembas
+    @gembas = current_user.profiles.first.company.gembas.order(active: :desc, name: :asc)
   end
 
   def new
@@ -15,6 +15,15 @@ class GembasController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def bulk_update
+    active_ids = params[:gembas]&.keys || []
+
+    Gemba.update_all(active: false)
+    Gemba.where(id: active_ids).update_all(active: true)
+
+    redirect_to gembas_path, notice: "Gembas atualizados com sucesso."
   end
 
   private

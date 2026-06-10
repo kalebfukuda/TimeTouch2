@@ -1,21 +1,26 @@
 <div>
   <h1>Gembas</h1>
-  <div class="list-group list_group_custom">
-    <% Profile.where(company: current_user.profiles.first.company).each do |profile| %>
-      <a href="<%= edit_profile_path(profile) %>" class="list-group-item">
-        <div class="d-flex justify-content-between">
-          <div>
-            <%= profile.name %>
+  <%= simple_form_for :gembas, url: bulk_update_gembas_path, method: :patch do |f| %>
+    <div class="list-group list_group_custom">
+      <%  @gembas.each do |gemba| %>
+        <a class="list-group-item">
+          <div class="d-flex justify-content-between">
+            <div>
+              <%= gemba.name %>
+            </div>
+            <div>
+              <%= check_box_tag(
+                  "gembas[#{gemba.id}]",
+                  true,
+                  gemba.active,
+                  class: "form-check-input"
+                ) %>
+            </div>
           </div>
-          <div>
-            <% if profile.active %>
-              <i class="fa-solid fa-check text-cGreen"></i>
-            <% else %>
-              <i class="fa-solid fa-x text-cRed"></i>
-            <% end %>
-          </div>
-        </div>
-      </a>
-    <% end %>
-  </div>
+        </a>
+      <% end %>
+    </div>
+    <%= f.button :submit, t("buttons.update"), class: "btn btn-cYellow w-100 mt-3" %>
+  <% end %>
+  <%= link_to t("buttons.cancel"), main_path, class: "btn btn-cDarkGray w-100 mt-3" %>
 </div>
