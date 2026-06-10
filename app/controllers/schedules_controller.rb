@@ -19,7 +19,17 @@ class SchedulesController < ApplicationController
     dates = (start_date..end_date).to_a
 
     profiles = params[:schedule][:profile_ids].reject(&:blank?).map(&:to_i)
-    dates.each do |date|
+
+    template = <<~TEXT
+                Olá $nome$! Nova agenda foi criada para o seguinte período:
+                De: #{start_date.strftime('%d/%m/%Y')}
+                Até: #{end_date.strftime('%d/%m/%Y')}
+                Dias da semana: #{week_days.map { |d| Date::DAYNAMES[d] }.join(', ')}
+                Periodo: #{Period.find(schedule_params[:period_id]).description}
+                Atenciosamente,
+                $nome_empresa$
+                TEXT
+    dates.each_with_index do |date, index|
       next unless week_days.include?(date.wday)
 
       profiles.each do |profile_id|
@@ -29,6 +39,17 @@ class SchedulesController < ApplicationController
           gemba_id: schedule_params[:gemba_id],
           period_id: schedule_params[:period_id]
         )
+        if index.zero? # Envia a mensagem apenas para a primeira data criada
+          profile = Profile.find(profile_id)
+          variables = {
+            nome: profile.name,
+            nome_empresa: profile.company.name
+          }
+          variables.each do |key, value|
+            template.gsub!("$#{key}$", value.to_s)
+          end
+          Line::BroadcastService.send_to_user(Profile.find(profile_id).user, template)
+        end
       end
     end
     redirect_to schedules_path, notice: "Agenda criada com sucesso!"

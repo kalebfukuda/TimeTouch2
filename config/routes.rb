@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get 'communications/index'
+  get 'communications/new'
+  get 'communications/create'
+  get 'communications/history'
+  get 'communications/templates'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
@@ -31,6 +36,9 @@ post "data_export/month_export", to: "data_export#month_export", as: :month_expo
 
 # dashboard
 get 'managements/stats', to: 'managements#stats'
+
+#LINE
+post '/webhooks/line', to: 'webhooks/line#receive'
 
   # Defines the root path route ("/")
   # root "posts#index"
