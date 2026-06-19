@@ -55,6 +55,8 @@ gem 'spreadsheet_architect'
 gem "rails-i18n"
 gem 'line-bot-api'   # SDK oficial da LINE
 gem 'sidekiq'        # background jobs
+gem 'caxlsx'
+gem 'caxlsx_rails'
 
 group :development, :test do
   gem "dotenv-rails"
