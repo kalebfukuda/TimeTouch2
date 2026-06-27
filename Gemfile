@@ -56,6 +56,7 @@ gem "rails-i18n"
 gem 'line-bot-api'   # SDK oficial da LINE
 gem 'sidekiq'        # background jobs
 
+gem "faraday", "~> 2.14"
 group :development, :test do
   gem "dotenv-rails"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
