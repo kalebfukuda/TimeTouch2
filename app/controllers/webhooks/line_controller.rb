@@ -49,20 +49,31 @@ module Webhooks
       text         = event.message.text.to_s.strip
       contact      = Contact.find_by(line_user_id: line_user_id)
 
-      return unless contact&.user_id.nil?
+      return unless contact
 
-      user = User.find_by(email: text.downcase)
+      # Fluxo de vinculação — contato ainda não tem user
+      if contact.user_id.nil?
+        user = User.find_by(email: text.downcase)
 
-      if user
-        if user.contact.present?
-          reply(event.reply_token, "Esse email já está vinculado a outra conta.")
+        if user
+          if user.contact.present?
+            reply(event.reply_token, "Esse email já está vinculado a outra conta.")
+          else
+            contact.update(user: user)
+            nome = user.name || "você"
+            reply(event.reply_token, "✅ Olá, #{nome}! Conta vinculada com sucesso.")
+          end
         else
-          contact.update(user: user)
-          nome = user.name || "você"
-          reply(event.reply_token, "✅ Olá, #{nome}! Conta vinculada com sucesso.")
+          reply(event.reply_token, "Email não encontrado. Tente novamente.")
         end
+
+      # Fluxo normal — contato já tem user vinculado, dispara o job do analisador por IA
       else
-        reply(event.reply_token, "Email não encontrado. Tente novamente.")
+        LineMessageProcessorJob.perform_later(
+          line_user_id: line_user_id,
+          message:      text
+        )
+        head :ok
       end
     end
 

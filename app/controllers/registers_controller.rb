@@ -27,6 +27,8 @@ class RegistersController < ApplicationController
       @register.salary = @register.profile.salary
     end
 
+    @register.register_status_id = 1
+
     if @register.save
       redirect_to main_path, notice: "Registro criado com sucesso!"
     else
