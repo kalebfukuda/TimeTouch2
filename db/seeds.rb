@@ -45,4 +45,9 @@ Register.create!(date: Date.yesterday,
 
     puts "Creating gemba..."
 
+RegisterStatus.destroy_all
+RegisterStatus.create!([
+  { name: "present", color: "#198754" },
+  { name: "absent", color: "#dc3545" }
+])
 puts "Finished!"

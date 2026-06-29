@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_10_085450) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_29_103102) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,13 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_10_085450) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "register_statuses", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "registers", force: :cascade do |t|
     t.datetime "date", null: false
     t.float "extra_hour"
@@ -73,9 +80,11 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_10_085450) do
     t.datetime "updated_at", null: false
     t.decimal "salary"
     t.string "note"
+    t.bigint "register_status_id", null: false
     t.index ["gemba_id"], name: "index_registers_on_gemba_id"
     t.index ["period_id"], name: "index_registers_on_period_id"
     t.index ["profile_id"], name: "index_registers_on_profile_id"
+    t.index ["register_status_id"], name: "index_registers_on_register_status_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -116,6 +125,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_10_085450) do
   add_foreign_key "registers", "gembas"
   add_foreign_key "registers", "periods"
   add_foreign_key "registers", "profiles"
+  add_foreign_key "registers", "register_statuses"
   add_foreign_key "schedules", "gembas"
   add_foreign_key "schedules", "periods"
   add_foreign_key "schedules", "profiles"
