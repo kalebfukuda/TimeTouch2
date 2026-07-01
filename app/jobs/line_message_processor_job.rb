@@ -17,10 +17,10 @@ class LineMessageProcessorJob < ApplicationJob
 
     case classification[:intent]
     when "FALTA"
-      Registers::AbsenceRegistrarService.new(
+      Registers::AbsenceRegisterService.new(
         user:   user,
         date:   classification[:date],
-        reason: classification[:reason]
+        note: classification[:reason]
       ).call
 
       ::LineSendMessageJob.perform_later(
@@ -30,6 +30,7 @@ class LineMessageProcessorJob < ApplicationJob
 
     when "OUTRO"
       ::LineSendMessageJob.perform_later(
+
         contact.id,
         "Olá! No momento só consigo registrar faltas por aqui. Para outras dúvidas, fale com seu gestor. 😊"
       )

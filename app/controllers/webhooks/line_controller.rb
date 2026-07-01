@@ -58,14 +58,13 @@ module Webhooks
     end
 
     def handle_message(event)
-      line_user_id = event['source']['userId']
-      text         = event.message['text'].to_s.strip
+      line_user_id = event.source.user_id
+      text         = event.message.text.to_s.strip
       contact      = Contact.find_by(line_user_id: line_user_id)
 
       return unless contact
 
       if contact.user_id.nil?
-        # Fluxo de vinculação
         user = User.find_by(email: text.downcase)
 
         if user
@@ -81,8 +80,6 @@ module Webhooks
         end
 
       else
-        # Fluxo de classificação com IA
-        Rails.logger.debug("[LINE] disparando LineMessageProcessorJob")
         ::LineMessageProcessorJob.perform_later(
           line_user_id: line_user_id,
           message:      text
