@@ -53,7 +53,7 @@ gem "simple_calendar"
 gem 'anime_js_rails'
 gem 'spreadsheet_architect'
 gem "rails-i18n"
-gem 'line-bot-api'   # SDK oficial da LINE
+gem 'line-bot-api', '~> 2.8'
 gem 'sidekiq'        # background jobs
 
 gem "faraday", "~> 2.14"

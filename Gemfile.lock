@@ -169,7 +169,7 @@ GEM
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     json (2.19.7)
-    line-bot-api (2.8.1)
+    line-bot-api (2.8.3)
       base64 (~> 0.2)
       multipart-post (~> 2.4)
     logger (1.7.0)
@@ -379,7 +379,7 @@ DEPENDENCIES
   faraday (~> 2.14)
   importmap-rails
   jbuilder
-  line-bot-api
+  line-bot-api (~> 2.8)
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.5, >= 7.1.5.2)
