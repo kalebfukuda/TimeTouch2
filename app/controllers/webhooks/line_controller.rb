@@ -16,10 +16,6 @@ module Webhooks
       events = parser.parse(body: body, signature: signature)
 
       events.each do |event|
-        Rails.logger.debug("[LINE] event class: #{event.class}")
-      end
-
-      events.each do |event|
         case event
         when Line::Bot::V2::Webhook::FollowEvent
           handle_follow(event)

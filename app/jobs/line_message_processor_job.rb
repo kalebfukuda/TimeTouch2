@@ -13,7 +13,6 @@ class LineMessageProcessorJob < ApplicationJob
 
     # Classifica a mensagem com IA
     classification = AiServices::MessageClassifierService.new(message).call
-    Rails.logger.debug("[LineMessageProcessorJob] classification: #{classification.inspect}")
 
     case classification[:intent]
     when "FALTA"

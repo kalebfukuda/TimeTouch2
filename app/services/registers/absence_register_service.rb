@@ -21,10 +21,6 @@ module Registers
         period_id:       schedule_info[:period_id]
       )
 
-      Rails.logger.debug("[AbsenceRegisterService] valid? #{register.valid?}")
-      Rails.logger.debug("[AbsenceRegisterService] errors: #{register.errors.full_messages}")
-      Rails.logger.debug("[AbsenceRegisterService] attributes: #{register.attributes}")
-
       if register.save
         Rails.logger.info("[Registers::AbsenceRegisterService] Falta registrada — user: #{@user.id}, date: #{@date}")
         true
