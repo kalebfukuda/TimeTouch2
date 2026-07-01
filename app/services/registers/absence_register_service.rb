@@ -12,11 +12,13 @@ module Registers
         profile: @user.profile,
         date:    @date
       )
+      schedule_info = find_schedule_info
 
       register.assign_attributes(
-        status_register: :absent,
-        absence_reason:  @note,
-        gemba_id:        find_gemba
+        register_status_id: 2,
+        note:  @note,
+        gemba_id:        schedule_info[:gemba_id],
+        period_id:       schedule_info[:period_id]
       )
 
       if register.save
@@ -30,9 +32,18 @@ module Registers
 
     private
 
-    def find_gemba
-      @user.profile.schedules.find_by(date: @date)&.gemba_id ||
-        @user.profile.registers.order(created_at: :desc).pick(:gemba_id)
+    def find_schedule_info
+      schedule = @user.profile.schedules.find_by(date: @date)
+
+      if schedule
+        { gemba_id: schedule.gemba_id, period_id: schedule.period_id }
+      else
+        last_register = @user.profile.registers.order(created_at: :desc).first
+        {
+          gemba_id:  last_register&.gemba_id,
+          period_id: last_register&.period_id || 1
+        }
+      end
     end
   end
 end

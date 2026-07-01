@@ -27,6 +27,7 @@ class RegistersController < ApplicationController
       @register.salary = @register.profile.salary
     end
 
+    # Batimento comum é feito
     @register.register_status_id = 1
 
     if @register.save
