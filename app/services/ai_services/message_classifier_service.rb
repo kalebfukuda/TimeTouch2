@@ -18,7 +18,7 @@ module AiServices
 
       parse_response(response)
     rescue Faraday::Error => e
-      Rails.logger.error("[Ai::MessageClassifierService] Erro: #{e.message}")
+      Rails.logger.error("[AiServices::MessageClassifierService] Erro: #{e.message}")
       fallback
     end
 
@@ -34,13 +34,14 @@ module AiServices
 
     def prompt
       <<~PROMPT
-        Classifique a mensagem de um funcionário de construção civil.
+        Classifique a mensagem de um funcionário.
 
         CATEGORIAS:
         - FALTA: funcionário avisa que não vai trabalhar
 
         REGRAS:
         - Responda APENAS com JSON válido, sem explicação
+        - NÃO use markdown, NÃO use ```json, apenas o JSON puro
         - Para datas relativas, considere hoje como #{Date.today}
         - Se não for FALTA, use intent: "OUTRO"
 
@@ -56,11 +57,14 @@ module AiServices
       parsed = JSON.parse(response.body)
       text   = parsed.dig("content", 0, "text").to_s.strip
 
+      # Remove markdown code blocks se vier
+      text = text.gsub(/```json\n?/, "").gsub(/```\n?/, "").strip
+
       result = JSON.parse(text, symbolize_names: true)
-      result[:date] = Date.parse(result[:date]) if result[:date]
+      result[:date] = Date.parse(result[:date].to_s) if result[:date]
       result
     rescue JSON::ParserError => e
-      Rails.logger.error("[Ai::MessageClassifierService] JSON inválido: #{e.message}")
+      Rails.logger.error("[AiServices::MessageClassifierService] JSON inválido: #{e.message}")
       fallback
     end
 

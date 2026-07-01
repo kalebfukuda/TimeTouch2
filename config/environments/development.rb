@@ -77,5 +77,4 @@ Rails.application.configure do
   # Config para usar o ngrok
   config.hosts << /.*\.ngrok-free\.app/
   config.hosts << /.*\.ngrok-free\.dev/
-
 end

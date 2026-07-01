@@ -2,29 +2,34 @@ module Webhooks
   class LineController < ApplicationController
     skip_before_action :verify_authenticity_token
     skip_before_action :authenticate_user!
+
     def receive
       body      = request.body.read
       signature = request.headers['X-Line-Signature']
 
-     parser = Line::Bot::V2::WebhookParser.new(channel_secret: ENV['LINE_CHANNEL_SECRET'])
+      parser = Line::Bot::V2::WebhookParser.new(channel_secret: ENV['LINE_CHANNEL_SECRET'])
 
-    unless parser.verify_signature(body: body, signature: signature)
-      return head :forbidden
-    end
+      unless parser.verify_signature(body: body, signature: signature)
+        return head :forbidden
+      end
 
-    events = parser.parse(body: body, signature: signature)
+      events = parser.parse(body: body, signature: signature)
+
+      events.each do |event|
+        Rails.logger.debug("[LINE] event class: #{event.class}")
+      end
 
       events.each do |event|
         case event
-        when Line::Bot::V2::WebhookParser::FollowEvent
+        when Line::Bot::V2::Webhook::FollowEvent
           handle_follow(event)
 
-        when Line::Bot::V2::WebhookParser::UnfollowEvent
+        when Line::Bot::V2::Webhook::UnfollowEvent
           Contact.find_by(line_user_id: event.source.user_id)
                 &.update(opted_in: false)
 
-        when Line::Bot::V2::WebhookParser::MessageEvent
-          handle_message(event) if event.message.instance_of?(Line::Bot::V2::WebhookParser::TextMessage)
+        when Line::Bot::V2::Webhook::MessageEvent
+          handle_message(event) if event.message.is_a?(Line::Bot::V2::Webhook::TextMessageContent)
         end
       end
 
@@ -60,22 +65,25 @@ module Webhooks
       return unless contact
 
       if contact.user_id.nil?
+        # Fluxo de vinculação
         user = User.find_by(email: text.downcase)
 
         if user
           if user.contact.present?
-            reply(event['replyToken'], "Esse email já está vinculado a outra conta.")
+            reply(event.reply_token, "Esse email já está vinculado a outra conta.")
           else
             contact.update(user: user)
             nome = user.name || "você"
-            reply(event['replyToken'], "✅ Olá, #{nome}! Conta vinculada com sucesso.")
+            reply(event.reply_token, "✅ Olá, #{nome}! Conta vinculada com sucesso.")
           end
         else
-          reply(event['replyToken'], "Email não encontrado. Tente novamente.")
+          reply(event.reply_token, "Email não encontrado. Tente novamente.")
         end
 
       else
-        LineMessageProcessorJob.perform_later(
+        # Fluxo de classificação com IA
+        Rails.logger.debug("[LINE] disparando LineMessageProcessorJob")
+        ::LineMessageProcessorJob.perform_later(
           line_user_id: line_user_id,
           message:      text
         )
