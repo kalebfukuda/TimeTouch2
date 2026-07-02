@@ -84,8 +84,8 @@
         if passed_without_register
           "bg-past-schedule"
         elsif date_schedule.any?
-          has_day   = date_schedule.exists?(period_id: 1)
-          has_night = date_schedule.exists?(period_id: 2)
+          has_day   = date_schedule.any? { |s| s.period_id == 1 }
+          has_night = date_schedule.any? { |s| s.period_id == 2 }
 
           if has_day && has_night
             "bg-scheduled-daynight"
@@ -98,8 +98,13 @@
           ""
         end
 
-      action_attr = date_schedule.any? ? "click->scheduler#showHint" : nil
-      gemba_for_date = date_schedule.map { |s| "#{s.gemba.name} - #{s.period.description}" }.join("|")
+      action_attr = date_schedule.any? || day_registers.any? ? "click->scheduler#showHint" : nil
+
+      if day_registers.any?
+        gemba_for_date = day_registers.map { |r| "Registro: #{r.gemba.name} - #{r.period.description}" }.join("|")
+      else
+        gemba_for_date = date_schedule.map { |s| "Agendamento: #{s.gemba.name} - #{s.period.description}" }.join("|")
+      end
     %>
       <div
       class="position-relative <%= bg_class %>"
