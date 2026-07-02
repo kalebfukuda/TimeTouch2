@@ -18,5 +18,9 @@ class PagesController < ApplicationController
 
     @registers_by_date = @registers.group_by { |r| r.date.to_date }
     @schedules_by_date = @schedules.group_by { |s| s.date.to_date }
+    @last_extra_cost = Register.where(profile: profile, register_status_id: 1)
+                            .order(date: :desc)
+                            .limit(1)
+                            .pick(:extra_cost) || 0
   end
 end
