@@ -13,6 +13,8 @@ class RegistersController < ApplicationController
       render "pages/main", status: :unprocessable_entity
       return
     end
+    # Default register status is 1 (present)
+    @register.register_status_id = 1
 
     # If confirmed to duplicate, delete old register
     ActiveRecord::Base.transaction do
@@ -31,7 +33,6 @@ class RegistersController < ApplicationController
     end
 
     # Batimento comum é feito
-    @register.register_status_id = 1
 
     if @register.save
       redirect_to main_path, notice: "Registro criado com sucesso!"
@@ -52,14 +53,22 @@ class RegistersController < ApplicationController
       :period_id,
       :note,
       :custom_value,
-      :custom_salary
+      :custom_salary,
+      :register_status_id
     )
   end
 
   def prepare_collections
     profile = current_user.profiles.first
-    @registers  = Register.where(profile: profile).order(date: :desc)
+    current_month = (params[:register][:date]&.to_date || Date.current)
+    range = current_month.beginning_of_month.beginning_of_week..
+            current_month.end_of_month.end_of_week
+
+    @registers  = Register.where(profile: profile, date: range)
     @schedule   = Schedule.find_by(date: Date.current, profile: profile)
-    @schedules  = Schedule.where(profile: profile).order(date: :desc)
+    @schedules  = Schedule.where(profile: profile, date: range).includes(:gemba, :period)
+
+    @registers_by_date = @registers.group_by { |r| r.date.to_date }
+    @schedules_by_date = @schedules.group_by { |s| s.date.to_date }
   end
 end

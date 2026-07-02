@@ -77,8 +77,9 @@
       date_schedule = @schedules_by_date[date] || []
       day_registers = @registers_by_date[date] || []
 
+      logger.debug "Date: #{date}, Schedule: #{date_schedule.map(&:id)}, Registers: #{day_registers.map(&:id)}"
       passed_without_register = date_schedule.any? && date < Date.today && day_registers.empty?
-
+      logger.debug "Passed without register: #{passed_without_register}"
       bg_class =
         if passed_without_register
           "bg-past-schedule"
