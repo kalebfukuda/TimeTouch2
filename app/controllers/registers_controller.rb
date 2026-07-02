@@ -15,13 +15,16 @@ class RegistersController < ApplicationController
     end
 
     # If confirmed to duplicate, delete old register
-    old_register.destroy_all if params[:register][:duplicated_register] == "true"
+    ActiveRecord::Base.transaction do
+      old_register.destroy_all if params[:register][:duplicated_register] == "true"
+      @register.save!
+    end
 
     dt_start = @register.profile.date_start_salary || Date.new(1900, 1, 1)
 
     if params[:register][:custom_value] == "1" && params[:register][:custom_salary].present?
       @register.salary = params[:register][:custom_salary].to_i
-    elsif params[:register][:date].to_date < dt_start
+    elsif @register.date.present? && @register.date < dt_start
       @register.salary = @register.profile.previous_salary
     else
       @register.salary = @register.profile.salary

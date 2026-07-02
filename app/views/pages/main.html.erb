@@ -74,8 +74,10 @@
   <div class="mt-3" data-controller="scheduler">
     <%= month_calendar do |date| %>
       <%
-      date_schedule = @schedules.where(date: date)
-      passed_without_register = date_schedule.any? && date < Date.today && @registers.where(date: date).empty?
+      date_schedule = @schedules_by_date[date] || []
+      day_registers = @registers_by_date[date] || []
+
+      passed_without_register = date_schedule.any? && date < Date.today && day_registers.empty?
 
       bg_class =
         if passed_without_register
@@ -116,7 +118,7 @@
       data-bs-toggle="popover"
     >
         <%= date.day %>
-        <% if @registers.where(date: date).any? %>
+        <% if day_registers.any? %>
           <div class="mt-1">
             <div class="position-absolute check-mark">
               <i class="fa-solid fa-check"></i>
