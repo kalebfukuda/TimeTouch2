@@ -14,7 +14,7 @@ class PagesController < ApplicationController
     @register = Register.new
     @registers = Register.where(profile: profile, date: range)
     @schedule = Schedule.find_by(date: Date.current, profile: current_user.profiles.first)
-    @schedules = Schedule.where(profile: profile, date: range)
+    @schedules = Schedule.where(profile: profile, date: range).includes(:gemba, :period)
 
     @registers_by_date = @registers.group_by(&:date)
     @schedules_by_date = @schedules.group_by(&:date)

@@ -98,16 +98,7 @@
         end
 
       action_attr = date_schedule.any? ? "click->scheduler#showHint" : nil
-      name_and_period =
-        Gemba.arel_table[:name]
-          .concat(Arel::Nodes.build_quoted(' - '))
-          .concat(Period.arel_table[:description])
-
-      gemba_for_date = @schedules
-        .where(date: date)
-        .joins(:gemba, :period)
-        .pluck(name_and_period)
-        .join("|")
+      gemba_for_date = date_schedule.map { |s| "#{s.gemba.name} - #{s.period.description}" }.join("|")
     %>
       <div
       class="position-relative <%= bg_class %>"
