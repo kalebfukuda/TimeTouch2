@@ -1,0 +1,25 @@
+<%# app/views/profiles/_line_status.html.erb %>
+<% contact = profile.user&.contact %>
+<% if contact&.line_user_id.present? %>
+  <span class="badge bg-success">
+    <i class="fa-brands fa-line"></i> Vinculado
+  </span>
+<% elsif contact&.invitation_valid? %>
+  <span class="badge bg-warning text-dark">
+    <i class="fa-brands fa-line"></i> Aguardando...
+  </span>
+  <button
+    class="btn btn-sm btn-outline-secondary"
+    onclick="navigator.clipboard.writeText('<%= contact.invitation_link %>');
+             this.innerHTML='✅ Copiado!';
+             setTimeout(() => this.innerHTML='Copiar Link', 2000)">
+    Copiar Link
+  </button>
+<% else %>
+  <%# Sem vínculo, sem token %>
+  <%= button_to "Gerar Link LINE",
+        generate_invitation_profile_path(profile),
+        method: :post,
+        class: "btn btn-sm btn-outline-primary",
+        data: { turbo_stream: true } %>
+<% end %>
