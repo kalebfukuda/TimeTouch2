@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_29_103102) do
+ActiveRecord::Schema[7.1].define(version: 2026_07_03_105640) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,10 +21,12 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_29_103102) do
   end
 
   create_table "contacts", force: :cascade do |t|
-    t.string "line_user_id", null: false
+    t.string "line_user_id"
     t.string "display_name"
     t.boolean "opted_in", default: false
     t.bigint "user_id"
+    t.string "invitation_token"
+    t.datetime "invitation_expires_at"
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 

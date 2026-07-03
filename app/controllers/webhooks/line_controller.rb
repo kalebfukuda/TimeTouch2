@@ -34,13 +34,6 @@ module Webhooks
 
     private
 
-    def client
-      @client ||= Line::Bot::Client.new do |config|
-        config.channel_secret = ENV['LINE_CHANNEL_SECRET']
-        config.channel_token  = ENV['LINE_CHANNEL_TOKEN']
-      end
-    end
-
     def handle_follow(event)
       line_user_id = event['source']['userId']
       contact      = Contact.find_by(line_user_id: line_user_id)
@@ -53,11 +46,32 @@ module Webhooks
       end
     end
 
+    def try_link_by_token(text, line_user_id, reply_token)
+      contact = Contact.find_by(invitation_token: text)
+      return false unless contact&.invitation_valid?
+
+      contact.update(
+        line_user_id:          line_user_id,
+        opted_in:              true,
+        invitation_token:      nil,
+        invitation_expires_at: nil
+      )
+
+      nome = contact.user&.name || "você"
+      reply(reply_token, "✅ Olá, #{nome}! Conta vinculada com sucesso. 🎉")
+      true
+    end
+
     def handle_message(event)
       line_user_id = event.source.user_id
       text         = event.message.text.to_s.strip
-      contact      = Contact.find_by(line_user_id: line_user_id)
 
+      # Tenta vincular por token primeiro
+      if try_link_by_token(text, line_user_id, event.reply_token)
+        return
+      end
+
+      contact      = Contact.find_by(line_user_id: line_user_id)
       return unless contact
 
       if contact.user_id.nil?
@@ -84,8 +98,16 @@ module Webhooks
     end
 
     def reply(reply_token, text)
-      message = { type: 'text', text: text }
-      client.reply_message(reply_token, message)
+      api = Line::Bot::V2::MessagingApi::ApiClient.new(
+        channel_access_token: ENV['LINE_CHANNEL_TOKEN']
+      )
+
+      api.reply_message(
+        reply_message_request: Line::Bot::V2::MessagingApi::ReplyMessageRequest.new(
+          reply_token: reply_token,
+          messages:    [Line::Bot::V2::MessagingApi::TextMessage.new(text: text)]
+        )
+      )
     end
   end
 end

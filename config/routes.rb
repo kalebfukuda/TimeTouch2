@@ -21,7 +21,11 @@ Rails.application.routes.draw do
     end
   end
   resources :companies, only: [:new, :create]
-  resources :profiles, only: [:new, :create, :index, :update, :edit]
+  resources :profiles, only: [:new, :create, :index, :update, :edit] do
+    member do
+      post :generate_invitation
+    end
+  end
   resources :managements, only: [:index]
   resources :schedules, only: [:new, :create, :index] do
     collection do
