@@ -31,6 +31,17 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def generate_invitation
+    @profile = Profile.find(params[:id])
+    contact  = @profile.user.contact || @profile.user.create_contact!
+
+    contact.generate_invitation_token!
+
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   private
 
   def profile_params

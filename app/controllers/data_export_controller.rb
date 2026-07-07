@@ -61,17 +61,17 @@ class DataExportController < ApplicationController
             if r.date == date
               data << [
                 date.strftime('%Y-%m-%d'),
-                r.gemba.name,
+                r.gemba.name + (r.register_status_id == 2 ? " (FALTA)" : ""),
                 r.period.description,
-                r.salary,
-                r.extra_cost || 0,
-                r.extra_hour || 0,
-                (r.salary + ((r.extra_hour * ((r.salary / 8) * 1.25).round) || 0) + (r.extra_cost || 0)),
+                r.salary.to_i,
+                r.extra_cost.to_i || 0,
+                r.extra_hour.to_i || 0,
+                (r.salary.to_i + ((r.extra_hour.to_i * ((r.salary.to_i / 8) * 1.25).round) || 0) + (r.extra_cost.to_i || 0)),
                 r.note || ""
               ]
-              total_salary += r.salary
-              total_extra_cost += r.extra_cost || 0
-              total_extra_hour += (r.extra_hour * ((r.salary / 8) * 1.25).round) || 0
+              total_salary += r.salary.to_i
+              total_extra_cost += r.extra_cost.to_i || 0
+              total_extra_hour += (r.extra_hour.to_i * ((r.salary.to_i / 8) * 1.25).round) || 0
             end
           end
         end
