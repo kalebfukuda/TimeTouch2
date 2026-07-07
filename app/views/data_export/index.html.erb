@@ -36,4 +36,10 @@
     <%= f.button :submit, t("buttons.export_data"), class: "btn btn-cYellow w-100" %>
   </div>
 <% end %>
+<%= form_with url: data_export_sekyusho_export_path, method: :post, data: { turbo: false } do |f| %>
+  <%= f.select "export[month]", (1..12).map { |m| [m, m] } %>
+  <%= f.select "export[year]",  (2024..2026).map { |y| [y, y] } %>
+  <%= f.select "export[profile_id]", Profile.all.map { |p| [p.name, p.id] } %>
+  <%= f.submit "Gerar 請求書" %>
+<% end %>
 <hr>

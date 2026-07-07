@@ -55,6 +55,8 @@ gem 'spreadsheet_architect'
 gem "rails-i18n"
 gem 'line-bot-api', '~> 2.8'
 gem 'sidekiq'        # background jobs
+gem 'caxlsx'
+gem 'caxlsx_rails'
 
 gem "faraday", "~> 2.14"
 group :development, :test do

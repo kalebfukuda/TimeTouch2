@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       get :by_date
     end
   end
+  resources :invoices, only: [:index, :show]
 
 # Import
 get  "data_import",           to: "data_import#index"
@@ -41,6 +42,7 @@ post "data_import/gembas",     to: "data_import#gembas"
 get "data_export", to: "data_export#index"
 get "data_export/example_export", to: "data_export#example_export", as: :example_export
 post "data_export/month_export", to: "data_export#month_export", as: :month_export
+post "data_export/sekyusho_export", to: "data_export#sekyusho_export"
 
 # dashboard
 get 'managements/stats', to: 'managements#stats'
