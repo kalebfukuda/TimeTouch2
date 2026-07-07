@@ -1,7 +1,7 @@
-class CreateRegisterStatuses < ActiveRecord::Migration[7.1]
+class CreateRegisterStatus < ActiveRecord::Migration[7.1]
   def change
-    create_table :register_statuses do |t|
-      t.string :name
+    create_table :register_status do |t|
+      t.string :name, null: false
       t.string :color
 
       t.timestamps
