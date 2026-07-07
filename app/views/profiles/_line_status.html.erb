@@ -1,25 +1,26 @@
 <%# app/views/profiles/_line_status.html.erb %>
 <% contact = profile.user&.contact %>
 <% if contact&.line_user_id.present? %>
-  <span class="badge bg-success">
+  <span class="text-cGreen grid-text">
     <i class="fa-brands fa-line"></i> Vinculado
   </span>
 <% elsif contact&.invitation_valid? %>
-  <span class="badge bg-warning text-dark">
+  <span class="text-cYellow grid-text">
     <i class="fa-brands fa-line"></i> Aguardando...
   </span>
   <button
-    class="btn btn-sm btn-outline-secondary"
+    class="btn btn-copiar btn-outline-none text-decoration-underline"
     onclick="navigator.clipboard.writeText('<%= contact.invitation_link %>');
              this.innerHTML='✅ Copiado!';
              setTimeout(() => this.innerHTML='Copiar Link', 2000)">
     Copiar Link
   </button>
 <% else %>
-  <%# Sem vínculo, sem token %>
-  <%= button_to "Gerar Link LINE",
-        generate_invitation_profile_path(profile),
-        method: :post,
-        class: "btn btn-sm btn-outline-primary",
-        data: { turbo_stream: true } %>
+  <%= button_to generate_invitation_profile_path(profile),
+      method: :post,
+      class: "btn line-btn-sm btn-outline-none text-decoration-underline",
+      data: { turbo_stream: true } do %>
+    <i class="fa-brands fa-line me-1"></i>
+    Criar Link
+  <% end %>
 <% end %>
