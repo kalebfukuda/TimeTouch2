@@ -216,7 +216,6 @@ class DataExportController < ApplicationController
       height: 28
     sheet.merge_cells("B10:B12")
     sheet.merge_cells("C10:D10")
-    sheet.merge_cells("E10:H10")
     sheet.merge_cells("C11:D11")
     sheet.merge_cells("C12:D12")
     sheet.merge_cells("E10:H12")
