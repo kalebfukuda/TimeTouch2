@@ -1,45 +1,121 @@
-<h1><%= t("data_export.title") %></h1>
-<hr>
-<h2><%= t("data_export.subtitle.month_closing") %></h2>
-<%= simple_form_for :export, url: month_export_path, method: :post, as: nil, data: { turbo: false } do |f| %>
-  <div class="d-flex justify-content-between">
-    <div class="w-50 pe-1">
-      <%= f.input :month,
-      collection: month_list,
-      label: false,
-      input_html: { required: true },
-      prompt: t("data_export.labels.select_month") %>
+<div class="container py-4">
+  <div class="d-flex align-items-center mb-1">
+    <i class="fa-solid fa-file-export text-cYellow me-2 fs-3"></i>
+    <h1 class="mb-0"><%= t("data_export.title") %></h1>
+  </div>
+  <p class="text-muted mb-4"><%= t("data_export.description", default: "Gere e exporte relatórios mensais da sua equipe") %></p>
+  <!-- ── Card 1: Fechamento mensal ─────────────────────────────── -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-transparent border-bottom pt-3 pb-2">
+      <div class="d-flex align-items-center">
+        <i class="fa-solid fa-calendar-days text-cYellow me-2"></i>
+        <h2 class="h5 mb-0 text-cYellow"><%= t("data_export.subtitle.month_closing") %></h2>
+      </div>
     </div>
-    <div class="w-50 ps-1">
-      <%= f.input :year,
-      collection: year_list(2025),
-      label: false,
-      input_html: { required: true },
-      prompt: t("data_export.labels.select_year") %>
+    <div class="card-body">
+      <%= simple_form_for :export, url: month_export_path, method: :post, as: nil, data: { turbo: false } do |f| %>
+        <div class="row g-3 mb-3 text-white">
+          <div class="col-md-3">
+            <%= f.input :month,
+              collection: month_list,
+              required: true,
+              label: false,
+              wrapper_html: { class: "mb-0" },
+              input_html: { required: true, class: "form-select" },
+              prompt: t("data_export.labels.select_month") %>
+          </div>
+          <div class="col-md-3">
+            <%= f.input :year,
+              collection: year_list(2025),
+              label: false,
+              wrapper_html: { class: "mb-0" },
+              input_html: { required: true, class: "form-select" },
+              prompt: t("data_export.labels.select_year") %>
+          </div>
+        </div>
+        <% profile_collection = if current_user.profiles&.first&.role&.id == 2
+                                   Profile.where(id: current_user.profiles.first.id)
+                                 else
+                                   Profile.where(company: current_user.profiles.first.company, active: true).order(:name)
+                                 end %>
+        <div class="mb-3">
+          <label class="form-label d-flex align-items-center text-cYellow">
+            <i class="fa-solid fa-users me-2 text-cYellow"></i>
+            <%= t("data_export.labels.employees") %>
+          </label>
+          <div class="border-none overflow-y-auto text-white" style="max-height: 220px;">
+            <%= f.input :profile_ids,
+                as: :check_boxes,
+                collection: profile_collection,
+                label_method: :name,
+                value_method: :id,
+                label: false,
+                legend_tag: false,
+                required: true,
+                collection_wrapper_class: "d-flex flex-column gap-1 text-white",
+                item_wrapper_class: "form-check" %>
+          </div>
+        </div>
+        <div class="text-end">
+          <%= f.button :submit, t("buttons.export_data"), class: "btn btn-cGreen px-4 text-white" %>
+        </div>
+      <% end %>
     </div>
   </div>
-  <div class="col-auto overflow-y-auto" style="max-height: 200px;">
-    <% profile_collection = unless current_user.profiles&.first&.role&.id == 2
-               Profile.where(company: current_user.profiles.first.company, active: true).order(:name)
-             else
-               Profile.where(id: current_user.profiles.first.id)
-             end %>
-    <%= f.input :profile_ids,
-        as: :check_boxes,
-        collection: profile_collection,
-        label_method: :name,
-        value_method: :id,
-        label: t("data_export.labels.employees"),
-        required: true %>
+  <!-- ── Card 2: Geração de 請求書 (sekyusho) ──────────────────── -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-transparent border-bottom pt-3 pb-2">
+      <div class="d-flex align-items-center">
+        <i class="fa-solid fa-file-invoice-yen text-cYellow me-2"></i>
+        <h2 class="h5 mb-0 text-cYellow"><%= t("data_export.subtitle.sekyusho", default: "請求書") %></h2>
+      </div>
+    </div>
+    <div class="card-body">
+      <%= simple_form_for :export, url: data_export_sekyusho_export_path, method: :post, as: nil, data: { turbo: false } do |f| %>
+        <div class="row g-3 mb-4">
+          <div class="col-md-3">
+            <%= f.input :month,
+              collection: month_list,
+              label: false,
+              wrapper_html: { class: "mb-0" },
+              input_html: { required: true, class: "form-select" },
+              prompt: t("data_export.labels.select_month") %>
+          </div>
+          <div class="col-md-3">
+            <%= f.input :year,
+              collection: (2024..2026).map { |y| [y, y] },
+              label: false,
+              wrapper_html: { class: "mb-0" },
+              input_html: { required: true, class: "form-select" },
+              prompt: t("data_export.labels.select_year") %>
+          </div>
+          <% profile_collection = if current_user.profiles&.first&.role&.id == 2
+                                   Profile.where(id: current_user.profiles.first.id)
+                                 else
+                                   Profile.where(company: current_user.profiles.first.company, active: true).order(:name)
+                                 end %>
+          <div class="mb-3">
+            <label class="form-label d-flex align-items-center text-cYellow">
+              <i class="fa-solid fa-users me-2 text-cYellow"></i>
+              <%= t("data_export.labels.employees") %>
+            </label>
+            <div class="border-none overflow-y-auto text-white" style="max-height: 220px;">
+              <%= f.input :profile_ids,
+                as: :check_boxes,
+                collection: profile_collection,
+                label_method: :name,
+                value_method: :id,
+                label: false,
+                legend_tag: false,
+                required: true,
+                collection_wrapper_class: "d-flex flex-column gap-1 text-white",
+                item_wrapper_class: "form-check" %>
+            </div>
+          </div>
+          <div class="text-end">
+            <%= f.button :submit, t("buttons.export_data", default: "Gerar 請求書"), class: "btn btn-cGreen px-4 text-white" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div class="col-auto d-flex align-items-end">
-    <%= f.button :submit, t("buttons.export_data"), class: "btn btn-cYellow w-100" %>
-  </div>
-<% end %>
-<%= form_with url: data_export_sekyusho_export_path, method: :post, data: { turbo: false } do |f| %>
-  <%= f.select "export[month]", (1..12).map { |m| [m, m] } %>
-  <%= f.select "export[year]",  (2024..2026).map { |y| [y, y] } %>
-  <%= f.select "export[profile_id]", Profile.all.map { |p| [p.name, p.id] } %>
-  <%= f.submit "Gerar 請求書" %>
-<% end %>
-<hr>
