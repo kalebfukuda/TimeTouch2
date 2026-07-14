@@ -16,7 +16,8 @@
       <div class="d-flex justify-content-between">
         <%
         registers = @registers.where(
-          date: Date.current.beginning_of_month..Date.current.end_of_month
+          date: Date.current.beginning_of_month..Date.current.end_of_month,
+          register_status_id: 1
         )
 
         total = registers.sum(
