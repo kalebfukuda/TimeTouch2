@@ -96,21 +96,27 @@
         <table class="table align-middle mb-0 custom-table table-borderless">
           <thead>
             <tr>
-              <th><%= t("common.name") %></th>
               <th><%= t("common.date") %></th>
               <th><%= t("common.gemba") %></th>
               <th><%= t("managements.labels.extraHours") %></th>
               <th><%= t("managements.labels.extraCost") %></th>
+              <th class="text-center"><%= t("common.status") %></th>
             </tr>
           </thead>
           <tbody>
             <% @registers.each do |register| %>
               <tr>
-                <td class="fw-semibold"><%= register.profile.name %></td>
                 <td><%= register.created_at.strftime("%d/%m/%Y %H:%M") %></td>
                 <td><%= register.gemba.name %></td>
                 <td><%= register.extra_hour %>h</td>
                 <td class="fw-semibold">¥<%= number_with_delimiter(register.extra_cost) %></td>
+                <td class="fw-semibold text-center">
+                  <% if register.register_status_id == 1 %>
+                    <i class="fa-solid fa-calendar-check text-cGreen"></i>
+                  <% else %>
+                    <i class="fa-solid fa-calendar-xmark text-cRed"></i>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           </tbody>
