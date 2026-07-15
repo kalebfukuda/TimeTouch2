@@ -106,7 +106,7 @@
           <tbody>
             <% @registers.each do |register| %>
               <tr>
-                <td><%= register.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+                <td><%= register.date.strftime("%d/%m/%Y %H:%M") %></td>
                 <td><%= register.gemba.name %></td>
                 <td><%= register.extra_hour %>h</td>
                 <td class="fw-semibold">¥<%= number_with_delimiter(register.extra_cost) %></td>
