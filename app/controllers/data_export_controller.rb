@@ -97,6 +97,8 @@ class DataExportController < ApplicationController
     package  = Axlsx::Package.new
     wb       = package.workbook
     s        = wb.styles
+    month = params[:export][:month].to_i
+    year = params[:export][:year].to_i
 
     # ── Estilos ──────────────────────────────────────────────────────────
     thin_border = { style: :thin, color: "FF000000" }
@@ -248,8 +250,8 @@ class DataExportController < ApplicationController
 
 
       total_row_start = 19
-      start_date = Date.new(2026, 6).beginning_of_month
-      end_date   = Date.new(2026, 6).end_of_month
+      start_date = Date.new(year, month).beginning_of_month
+      end_date   = Date.new(year, month).end_of_month
       result = Register
       .joins(:gemba, :profile)
       .where(profiles: { user_id: current_user.id })
@@ -257,9 +259,10 @@ class DataExportController < ApplicationController
       .order("gembas.name, registers.date")
       .select(
         "registers.date,
-        registers.salary,
-        registers.extra_cost,
-        registers.extra_hour,
+        registers.register_status_id,
+        COALESCE(registers.salary, 0) AS salary,
+        COALESCE(registers.extra_cost, 0) AS extra_cost,
+        COALESCE(registers.extra_hour, 0) AS extra_hour,
         gembas.name,
         registers.gemba_id"
       )
@@ -276,11 +279,12 @@ class DataExportController < ApplicationController
       #     registers.salary as salary_per_day"
       #   )
 
-      total_dias = result.size
+      dias_trabalhados = result.select { |r| r.register_status_id != 2 }
+      total_dias = dias_trabalhados.size
       total_transport = result.sum(&:extra_cost)
       total_extra_hours = result.sum(&:extra_hour)
       # Agrupar por gemba_id para calcular totais por gemba
-      result_by_gemba = result.group_by(&:gemba_id)
+      result_by_gemba = dias_trabalhados.group_by(&:gemba_id)
       result_by_gemba.each do |gemba_id, registers|
         first = registers.first
         days_count   = registers.count
@@ -358,7 +362,7 @@ class DataExportController < ApplicationController
           sheet.add_row [
             nil,
             day.strftime("%d/%m/%Y"),
-            register.gemba.name, nil,
+            register.register_status_id == 1 ? register.gemba.name : "休日", nil,
             register.extra_hour, nil,
             register.extra_cost, nil,
             #register.parking_cost,
