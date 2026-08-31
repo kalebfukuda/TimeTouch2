@@ -1,3 +1,5 @@
+include ActionView::Helpers::NumberHelper
+
 class DataExportController < ApplicationController
   def example_export
     sheet = SpreadsheetArchitect.to_xlsx(
@@ -102,6 +104,46 @@ class DataExportController < ApplicationController
 
     # ── Estilos ──────────────────────────────────────────────────────────
     thin_border = { style: :thin, color: "FF000000" }
+
+    # Get data from DB
+    start_date = Date.new(year, month).beginning_of_month
+          end_date   = Date.new(year, month).end_of_month
+          result = Register
+          .joins(:gemba, :profile)
+          .where(profiles: { user_id: current_user.id })
+          .where(date: start_date..end_date)
+          .order("gembas.name, registers.date")
+          .select(
+            "registers.date,
+            registers.register_status_id,
+            COALESCE(registers.salary, 0) AS salary,
+            COALESCE(registers.extra_cost, 0) AS extra_cost,
+            COALESCE(registers.extra_hour, 0) AS extra_hour,
+            gembas.name,
+            registers.gemba_id"
+          )
+          # result = Register
+          #   .joins(:gemba, :profile)
+          #   .where(profiles: { user_id: current_user.id })
+          #   .where(date: Date.new(2026, 6).beginning_of_month..Date.new(2026, 6).end_of_month)
+          #   .group("registers.gemba_id, gembas.name, registers.salary")
+          #   .select(
+          #     "registers.gemba_id,
+          #     gembas.name AS gemba_name,
+          #     COUNT(*) AS days_count,
+          #     SUM(registers.salary) AS total_amount,
+          #     registers.salary as salary_per_day"
+          #   )
+
+          dias_trabalhados = result.select { |r| r.register_status_id != 2 }
+          total_dias = dias_trabalhados.size
+          total_transport = result.sum(&:extra_cost)
+          total_extra_hours = result.sum(&:extra_hour)
+          total_salary = result.sum(&:salary)
+          value_per_extra_hour = (result.first.salary / 8) * 1.25
+          total_extra_hours_value = total_extra_hours * value_per_extra_hour
+          total_amount = total_salary + total_transport + total_extra_hours_value
+
 
     st_titulo = s.add_style(
       font_name: "游ゴシック", sz: 18,
@@ -223,7 +265,7 @@ class DataExportController < ApplicationController
       sheet.merge_cells("E10:H12")
 
       # Row 13 - 合計 (B:H) TOTAL
-      sheet.add_row [nil, "合計", "TOTAL 780.000", nil, "TEL", "080-6452-0392", nil, nil],
+      sheet.add_row [nil, "合計", "TOTAL: #{number_with_delimiter(total_amount.to_i)}", nil, "TEL", "080-6957-0392", nil, nil],
         style: [nil, st_field, st_response_center, nil, st_field, st_response_center, nil, nil],
         height: 28
       sheet.merge_cells("C13:D13")
@@ -250,50 +292,15 @@ class DataExportController < ApplicationController
 
 
       total_row_start = 19
-      start_date = Date.new(year, month).beginning_of_month
-      end_date   = Date.new(year, month).end_of_month
-      result = Register
-      .joins(:gemba, :profile)
-      .where(profiles: { user_id: current_user.id })
-      .where(date: start_date..end_date)
-      .order("gembas.name, registers.date")
-      .select(
-        "registers.date,
-        registers.register_status_id,
-        COALESCE(registers.salary, 0) AS salary,
-        COALESCE(registers.extra_cost, 0) AS extra_cost,
-        COALESCE(registers.extra_hour, 0) AS extra_hour,
-        gembas.name,
-        registers.gemba_id"
-      )
-      # result = Register
-      #   .joins(:gemba, :profile)
-      #   .where(profiles: { user_id: current_user.id })
-      #   .where(date: Date.new(2026, 6).beginning_of_month..Date.new(2026, 6).end_of_month)
-      #   .group("registers.gemba_id, gembas.name, registers.salary")
-      #   .select(
-      #     "registers.gemba_id,
-      #     gembas.name AS gemba_name,
-      #     COUNT(*) AS days_count,
-      #     SUM(registers.salary) AS total_amount,
-      #     registers.salary as salary_per_day"
-      #   )
 
-      dias_trabalhados = result.select { |r| r.register_status_id != 2 }
-      total_dias = dias_trabalhados.size
-      total_transport = result.sum(&:extra_cost)
-      total_extra_hours = result.sum(&:extra_hour)
       # Agrupar por gemba_id para calcular totais por gemba
       result_by_gemba = dias_trabalhados.group_by(&:gemba_id)
       result_by_gemba.each do |gemba_id, registers|
         first = registers.first
         days_count   = registers.count
-        total_salary = registers.sum(&:salary)
-        total_transport = registers.sum(&:extra_cost)
-        total_extra_hours = registers.sum(&:extra_hour)
-
+        total_salary_gemba = registers.sum(&:salary)
         # Linha do gemba (salário)
-        sheet.add_row [nil, first.gemba.name, nil, nil, nil, first.salary, days_count, total_salary],
+        sheet.add_row [nil, first.gemba.name, nil, nil, nil, first.salary, days_count, total_salary_gemba],
           style: [nil, st_response_center, nil, nil, nil, st_response_center, st_response_center, st_response_center]
         sheet.merge_cells("B#{total_row_start}:E#{total_row_start}")
         total_row_start += 1
@@ -318,20 +325,19 @@ class DataExportController < ApplicationController
       total_row_start += 1
 
       # Hora extra
-      total_extra_h = result.sum(&:extra_hour)
-      sheet.add_row [nil, "残業", nil, nil, nil, (result.first.salary / 8) * 1.25, total_extra_h, total_extra_hours],
+      sheet.add_row [nil, "残業", nil, nil, nil, value_per_extra_hour, total_extra_hours, total_extra_hours_value],
         style: [nil, st_response_center, nil, nil, nil, st_response_center, st_response_center, st_response_center]
       sheet.merge_cells("B#{total_row_start}:E#{total_row_start}")
       total_row_start += 1
 
       # Subtotal
-      sheet.add_row [nil, nil, nil, nil, nil, "小計", nil, result.sum(&:salary)],
+      sheet.add_row [nil, nil, nil, nil, nil, "小計", nil, total_salary + total_extra_hours_value],
         style: [nil, nil, nil, nil, nil, st_field, st_response_center, st_response_center]
       sheet.merge_cells("F#{total_row_start}:G#{total_row_start}")
       total_row_start += 1
 
       # TOTAL
-      sheet.add_row [nil, nil, nil, nil, nil, "合計", nil, result.sum(&:salary) + total_transport + total_extra_hours],
+      sheet.add_row [nil, nil, nil, nil, nil, "合計", nil, total_amount],
         style: [nil, nil, nil, nil, nil, st_field, st_response_center, st_response_center]
       sheet.merge_cells("F#{total_row_start}:G#{total_row_start}")
       total_row_start += 1
